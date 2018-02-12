@@ -1,0 +1,41 @@
+<!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><i><font color="#9A1900">/*</font></i>
+<i><font color="#9A1900"> * ++C - C++ introduction</font></i>
+<i><font color="#9A1900"> * Copyright (C) 2013, 2014, 2015, 2016, 2017 Wilhelm Meier </font></i><u><font color="#0000FF">&lt;wilhelm.meier@hs-kl.de&gt;</font></u>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is free software: you can redistribute it and/or modify</font></i>
+<i><font color="#9A1900"> * it under the terms of the GNU General Public License as published by</font></i>
+<i><font color="#9A1900"> * the Free Software Foundation, either version 3 of the License, or</font></i>
+<i><font color="#9A1900"> * (at your option) any later version.</font></i>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is distributed in the hope that it will be useful,</font></i>
+<i><font color="#9A1900"> * but WITHOUT ANY WARRANTY; without even the implied warranty of</font></i>
+<i><font color="#9A1900"> * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</font></i>
+<i><font color="#9A1900"> * GNU General Public License for more details.</font></i>
+
+<i><font color="#9A1900"> * You should have received a copy of the GNU General Public License</font></i>
+<i><font color="#9A1900"> * along with this program.  If not, see </font></i><u><font color="#0000FF">&lt;http://www.gnu.org/licenses/&gt;</font></u><i><font color="#9A1900">.</font></i>
+<i><font color="#9A1900"> */</font></i>
+<font color="#009900">int</font> <b><font color="#000000">sum1</font></b><font color="#990000">(</font><font color="#009900">int</font> a<font color="#990000">,</font> <font color="#009900">int</font> b<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">return</font></b> a <font color="#990000">+</font> b<font color="#990000">;</font>
+<font color="#FF0000">}</font>
+constexpr <font color="#008080">int</font> <b><font color="#000000">sum2</font></b><font color="#990000">(</font><font color="#009900">int</font> a<font color="#990000">,</font> <font color="#009900">int</font> b<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">return</font></b> a <font color="#990000">+</font> b<font color="#990000">;</font>
+<font color="#FF0000">}</font>
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">const</font></b> <b><font color="#0000FF">auto</font></b> a1 <font color="#990000">=</font> <b><font color="#000000">sum1</font></b><font color="#990000">(</font><font color="#993399">1</font><font color="#990000">,</font> <font color="#993399">2</font><font color="#990000">);</font> <i><font color="#9A1900">// &lt;&gt; `sum1()` ist _nicht_ `constexpr` und wird für die Initialisierung von `a1` zur Laufzeit aufgerufen.</font></i>
+    constexpr <font color="#008080">auto</font> a2 <font color="#990000">=</font> <b><font color="#000000">sum2</font></b><font color="#990000">(</font><font color="#993399">1</font><font color="#990000">,</font> <font color="#993399">2</font><font color="#990000">);</font> <i><font color="#9A1900">// &lt;&gt; Hier wird `a2` schon zur Compile-Zeit mit dem Ergebnis von `sum2()` initialisiert.</font></i>
+<b><font color="#000080">#if</font></b> <font color="#993399">0</font>
+    constexpr <font color="#008080">auto</font> b1 <font color="#990000">=</font> <b><font color="#000000">sum2</font></b><font color="#990000">(</font>a1<font color="#990000">,</font> <font color="#993399">1</font><font color="#990000">);</font> <i><font color="#9A1900">// &lt;&gt; Nicht möglich, da `a1` nicht `constexpr` ist</font></i>
+<b><font color="#000080">#endif</font></b>
+    constexpr <font color="#008080">auto</font> b2 <font color="#990000">=</font> <b><font color="#000000">sum2</font></b><font color="#990000">(</font>a2<font color="#990000">,</font> <font color="#993399">2</font><font color="#990000">);</font> <i><font color="#9A1900">// &lt;&gt; Sowohl `a2` wie natürlich auch `2` sind `constexpr`, damit ist auch `sum2()` constexpr</font></i>
+    <b><font color="#0000FF">return</font></b> a1 <font color="#990000">+</font> a2 <font color="#990000">+</font> b2<font color="#990000">;</font>
+<font color="#FF0000">}</font>
+
+</tt></pre>

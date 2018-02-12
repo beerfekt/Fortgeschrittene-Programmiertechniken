@@ -1,0 +1,124 @@
+<!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><i><font color="#9A1900">/*</font></i>
+<i><font color="#9A1900"> * ++C - C++ introduction</font></i>
+<i><font color="#9A1900"> * Copyright (C) 2013, 2014, 2015, 2016, 2017 Wilhelm Meier </font></i><u><font color="#0000FF">&lt;wilhelm.meier@hs-kl.de&gt;</font></u>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is free software: you can redistribute it and/or modify</font></i>
+<i><font color="#9A1900"> * it under the terms of the GNU General Public License as published by</font></i>
+<i><font color="#9A1900"> * the Free Software Foundation, either version 3 of the License, or</font></i>
+<i><font color="#9A1900"> * (at your option) any later version.</font></i>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is distributed in the hope that it will be useful,</font></i>
+<i><font color="#9A1900"> * but WITHOUT ANY WARRANTY; without even the implied warranty of</font></i>
+<i><font color="#9A1900"> * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</font></i>
+<i><font color="#9A1900"> * GNU General Public License for more details.</font></i>
+<i><font color="#9A1900"> * You should have received a copy of the GNU General Public License</font></i>
+<i><font color="#9A1900"> * along with this program.  If not, see </font></i><u><font color="#0000FF">&lt;http://www.gnu.org/licenses/&gt;</font></u><i><font color="#9A1900">.</font></i>
+<i><font color="#9A1900"> */</font></i>
+<b><font color="#000080">#pragma</font></b> once
+<b><font color="#000080">#if</font></b> <b><font color="#000000">__has_include</font></b><font color="#990000">(</font><font color="#FF0000">"../ppc.h"</font><font color="#990000">)</font>
+<b><font color="#000080"># include</font></b> <font color="#FF0000">"../ppc.h"</font>
+<b><font color="#000080">#endif</font></b>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iosfwd&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;string&gt;</font>
+<b><font color="#0000FF">class</font></b> <font color="#008080">XCoor</font>
+<font color="#FF0000">{</font>
+<b><font color="#0000FF">public</font></b><font color="#990000">:</font>
+<b><font color="#000080">#ifdef</font></b> _MSC_VER
+    <b><font color="#000000">XCoor</font></b><font color="#990000">(</font><font color="#009900">double</font> v<font color="#990000">)</font> <font color="#990000">:</font> mValue <font color="#FF0000">{</font>v<font color="#FF0000">}</font> <font color="#FF0000">{}</font>
+<b><font color="#000080">#endif</font></b>
+    <font color="#009900">double</font> mValue <font color="#FF0000">{</font><font color="#993399">0.0</font><font color="#FF0000">}</font><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#0000FF">class</font></b> <font color="#008080">YCoor</font>
+<font color="#FF0000">{</font>
+<b><font color="#0000FF">public</font></b><font color="#990000">:</font>
+<b><font color="#000080">#ifdef</font></b> _MSC_VER
+    <b><font color="#000000">YCoor</font></b><font color="#990000">(</font><font color="#009900">double</font> v<font color="#990000">)</font> <font color="#990000">:</font> mValue <font color="#FF0000">{</font>v<font color="#FF0000">}</font> <font color="#FF0000">{}</font>
+<b><font color="#000080">#endif</font></b>
+    <font color="#009900">double</font> mValue <font color="#FF0000">{</font><font color="#993399">0.0</font><font color="#FF0000">}</font><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#0000FF">class</font></b> <font color="#008080">Radius</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">friend</font></b> <b><font color="#0000FF">class</font></b> <font color="#008080">Point</font><font color="#990000">;</font>
+    <b><font color="#0000FF">friend</font></b> <font color="#008080">Radius</font> <b><font color="#0000FF">operator</font></b><font color="#990000">*(</font><font color="#008080">Radius</font> a<font color="#990000">,</font> <font color="#008080">Radius</font> b<font color="#990000">);</font>
+    <b><font color="#0000FF">friend</font></b> <font color="#008080">Radius</font> <b><font color="#0000FF">operator</font></b><font color="#990000">*(</font><font color="#009900">double</font> a<font color="#990000">,</font> <font color="#008080">Radius</font> b<font color="#990000">);</font>
+    <b><font color="#0000FF">friend</font></b> <font color="#008080">Radius</font> <b><font color="#0000FF">operator</font></b><font color="#990000">*(</font><font color="#008080">Radius</font> a<font color="#990000">,</font> <font color="#009900">double</font> b<font color="#990000">);</font>
+<b><font color="#0000FF">public</font></b><font color="#990000">:</font>
+    <b><font color="#0000FF">explicit</font></b> <b><font color="#000000">Radius</font></b><font color="#990000">(</font><font color="#009900">double</font> r<font color="#990000">);</font>
+<b><font color="#0000FF">private</font></b><font color="#990000">:</font>
+    <font color="#009900">double</font> mValue<font color="#FF0000">{</font><font color="#993399">0.0</font><font color="#FF0000">}</font><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#0000FF">class</font></b> <font color="#008080">Angle</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">friend</font></b> <font color="#008080">Angle</font> <b><font color="#0000FF">operator</font></b><font color="#990000">+(</font><font color="#008080">Angle</font> a<font color="#990000">,</font> <font color="#008080">Angle</font> b<font color="#990000">);</font>
+<b><font color="#0000FF">public</font></b><font color="#990000">:</font>
+<b><font color="#000080">#ifdef</font></b> _MSC_VER
+    <b><font color="#000000">Angle</font></b><font color="#990000">(</font><font color="#009900">double</font> r<font color="#990000">)</font> <font color="#990000">:</font> mRadiant <font color="#FF0000">{</font>r<font color="#FF0000">}</font> <font color="#FF0000">{}</font>
+<b><font color="#000080">#endif</font></b>
+    <font color="#009900">double</font> mRadiant <font color="#FF0000">{</font><font color="#993399">0.0</font><font color="#FF0000">}</font><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#0000FF">class</font></b> <font color="#008080">DPoint</font>
+<font color="#FF0000">{</font>
+<b><font color="#0000FF">public</font></b><font color="#990000">:</font>
+<b><font color="#000080">#ifdef</font></b> _MSC_VER
+    <b><font color="#000000">DPoint</font></b><font color="#990000">(</font><font color="#009900">int</font> x<font color="#990000">,</font> <font color="#009900">int</font> y<font color="#990000">)</font> <font color="#990000">:</font> mX <font color="#FF0000">{</font>x<font color="#FF0000">}</font><font color="#990000">,</font> mY <font color="#FF0000">{</font>y<font color="#FF0000">}</font> <font color="#FF0000">{}</font>
+<b><font color="#000080">#endif</font></b>
+    <font color="#009900">int</font> mX <font color="#FF0000">{</font><font color="#993399">0</font><font color="#FF0000">}</font><font color="#990000">;</font>
+    <font color="#009900">int</font> mY<font color="#FF0000">{</font><font color="#993399">0</font><font color="#FF0000">}</font><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#0000FF">class</font></b> <font color="#008080">DRect</font>
+<font color="#FF0000">{</font>
+<b><font color="#0000FF">public</font></b><font color="#990000">:</font>
+    <b><font color="#000000">DRect</font></b><font color="#990000">(</font><font color="#008080">DPoint</font> upperLeft <font color="#990000">=</font> DPoint<font color="#FF0000">{</font><font color="#993399">0</font><font color="#990000">,</font> <font color="#993399">0</font><font color="#FF0000">}</font><font color="#990000">,</font> <font color="#008080">DPoint</font> bottomRight <font color="#990000">=</font> DPoint<font color="#FF0000">{</font><font color="#993399">0</font><font color="#990000">,</font> <font color="#993399">0</font><font color="#FF0000">}</font><font color="#990000">);</font>
+    <font color="#009900">int</font> <b><font color="#000000">width</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b><font color="#990000">;</font>
+    <font color="#009900">int</font> <b><font color="#000000">height</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b><font color="#990000">;</font>
+    <font color="#009900">int</font> <b><font color="#000000">area</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">explicit</font></b> <b><font color="#0000FF">operator</font></b> <font color="#009900">bool</font><font color="#990000">()</font> <b><font color="#0000FF">const</font></b><font color="#990000">;</font>
+    <font color="#008080">DPoint</font> <b><font color="#000000">upperLeft</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b><font color="#990000">;</font>
+    <font color="#008080">DPoint</font> <b><font color="#000000">bottomRight</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b><font color="#990000">;</font>
+    DRect<font color="#990000">&amp;</font> <b><font color="#0000FF">operator</font></b><font color="#990000">+=(</font><b><font color="#0000FF">const</font></b> DRect<font color="#990000">&amp;</font> rhs<font color="#990000">);</font>
+<b><font color="#0000FF">private</font></b><font color="#990000">:</font>
+    <font color="#008080">DPoint</font> mUpperLeft<font color="#FF0000">{</font><font color="#993399">0</font><font color="#990000">,</font> <font color="#993399">0</font><font color="#FF0000">}</font><font color="#990000">;</font>
+    <font color="#008080">DPoint</font> mBottomRight<font color="#FF0000">{</font><font color="#993399">0</font><font color="#990000">,</font> <font color="#993399">0</font><font color="#FF0000">}</font><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<font color="#008080">DRect</font> <b><font color="#0000FF">operator</font></b><font color="#990000">+(</font><b><font color="#0000FF">const</font></b> DRect<font color="#990000">&amp;</font> a<font color="#990000">,</font> <b><font color="#0000FF">const</font></b> DRect<font color="#990000">&amp;</font> b<font color="#990000">);</font>
+<b><font color="#0000FF">class</font></b> <font color="#008080">Point</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">friend</font></b> std<font color="#990000">::</font>ostream<font color="#990000">&amp;</font> <b><font color="#0000FF">operator</font></b><font color="#990000">&lt;&lt;(</font>std<font color="#990000">::</font>ostream<font color="#990000">&amp;</font> outputStream<font color="#990000">,</font> <b><font color="#0000FF">const</font></b> Point<font color="#990000">&amp;</font> p<font color="#990000">);</font>
+    <b><font color="#0000FF">friend</font></b> <font color="#009900">double</font> <b><font color="#0000FF">operator</font></b><font color="#990000">-(</font><b><font color="#0000FF">const</font></b> Point<font color="#990000">&amp;,</font> <b><font color="#0000FF">const</font></b> Point<font color="#990000">&amp;);</font>
+    <b><font color="#0000FF">friend</font></b> <font color="#009900">bool</font> <b><font color="#0000FF">operator</font></b><font color="#990000">==(</font><b><font color="#0000FF">const</font></b> Point<font color="#990000">&amp;,</font> <b><font color="#0000FF">const</font></b> Point<font color="#990000">&amp;);</font>
+    <b><font color="#0000FF">friend</font></b> <font color="#009900">bool</font> <b><font color="#0000FF">operator</font></b><font color="#990000">!=(</font><b><font color="#0000FF">const</font></b> Point<font color="#990000">&amp;,</font> <b><font color="#0000FF">const</font></b> Point<font color="#990000">&amp;);</font>
+<b><font color="#0000FF">public</font></b><font color="#990000">:</font>
+    <b><font color="#000000">Point</font></b><font color="#990000">(</font><font color="#008080">XCoor</font> x <font color="#990000">=</font> XCoor<font color="#FF0000">{</font><font color="#993399">0.0</font><font color="#FF0000">}</font><font color="#990000">,</font> <font color="#008080">YCoor</font> y <font color="#990000">=</font> YCoor<font color="#FF0000">{</font><font color="#993399">0.0</font><font color="#FF0000">}</font><font color="#990000">);</font>
+    <b><font color="#000000">Point</font></b><font color="#990000">(</font><font color="#008080">Radius</font> r<font color="#990000">,</font> <font color="#008080">Angle</font> phi<font color="#990000">);</font>
+    <b><font color="#000000">Point</font></b><font color="#990000">(</font><b><font color="#0000FF">const</font></b> Point<font color="#990000">&amp;</font> other<font color="#990000">);</font> <i><font color="#9A1900">// &lt;&gt; Deklaration des *Kopierkonstruktors*</font></i>
+    <font color="#009900">double</font> <b><font color="#000000">getX</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b><font color="#990000">;</font>
+    <font color="#009900">double</font> <b><font color="#000000">getY</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">const</font></b> std<font color="#990000">::</font>string<font color="#990000">&amp;</font> <b><font color="#000000">getColor</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b><font color="#990000">;</font>
+    std<font color="#990000">::</font><font color="#008080">string</font> <b><font color="#000000">toSVG</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b><font color="#990000">;</font>
+    <font color="#008080">DRect</font> <b><font color="#000000">svgArea</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">static</font></b> <font color="#009900">int</font> <b><font color="#000000">svgRadius</font></b><font color="#990000">();</font>
+    <font color="#009900">void</font> <b><font color="#000000">setX</font></b><font color="#990000">(</font><font color="#009900">double</font> x<font color="#990000">);</font>
+    <font color="#009900">void</font> <b><font color="#000000">setY</font></b><font color="#990000">(</font><font color="#009900">double</font> y<font color="#990000">);</font>
+    <font color="#009900">void</font> <b><font color="#000000">setColor</font></b><font color="#990000">(</font><b><font color="#0000FF">const</font></b> std<font color="#990000">::</font>string<font color="#990000">&amp;</font> color<font color="#990000">);</font>
+    <font color="#009900">void</font> <b><font color="#000000">setColor</font></b><font color="#990000">(</font><font color="#009900">unsigned</font> <font color="#009900">char</font> r<font color="#990000">,</font> <font color="#009900">unsigned</font> <font color="#009900">char</font> g<font color="#990000">,</font> <font color="#009900">unsigned</font> <font color="#009900">char</font> b<font color="#990000">);</font>
+    <font color="#009900">void</font> <b><font color="#000000">move</font></b><font color="#990000">(</font><font color="#009900">double</font> dx<font color="#990000">,</font> <font color="#009900">double</font> dy<font color="#990000">);</font>
+    <font color="#009900">int</font> <b><font color="#000000">getSNR</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b><font color="#990000">;</font>
+<b><font color="#0000FF">private</font></b><font color="#990000">:</font>
+    <font color="#009900">double</font> mX<font color="#FF0000">{</font><font color="#993399">0.0</font><font color="#FF0000">}</font><font color="#990000">;</font>
+    <font color="#009900">double</font> mY<font color="#FF0000">{</font><font color="#993399">0.0</font><font color="#FF0000">}</font><font color="#990000">;</font>
+    std<font color="#990000">::</font><font color="#008080">string</font> mColor<font color="#FF0000">{</font><font color="#FF0000">"black"</font><font color="#FF0000">}</font><font color="#990000">;</font>
+    <b><font color="#0000FF">const</font></b> <font color="#009900">int</font> mSNR<font color="#990000">;</font> <i><font color="#9A1900">// &lt;&gt; Keine _in-class_-Initialisierer, damit man die Generierung im Konstruktor nicht vergisst.</font></i>
+    <b><font color="#0000FF">inline</font></b> <b><font color="#0000FF">static</font></b> <font color="#009900">int</font> mSVGRadius<font color="#FF0000">{</font><font color="#993399">10</font><font color="#FF0000">}</font><font color="#990000">;</font>
+    <b><font color="#0000FF">inline</font></b> <b><font color="#0000FF">static</font></b> <font color="#009900">int</font> mObjectCounter<font color="#FF0000">{</font><font color="#993399">0</font><font color="#FF0000">}</font><font color="#990000">;</font> <i><font color="#9A1900">// &lt;&gt; Diese Klassenvariable _zählt_ die bisher erzeugten Instanzen</font></i>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<font color="#009900">double</font> <b><font color="#000000">distance</font></b><font color="#990000">(</font><b><font color="#0000FF">const</font></b> Point<font color="#990000">&amp;,</font> <b><font color="#0000FF">const</font></b> Point<font color="#990000">&amp;);</font>
+std<font color="#990000">::</font>ostream<font color="#990000">&amp;</font> <b><font color="#0000FF">operator</font></b><font color="#990000">&lt;&lt;(</font>std<font color="#990000">::</font>ostream<font color="#990000">&amp;</font> outputStream<font color="#990000">,</font> <b><font color="#0000FF">const</font></b> Point<font color="#990000">&amp;</font> p<font color="#990000">);</font>
+<font color="#009900">double</font> <b><font color="#0000FF">operator</font></b><font color="#990000">-(</font><b><font color="#0000FF">const</font></b> Point<font color="#990000">&amp;,</font> <b><font color="#0000FF">const</font></b> Point<font color="#990000">&amp;);</font>
+<font color="#009900">bool</font> <b><font color="#0000FF">operator</font></b><font color="#990000">==(</font><b><font color="#0000FF">const</font></b> Point<font color="#990000">&amp;,</font> <b><font color="#0000FF">const</font></b> Point<font color="#990000">&amp;);</font>
+<font color="#009900">bool</font> <b><font color="#0000FF">operator</font></b><font color="#990000">!=(</font><b><font color="#0000FF">const</font></b> Point<font color="#990000">&amp;,</font> <b><font color="#0000FF">const</font></b> Point<font color="#990000">&amp;);</font>
+
+</tt></pre>

@@ -1,0 +1,116 @@
+<!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><i><font color="#9A1900">/*</font></i>
+<i><font color="#9A1900"> * ++C - C++ introduction</font></i>
+<i><font color="#9A1900"> * Copyright (C) 2013, 2014, 2015, 2016, 2017 Wilhelm Meier </font></i><u><font color="#0000FF">&lt;wilhelm.meier@hs-kl.de&gt;</font></u>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is free software: you can redistribute it and/or modify</font></i>
+<i><font color="#9A1900"> * it under the terms of the GNU General Public License as published by</font></i>
+<i><font color="#9A1900"> * the Free Software Foundation, either version 3 of the License, or</font></i>
+<i><font color="#9A1900"> * (at your option) any later version.</font></i>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is distributed in the hope that it will be useful,</font></i>
+<i><font color="#9A1900"> * but WITHOUT ANY WARRANTY; without even the implied warranty of</font></i>
+<i><font color="#9A1900"> * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</font></i>
+<i><font color="#9A1900"> * GNU General Public License for more details.</font></i>
+
+<i><font color="#9A1900"> * You should have received a copy of the GNU General Public License</font></i>
+<i><font color="#9A1900"> * along with this program.  If not, see </font></i><u><font color="#0000FF">&lt;http://www.gnu.org/licenses/&gt;</font></u><i><font color="#9A1900">.</font></i>
+<i><font color="#9A1900"> */</font></i>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">T</font><font color="#990000">,</font> <font color="#009900">int</font> L<font color="#990000">&gt;</font>
+<font color="#009900">void</font> <b><font color="#000000">f</font></b><font color="#990000">(</font><b><font color="#0000FF">const</font></b> <b><font color="#000000">T</font></b> <font color="#990000">(&amp;</font>a<font color="#990000">)[</font>L<font color="#990000">])</font>
+<font color="#FF0000">{</font>
+    std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> __PRETTY_FUNCTION__ <font color="#990000">&lt;&lt;</font> <font color="#FF0000">'</font><font color="#CC33CC">\n</font><font color="#FF0000">'</font><font color="#990000">;</font>
+    std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> a <font color="#990000">&lt;&lt;</font> <font color="#FF0000">'</font><font color="#CC33CC">\n</font><font color="#FF0000">'</font><font color="#990000">;</font>
+<font color="#FF0000">}</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">T</font><font color="#990000">&gt;</font>
+<font color="#009900">void</font> <b><font color="#000000">f</font></b><font color="#990000">(</font><b><font color="#0000FF">const</font></b> T<font color="#990000">*</font> a<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> __PRETTY_FUNCTION__ <font color="#990000">&lt;&lt;</font> <font color="#FF0000">'</font><font color="#CC33CC">\n</font><font color="#FF0000">'</font><font color="#990000">;</font>
+    std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> a <font color="#990000">&lt;&lt;</font> <font color="#FF0000">'</font><font color="#CC33CC">\n</font><font color="#FF0000">'</font><font color="#990000">;</font>
+<font color="#FF0000">}</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;vector&gt;</font>
+<b><font color="#0000FF">using</font></b> std<font color="#990000">::</font>vector<font color="#990000">;</font>
+<b><font color="#0000FF">struct</font></b> <font color="#008080">MyClass</font>
+<font color="#FF0000">{</font>
+    <font color="#009900">void</font> <b><font color="#000000">f</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b>
+    <font color="#FF0000">{</font>
+        std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> __PRETTY_FUNCTION__ <font color="#990000">&lt;&lt;</font> <font color="#FF0000">'</font><font color="#CC33CC">\n</font><font color="#FF0000">'</font><font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#0000FF">enum</font></b> A <font color="#FF0000">{</font>a<font color="#990000">,</font> b<font color="#990000">,</font> c<font color="#FF0000">}</font> x<font color="#990000">;</font>
+<i><font color="#9A1900">//enum B {a, b, c};</font></i>
+<b><font color="#0000FF">enum</font></b> <b><font color="#0000FF">class</font></b> <font color="#008080">A1</font> <font color="#FF0000">{</font>a<font color="#990000">,</font> b<font color="#990000">,</font> c<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#0000FF">enum</font></b> <b><font color="#0000FF">class</font></b> <font color="#008080">B1</font> <font color="#FF0000">{</font>a<font color="#990000">,</font> b<font color="#990000">,</font> c<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#0000FF">typedef</font></b> <b><font color="#0000FF">struct</font></b> <font color="#008080">_signalsystem</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">enum</font></b> _states2
+    <font color="#FF0000">{</font>
+        stop2<font color="#990000">,</font>
+        go2
+    <font color="#FF0000">}</font><font color="#990000">;</font>
+
+    <font color="#008080">uint8_t</font> state<font color="#990000">;</font>
+    <b><font color="#0000FF">enum</font></b> <font color="#008080">_states2</font> state2<font color="#990000">;</font>
+<font color="#FF0000">}</font> signalsystem_t<font color="#990000">;</font>
+<font color="#008080">signalsystem_t</font> signal<font color="#990000">;</font>
+<b><font color="#0000FF">enum</font></b>  States
+<font color="#FF0000">{</font>
+    stop<font color="#990000">,</font>
+    go<font color="#990000">,</font>
+    slow1<font color="#990000">,</font>
+    slow2<font color="#990000">,</font>
+    ks1<font color="#990000">,</font>
+    ks2<font color="#990000">,</font>
+    ks3
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<font color="#008080">States</font> state <font color="#990000">=</font> States<font color="#990000">::</font>slow1<font color="#990000">;</font>
+<b><font color="#0000FF">enum</font></b> States1
+<font color="#FF0000">{</font>
+<i><font color="#9A1900">//    stop</font></i>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font>
+<font color="#FF0000">{</font>
+    signal<font color="#990000">.</font>state <font color="#990000">=</font> signalsystem_t<font color="#990000">::</font>go2<font color="#990000">;</font>
+
+    <font color="#009900">char</font> s1<font color="#990000">[]</font> <font color="#990000">=</font> <font color="#FF0000">"abc"</font><font color="#990000">;</font>
+    <b><font color="#0000FF">auto</font></b> s2 <font color="#990000">=</font> s1<font color="#990000">;</font>
+
+    <b><font color="#000000">f</font></b><font color="#990000">(</font>s1<font color="#990000">);</font>
+    <b><font color="#000000">f</font></b><font color="#990000">(</font>s2<font color="#990000">);</font>
+
+
+    <font color="#009900">void</font><font color="#990000">*</font> x <font color="#990000">=</font> nullptr<font color="#990000">;</font> <i><font color="#9A1900">// mod</font></i>
+
+    <font color="#008080">vector&lt;MyClass*&gt;</font> myClassList<font color="#990000">;</font>
+    myClassList<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font><b><font color="#0000FF">new</font></b> <b><font color="#000000">MyClass</font></b><font color="#990000">());</font> <i><font color="#9A1900">// leak</font></i>
+
+    <font color="#008080">vector&lt;void*&gt;</font> myList<font color="#990000">;</font>
+    myList<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(&amp;</font>myClassList<font color="#990000">);</font>
+
+    x <font color="#990000">=</font> <font color="#990000">&amp;</font>myList<font color="#990000">;</font> <i><font color="#9A1900">// x : vector&lt;void*&gt;*</font></i>
+
+    <font color="#008080">vector&lt;void*&gt;</font> cast1 <font color="#990000">=</font> <font color="#990000">*</font><b><font color="#0000FF">reinterpret_cast</font></b><font color="#990000">&lt;</font>vector<font color="#990000">&lt;</font><font color="#009900">void</font><font color="#990000">*&gt;*&gt;(</font>x<font color="#990000">);</font> <i><font color="#9A1900">// cast1 == myList</font></i>
+
+<i><font color="#9A1900">//    vector&lt;MyClass*&gt; cast2 = reinterpret_cast&lt;vector&lt;MyClass*&gt;*&gt;(cast1[0]); // Fehler</font></i>
+
+    <i><font color="#9A1900">// cast1[0] : void* (-&gt; myClassList) : *vector&lt;MyClass*&gt;</font></i>
+
+    vector<font color="#990000">&lt;</font>MyClass<font color="#990000">*&gt;*</font> cast2 <font color="#990000">=</font> <b><font color="#0000FF">reinterpret_cast</font></b><font color="#990000">&lt;</font>vector<font color="#990000">&lt;</font>MyClass<font color="#990000">*&gt;*&gt;(</font>cast1<font color="#990000">[</font><font color="#993399">0</font><font color="#990000">]);</font>
+
+    <font color="#990000">(*</font>cast2<font color="#990000">)[</font><font color="#993399">0</font><font color="#990000">]-&gt;</font><b><font color="#000000">f</font></b><font color="#990000">();</font>
+
+<i><font color="#9A1900">//    cout &lt;&lt; cast2.size(); // falsch</font></i>
+    std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> cast1<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">'</font><font color="#CC33CC">\n</font><font color="#FF0000">'</font><font color="#990000">;</font>
+
+    <font color="#008080">A1</font> a1 <font color="#990000">=</font> A1<font color="#990000">::</font>a<font color="#990000">;</font>
+<i><font color="#9A1900">//    B1 b1 = A1::a;</font></i>
+
+    <font color="#008080">uint8_t</font> y <font color="#990000">=</font> stop<font color="#990000">;</font>
+<i><font color="#9A1900">//    uint8_t z = A1::a;</font></i>
+<font color="#FF0000">}</font>
+
+</tt></pre>

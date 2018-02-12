@@ -1,0 +1,61 @@
+<!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><i><font color="#9A1900">/*</font></i>
+<i><font color="#9A1900"> * ++C - C++ introduction</font></i>
+<i><font color="#9A1900"> * Copyright (C) 2013, 2014, 2015, 2016, 2017 Wilhelm Meier </font></i><u><font color="#0000FF">&lt;wilhelm.meier@hs-kl.de&gt;</font></u>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is free software: you can redistribute it and/or modify</font></i>
+<i><font color="#9A1900"> * it under the terms of the GNU General Public License as published by</font></i>
+<i><font color="#9A1900"> * the Free Software Foundation, either version 3 of the License, or</font></i>
+<i><font color="#9A1900"> * (at your option) any later version.</font></i>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is distributed in the hope that it will be useful,</font></i>
+<i><font color="#9A1900"> * but WITHOUT ANY WARRANTY; without even the implied warranty of</font></i>
+<i><font color="#9A1900"> * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</font></i>
+<i><font color="#9A1900"> * GNU General Public License for more details.</font></i>
+
+<i><font color="#9A1900"> * You should have received a copy of the GNU General Public License</font></i>
+<i><font color="#9A1900"> * along with this program.  If not, see </font></i><u><font color="#0000FF">&lt;http://www.gnu.org/licenses/&gt;</font></u><i><font color="#9A1900">.</font></i>
+<i><font color="#9A1900"> */</font></i>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;cstddef&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;cstdint&gt;</font>
+<b><font color="#0000FF">namespace</font></b> PPC
+<font color="#FF0000">{</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">T</font><font color="#990000">,</font> <font color="#008080">size_t</font> Size<font color="#990000">&gt;</font>
+<b><font color="#0000FF">struct</font></b> <font color="#008080">array</font>
+<font color="#FF0000">{</font>
+    constexpr <font color="#008080">const</font> T<font color="#990000">&amp;</font> <b><font color="#0000FF">operator</font></b><font color="#990000">[](</font><font color="#008080">size_t</font> index<font color="#990000">)</font> <b><font color="#0000FF">const</font></b>   <i><font color="#9A1900">//&lt;&gt; Kann nur dann in einem `constexpr`-Kontext verwendet werden, wenn `mData` ebenfalls `constexpr` ist (also das gesamte Objekt).</font></i>
+    <font color="#FF0000">{</font>
+        <b><font color="#0000FF">return</font></b> mData<font color="#990000">[</font>index<font color="#990000">];</font>
+    <font color="#FF0000">}</font>
+    <font color="#008080">constexpr</font> <font color="#008080">size_t</font> <b><font color="#000000">size</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b>   <i><font color="#9A1900">//&lt;&gt; Kann immer in einem `constexpr`-Kontext verwendet werden, weil der Nicht-Typ-Template-Parameter `Size` ebenfalls `constexpr` ist.</font></i>
+    <font color="#FF0000">{</font>
+        <b><font color="#0000FF">return</font></b> Size<font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    <font color="#008080">size_t</font> <b><font color="#000000">test</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b>   <i><font color="#9A1900">//&lt;&gt; kann nicht in einem `constexpr`-Kontext verwendet werden</font></i>
+    <font color="#FF0000">{</font>
+        <b><font color="#0000FF">return</font></b> Size<font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    <font color="#008080">T</font> mData<font color="#990000">[</font>Size<font color="#990000">]</font> <font color="#990000">=</font> <font color="#FF0000">{}</font><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<font color="#FF0000">}</font>
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font>
+<font color="#FF0000">{</font>
+    <font color="#008080">constexpr</font> PPC<font color="#990000">::</font><font color="#008080">array&lt;int, 3&gt;</font> a1 <font color="#990000">=</font> <font color="#FF0000">{</font><font color="#993399">1</font><font color="#990000">,</font> <font color="#993399">2</font><font color="#990000">,</font> <font color="#993399">3</font><font color="#FF0000">}</font><font color="#990000">;</font> <i><font color="#9A1900">//&lt;&gt; Das Objekt `a1` ist `constexpr`</font></i>
+
+    constexpr <font color="#008080">int</font> x1 <font color="#990000">=</font> a1<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">();</font> <i><font color="#9A1900">//&lt;&gt; Die Elementfunktion `size()` ist auch `constexpr`</font></i>
+<b><font color="#000080">#if</font></b> <font color="#993399">0</font>
+    constexpr <font color="#008080">int</font> x2 <font color="#990000">=</font> a1<font color="#990000">.</font><b><font color="#000000">test</font></b><font color="#990000">();</font> <i><font color="#9A1900">//&lt;&gt; Die Elementfunktion `test()` ist _nicht_ `constexpr`, daher ist dies _nicht_ möglich</font></i>
+<b><font color="#000080">#endif</font></b>
+    constexpr <font color="#008080">int</font> x3 <font color="#990000">=</font> a1<font color="#990000">[</font><font color="#993399">0</font><font color="#990000">];</font> <i><font color="#9A1900">// &lt;&gt; Der Subscript-Operator ist ebenfalls `constexpr`. Zusammen mit `constexpr a1` ergibt das ein `constexpr`-Ausdruck.</font></i>
+    PPC<font color="#990000">::</font><font color="#008080">array&lt;int, 3&gt;</font> a2 <font color="#990000">=</font> <font color="#FF0000">{</font><font color="#993399">1</font><font color="#990000">,</font> <font color="#993399">2</font><font color="#990000">,</font> <font color="#993399">3</font><font color="#FF0000">}</font><font color="#990000">;</font> <i><font color="#9A1900">//&lt;&gt; Das Objekt `a2` ist _nicht_ `constexpr`</font></i>
+    constexpr <font color="#008080">int</font> y1 <font color="#990000">=</font> a2<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">();</font> <i><font color="#9A1900">//&lt;&gt; Dies ist korrekt, weil die Elementfunktion `size()` selbst `constexpr` ist und _nicht_ vom Objektzustand (nicht-`constexpr`) anhängt!</font></i>
+<b><font color="#000080">#if</font></b> <font color="#993399">0</font>
+    constexpr <font color="#008080">int</font> y2 <font color="#990000">=</font> a2<font color="#990000">[</font><font color="#993399">0</font><font color="#990000">];</font> <i><font color="#9A1900">//&lt;&gt; Dies ist nicht möglich, obwohl der Subscript-Operator `constexpr` ist, gilt dies aber nicht für `mData`.</font></i>
+<b><font color="#000080">#endif</font></b>
+    <b><font color="#0000FF">return</font></b> a1<font color="#990000">[</font><font color="#993399">1</font><font color="#990000">];</font>
+<font color="#FF0000">}</font>
+
+</tt></pre>

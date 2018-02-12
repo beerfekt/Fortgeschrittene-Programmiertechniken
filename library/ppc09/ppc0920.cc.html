@@ -1,0 +1,94 @@
+<!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><i><font color="#9A1900">/*</font></i>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * ++C - C++ introduction</font></i>
+<i><font color="#9A1900"> * Copyright (C) 2013, 2014, 2015, 2016, 2017 Wilhelm Meier </font></i><u><font color="#0000FF">&lt;wilhelm.meier@hs-kl.de&gt;</font></u>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is free software: you can redistribute it and/or modify</font></i>
+<i><font color="#9A1900"> * it under the terms of the GNU General Public License as published by</font></i>
+<i><font color="#9A1900"> * the Free Software Foundation, either version 3 of the License, or</font></i>
+<i><font color="#9A1900"> * (at your option) any later version.</font></i>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is distributed in the hope that it will be useful,</font></i>
+<i><font color="#9A1900"> * but WITHOUT ANY WARRANTY; without even the implied warranty of</font></i>
+<i><font color="#9A1900"> * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</font></i>
+<i><font color="#9A1900"> * GNU General Public License for more details.</font></i>
+<i><font color="#9A1900"> * You should have received a copy of the GNU General Public License</font></i>
+<i><font color="#9A1900"> * along with this program.  If not, see </font></i><u><font color="#0000FF">&lt;http://www.gnu.org/licenses/&gt;</font></u><i><font color="#9A1900">.</font></i>
+<i><font color="#9A1900"> */</font></i>
+<b><font color="#000080">#if</font></b> <b><font color="#000000">__has_include</font></b><font color="#990000">(</font><font color="#FF0000">"../ppc.h"</font><font color="#990000">)</font>
+<b><font color="#000080"># include</font></b> <font color="#FF0000">"../ppc.h"</font>
+<b><font color="#000080">#endif</font></b>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#000080">#ifndef</font></b> _MSC_VER
+<b><font color="#000080"># pragma</font></b> GCC <font color="#008080">diagnostic</font> ignored <font color="#FF0000">"-Wunused-value"</font>
+<b><font color="#000080">#endif</font></b>
+<b><font color="#0000FF">class</font></b> <font color="#008080">Base</font>
+<font color="#FF0000">{</font>
+<b><font color="#0000FF">public</font></b><font color="#990000">:</font>
+    <font color="#009900">int</font> mBase<font color="#990000">;</font>
+    <font color="#009900">void</font> <b><font color="#000000">nonvirtualfunction</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">virtual</font></b> <font color="#009900">void</font> <b><font color="#000000">virtualfunction</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#0000FF">class</font></b> <font color="#008080">Derived</font> <font color="#990000">:</font> <b><font color="#0000FF">public</font></b> Base
+<font color="#FF0000">{</font>
+<b><font color="#0000FF">public</font></b><font color="#990000">:</font>
+    <font color="#009900">int</font> mDerived<font color="#990000">;</font>
+    <font color="#009900">void</font> <b><font color="#000000">nonvirtualfunction</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b><font color="#990000">;</font> <i><font color="#9A1900">// &lt;&gt; Die `override`-Qualifizierung ist bei _nicht-virtuellen_ Funktionen nicht zulässig.</font></i>
+    <b><font color="#0000FF">virtual</font></b> <font color="#009900">void</font> <b><font color="#000000">virtualfunction</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b> override<font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<font color="#009900">void</font> <b><font color="#000000">foo</font></b><font color="#990000">(</font><font color="#008080">Base</font> x<font color="#990000">)</font> <i><font color="#9A1900">// &lt;&gt; Parameterübernahme _per-value_ bewirkt `Objektsclicing`, weil eine _Kopierkonstruktion_ stattfindet</font></i>
+<font color="#FF0000">{</font>
+    x<font color="#990000">.</font>mBase<font color="#990000">;</font>
+<i><font color="#9A1900">//    x.mDerived; // &lt;&gt; Wegen `Slicing` nicht vorhandenes Datenelement.</font></i>
+    x<font color="#990000">.</font><b><font color="#000000">nonvirtualfunction</font></b><font color="#990000">();</font>
+    x<font color="#990000">.</font><b><font color="#000000">virtualfunction</font></b><font color="#990000">();</font>
+<font color="#FF0000">}</font>
+<font color="#009900">void</font> <b><font color="#000000">bar</font></b><font color="#990000">(</font><b><font color="#0000FF">const</font></b> Base<font color="#990000">&amp;</font> x<font color="#990000">)</font> <i><font color="#9A1900">// &lt;&gt; Parameterübernahme _per-reference_  vermeidet `Slicing`, denn `x` ist hier nur ein weiterer Name (statischer Typ: `Base`) für das Objekt des Aufrufers</font></i>
+<font color="#FF0000">{</font>
+    x<font color="#990000">.</font>mBase<font color="#990000">;</font>
+<i><font color="#9A1900">//    x.mDerived; // &lt;&gt; Über den _statischen_ Type nicht erreichbares Datenelement</font></i>
+    x<font color="#990000">.</font><b><font color="#000000">nonvirtualfunction</font></b><font color="#990000">();</font>
+    x<font color="#990000">.</font><b><font color="#000000">virtualfunction</font></b><font color="#990000">();</font>
+<font color="#FF0000">}</font>
+<font color="#009900">void</font> <b><font color="#000000">fox</font></b><font color="#990000">(</font><b><font color="#0000FF">const</font></b> Base<font color="#990000">*</font> x<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    x<font color="#990000">-&gt;</font><b><font color="#000000">nonvirtualfunction</font></b><font color="#990000">();</font>
+    x<font color="#990000">-&gt;</font><b><font color="#000000">virtualfunction</font></b><font color="#990000">();</font>
+<font color="#FF0000">}</font>
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font>
+<font color="#FF0000">{</font>
+    <font color="#008080">Derived</font> derived<font color="#990000">;</font> <i><font color="#9A1900">// &lt;&gt; Ein `Derived`-Objekt wird in der Variable `derived` instanziiert.</font></i>
+    <font color="#008080">Base</font> base<font color="#990000">;</font> <i><font color="#9A1900">// &lt;&gt; Eine Variable des Typs `Base` wird definiert, damit wird ein Objekt dieses Typs erzeugt.</font></i>
+    Base<font color="#990000">&amp;</font> base2 <font color="#990000">=</font> derived<font color="#990000">;</font> <i><font color="#9A1900">// &lt;&gt; Hier wird `base2` als ein weiterer *Name* für das Objekt der Variable `derived` deklariert.</font></i>
+    base2<font color="#990000">.</font><b><font color="#000000">nonvirtualfunction</font></b><font color="#990000">();</font>
+    base2<font color="#990000">.</font><b><font color="#000000">virtualfunction</font></b><font color="#990000">();</font>
+    Base<font color="#990000">*</font> bPtr <font color="#990000">=</font> <font color="#990000">&amp;</font>derived<font color="#990000">;</font>
+    bPtr<font color="#990000">-&gt;</font><b><font color="#000000">nonvirtualfunction</font></b><font color="#990000">();</font>
+    bPtr<font color="#990000">-&gt;</font><b><font color="#000000">virtualfunction</font></b><font color="#990000">();</font>
+    base <font color="#990000">=</font> derived<font color="#990000">;</font> <i><font color="#9A1900">// &lt;&gt; Dem Objekt der Variablen `base` soll das Objekt der Variablen `derived` kopier-zugewiesen werden! *Achtung*: Hier passiert das sog. _slicing_: nur der `Base`-Anteil von `derived` wird zugewiesen!</font></i>
+    <b><font color="#000000">foo</font></b><font color="#990000">(</font>derived<font color="#990000">);</font> <i><font color="#9A1900">// &lt;&gt; Bei Parameterübergabe _per-value_ kommt es auch zu einem *Slicing*, denn hier findet eine _Kopierkonstruktion_ in die Parametervalue statt.</font></i>
+    <b><font color="#000000">bar</font></b><font color="#990000">(</font>derived<font color="#990000">);</font> <i><font color="#9A1900">// &lt;&gt; Die Parameterübergabe _per-reference_ vermeidet das _Slicing_.</font></i>
+    <b><font color="#000000">fox</font></b><font color="#990000">(&amp;</font>derived<font color="#990000">);</font>
+<font color="#FF0000">}</font>
+<font color="#009900">void</font> Base<font color="#990000">::</font><b><font color="#000000">nonvirtualfunction</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b>
+<font color="#FF0000">{</font>
+    std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> __PRETTY_FUNCTION__ <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font>
+<font color="#FF0000">}</font>
+<font color="#009900">void</font> Base<font color="#990000">::</font><b><font color="#000000">virtualfunction</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b>
+<font color="#FF0000">{</font>
+    std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> __PRETTY_FUNCTION__ <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font>
+<font color="#FF0000">}</font>
+<font color="#009900">void</font> Derived<font color="#990000">::</font><b><font color="#000000">nonvirtualfunction</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b>
+<font color="#FF0000">{</font>
+    std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> __PRETTY_FUNCTION__ <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font>
+<font color="#FF0000">}</font>
+<font color="#009900">void</font> Derived<font color="#990000">::</font><b><font color="#000000">virtualfunction</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b>
+<font color="#FF0000">{</font>
+    std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> __PRETTY_FUNCTION__ <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font>
+<font color="#FF0000">}</font>
+
+</tt></pre>

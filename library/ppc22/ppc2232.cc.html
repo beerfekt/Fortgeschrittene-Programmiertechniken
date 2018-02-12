@@ -1,0 +1,65 @@
+<!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><i><font color="#9A1900">/*</font></i>
+<i><font color="#9A1900"> * ++C - C++ introduction</font></i>
+<i><font color="#9A1900"> * Copyright (C) 2013, 2014, 2015, 2016, 2017 Wilhelm Meier </font></i><u><font color="#0000FF">&lt;wilhelm.meier@hs-kl.de&gt;</font></u>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is free software: you can redistribute it and/or modify</font></i>
+<i><font color="#9A1900"> * it under the terms of the GNU General Public License as published by</font></i>
+<i><font color="#9A1900"> * the Free Software Foundation, either version 3 of the License, or</font></i>
+<i><font color="#9A1900"> * (at your option) any later version.</font></i>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is distributed in the hope that it will be useful,</font></i>
+<i><font color="#9A1900"> * but WITHOUT ANY WARRANTY; without even the implied warranty of</font></i>
+<i><font color="#9A1900"> * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</font></i>
+<i><font color="#9A1900"> * GNU General Public License for more details.</font></i>
+<i><font color="#9A1900"> * You should have received a copy of the GNU General Public License</font></i>
+<i><font color="#9A1900"> * along with this program.  If not, see </font></i><u><font color="#0000FF">&lt;http://www.gnu.org/licenses/&gt;</font></u><i><font color="#9A1900">.</font></i>
+<i><font color="#9A1900"> */</font></i>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;algorithm&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;cmath&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;vector&gt;</font>
+<b><font color="#000080">#pragma</font></b> GCC <font color="#008080">diagnostic</font> ignored <font color="#FF0000">"-Wunused-variable"</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">C</font><font color="#990000">&gt;</font>
+<b><font color="#0000FF">typename</font></b> <font color="#008080">C</font><font color="#990000">::</font>iterator<font color="#990000">::</font><font color="#008080">difference_type</font> <b><font color="#000000">countValue</font></b><font color="#990000">(</font><b><font color="#0000FF">const</font></b> C<font color="#990000">&amp;</font> container<font color="#990000">,</font> <b><font color="#0000FF">const</font></b> <b><font color="#0000FF">typename</font></b> <font color="#008080">C</font><font color="#990000">::</font>value_type<font color="#990000">&amp;</font> searchValue<font color="#990000">)</font> <i><font color="#9A1900">// &lt;&gt; Das Schlüsselwort `typename` ist vor sog. _dependent names_ notwendig.</font></i>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">const</font></b> <font color="#009900">double</font> threshold <font color="#990000">=</font> <font color="#993399">1E-10</font><font color="#990000">;</font>
+    <b><font color="#0000FF">return</font></b> std<font color="#990000">::</font><b><font color="#000000">count_if</font></b><font color="#990000">(</font>std<font color="#990000">::</font><b><font color="#000000">begin</font></b><font color="#990000">(</font>container<font color="#990000">),</font> std<font color="#990000">::</font><b><font color="#000000">end</font></b><font color="#990000">(</font>container<font color="#990000">),</font>
+                         <font color="#990000">[&amp;](</font><b><font color="#0000FF">auto</font></b> v<font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+        <b><font color="#0000FF">return</font></b> std<font color="#990000">::</font><b><font color="#000000">fabs</font></b><font color="#990000">(</font>v <font color="#990000">-</font> searchValue<font color="#990000">)</font> <font color="#990000">&lt;</font> threshold<font color="#990000">;</font>   <i><font color="#9A1900">// &lt;&gt; Es werden alle erreichbaren Variablen der Speicherklasse _automatic_ per-reference gefangen: dies sind hier `container`, `searchValue` und `threshold`.</font></i>
+    <font color="#FF0000">}</font>
+                        <font color="#990000">);</font>
+<font color="#FF0000">}</font>
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font>
+<font color="#FF0000">{</font>
+    std<font color="#990000">::</font><font color="#008080">vector&lt;double&gt;</font> v<font color="#FF0000">{</font><font color="#993399">1.0</font><font color="#990000">,</font> <font color="#993399">2.0</font><font color="#990000">,</font> <font color="#993399">3.0</font><font color="#990000">,</font> <font color="#993399">1.0</font><font color="#FF0000">}</font><font color="#990000">;</font>
+    <b><font color="#0000FF">auto</font></b> n1 <font color="#990000">=</font> std<font color="#990000">::</font><b><font color="#000000">count_if</font></b><font color="#990000">(</font>std<font color="#990000">::</font><b><font color="#000000">begin</font></b><font color="#990000">(</font>v<font color="#990000">),</font> std<font color="#990000">::</font><b><font color="#000000">end</font></b><font color="#990000">(</font>v<font color="#990000">),</font>
+                            <font color="#990000">[](</font><font color="#009900">double</font> v<font color="#990000">)</font> <font color="#990000">-&gt;</font> <font color="#009900">bool</font> <font color="#FF0000">{</font><b><font color="#0000FF">return</font></b> std<font color="#990000">::</font><b><font color="#000000">fabs</font></b><font color="#990000">(</font>v <font color="#990000">-</font> <font color="#993399">1.0</font><font color="#990000">)</font> <font color="#990000">&lt;</font> <font color="#993399">1E-10</font><font color="#990000">;</font><font color="#FF0000">}</font> <i><font color="#9A1900">// &lt;&gt; Lambda-Ausdruck, um das Prädikat-Funktionsobjekt zu generieren. Die Angabe des Rückgabetyps kann auch entfallen, da der `&lt;`-Operator den Typ `bool` liefert.</font></i>
+                           <font color="#990000">);</font>
+    <b><font color="#0000FF">auto</font></b> n2 <font color="#990000">=</font> std<font color="#990000">::</font><b><font color="#000000">count_if</font></b><font color="#990000">(</font>std<font color="#990000">::</font><b><font color="#000000">begin</font></b><font color="#990000">(</font>v<font color="#990000">),</font> std<font color="#990000">::</font><b><font color="#000000">end</font></b><font color="#990000">(</font>v<font color="#990000">),</font>
+                            <font color="#990000">[](</font><font color="#009900">double</font> v<font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+        <b><font color="#0000FF">return</font></b> std<font color="#990000">::</font><b><font color="#000000">fabs</font></b><font color="#990000">(</font>v <font color="#990000">-</font> <font color="#993399">1.0</font><font color="#990000">)</font> <font color="#990000">&lt;</font> <font color="#993399">1E-10</font><font color="#990000">;</font>   <i><font color="#9A1900">// &lt;&gt; Der Rückgabetyp wird durch den Typ in der `return`-Anweisung bestimmt.</font></i>
+    <font color="#FF0000">}</font>
+                           <font color="#990000">);</font>
+    <font color="#009900">double</font> searchValue <font color="#990000">=</font> <font color="#993399">1.0</font><font color="#990000">;</font>
+    <b><font color="#0000FF">auto</font></b> n3 <font color="#990000">=</font> std<font color="#990000">::</font><b><font color="#000000">count_if</font></b><font color="#990000">(</font>std<font color="#990000">::</font><b><font color="#000000">begin</font></b><font color="#990000">(</font>v<font color="#990000">),</font> std<font color="#990000">::</font><b><font color="#000000">end</font></b><font color="#990000">(</font>v<font color="#990000">),</font>
+                            <font color="#990000">[&amp;</font>searchValue<font color="#990000">](</font><font color="#009900">double</font> v<font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+        <b><font color="#0000FF">return</font></b> std<font color="#990000">::</font><b><font color="#000000">fabs</font></b><font color="#990000">(</font>v <font color="#990000">-</font> searchValue<font color="#990000">)</font> <font color="#990000">&lt;</font> <font color="#993399">1E-10</font><font color="#990000">;</font>   <i><font color="#9A1900">// &lt;&gt; Die Variable `searchValue` wird _per-reference_ gefangen.</font></i>
+    <font color="#FF0000">}</font>
+                           <font color="#990000">);</font>
+    <b><font color="#0000FF">const</font></b> <font color="#009900">double</font> threshold <font color="#990000">=</font> <font color="#993399">1E-10</font><font color="#990000">;;</font>
+    <b><font color="#0000FF">auto</font></b> n4 <font color="#990000">=</font> std<font color="#990000">::</font><b><font color="#000000">count_if</font></b><font color="#990000">(</font>std<font color="#990000">::</font><b><font color="#000000">begin</font></b><font color="#990000">(</font>v<font color="#990000">),</font> std<font color="#990000">::</font><b><font color="#000000">end</font></b><font color="#990000">(</font>v<font color="#990000">),</font>
+                            <font color="#990000">[&amp;](</font><font color="#009900">double</font> v<font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+        <b><font color="#0000FF">return</font></b> std<font color="#990000">::</font><b><font color="#000000">fabs</font></b><font color="#990000">(</font>v <font color="#990000">-</font> searchValue<font color="#990000">)</font> <font color="#990000">&lt;</font> threshold<font color="#990000">;</font>   <i><font color="#9A1900">// &lt;&gt; _Alle erreichbaren_ Variabeln werden _per-reference_ gefangen.</font></i>
+    <font color="#FF0000">}</font>
+                           <font color="#990000">);</font>
+    <b><font color="#0000FF">auto</font></b> n5 <font color="#990000">=</font> <b><font color="#000000">countValue</font></b><font color="#990000">(</font>v<font color="#990000">,</font> <font color="#993399">1.0</font><font color="#990000">);</font> <i><font color="#9A1900">// &lt;&gt; Instanziierung des Funktionstemplate.</font></i>
+<font color="#FF0000">}</font>
+
+</tt></pre>

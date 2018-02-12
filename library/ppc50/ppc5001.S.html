@@ -1,0 +1,43 @@
+<!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><b><font color="#000080">	.file</font></b>	<font color="#FF0000">"ppc5001.cc"</font>
+<b><font color="#000080">	.intel</font></b>_syntax noprefix
+<b><font color="#000080">	.section</font></b>	<font color="#990000">.</font>text<font color="#990000">.</font>startup<font color="#990000">,</font><font color="#FF0000">"ax"</font><font color="#990000">,</font>@progbits
+<b><font color="#000080">	.p2align</font></b> <font color="#993399">4</font><font color="#990000">,,</font><font color="#993399">15</font>
+<b><font color="#000080">	.globl</font></b>	main
+<b><font color="#000080">	.type</font></b>	main<font color="#990000">,</font> @function
+<b><font color="#000080">main:</font></b>
+	<b><font color="#0000FF">sub</font></b>	rsp<font color="#990000">,</font> <font color="#993399">8</font>	#<font color="#990000">,</font>
+	<b><font color="#0000FF">movzx</font></b>	<font color="#009900">eax</font><font color="#990000">,</font> BYTE <b><font color="#0000FF">PTR</font></b> y<font color="#990000">[</font>rip<font color="#990000">]</font>	#<font color="#990000">,</font> y
+	pxor	xmm<font color="#993399">1</font><font color="#990000">,</font> xmm<font color="#993399">1</font>	#
+	<b><font color="#0000FF">movsd</font></b>	xmm<font color="#993399">0</font><font color="#990000">,</font> QWORD <b><font color="#0000FF">PTR</font></b> <font color="#990000">.</font>LC<font color="#993399">0</font><font color="#990000">[</font>rip<font color="#990000">]</font>	#<font color="#990000">,</font>
+	cvtsi<font color="#993399">2</font>sd	xmm<font color="#993399">1</font><font color="#990000">,</font> <font color="#009900">eax</font>	#<font color="#990000">,</font> y<font color="#993399">.0_1</font>
+	<b><font color="#0000FF">call</font></b>	pow@PLT	#
+	cvttsd<font color="#993399">2</font><font color="#009900">si</font>	<font color="#009900">eax</font><font color="#990000">,</font> xmm<font color="#993399">0</font>	# tmp<font color="#993399">96</font><font color="#990000">,</font> <font color="#993399">_6</font>
+	<b><font color="#0000FF">mov</font></b>	BYTE <b><font color="#0000FF">PTR</font></b> x<font color="#990000">[</font>rip<font color="#990000">],</font> <font color="#009900">al</font>	# x<font color="#990000">,</font> tmp<font color="#993399">96</font>
+	<b><font color="#0000FF">xor</font></b>	<font color="#009900">eax</font><font color="#990000">,</font> <font color="#009900">eax</font>	#
+	<b><font color="#0000FF">add</font></b>	rsp<font color="#990000">,</font> <font color="#993399">8</font>	#<font color="#990000">,</font>
+	<b><font color="#0000FF">ret</font></b>
+<b><font color="#000080">	.size</font></b>	main<font color="#990000">,</font> <font color="#990000">.-</font>main
+<b><font color="#000080">	.globl</font></b>	y
+<b><font color="#000080">	.data</font></b>
+<b><font color="#000080">	.type</font></b>	y<font color="#990000">,</font> @object
+<b><font color="#000080">	.size</font></b>	y<font color="#990000">,</font> <font color="#993399">1</font>
+<b><font color="#000080">y:</font></b>
+<b><font color="#000080">	.byte</font></b>	<font color="#993399">3</font>
+<b><font color="#000080">	.globl</font></b>	x
+<b><font color="#000080">	.bss</font></b>
+<b><font color="#000080">	.type</font></b>	x<font color="#990000">,</font> @object
+<b><font color="#000080">	.size</font></b>	x<font color="#990000">,</font> <font color="#993399">1</font>
+<b><font color="#000080">x:</font></b>
+<b><font color="#000080">	.zero</font></b>	<font color="#993399">1</font>
+<b><font color="#000080">	.section</font></b>	<font color="#990000">.</font>rodata<font color="#990000">.</font>cst<font color="#993399">8</font><font color="#990000">,</font><font color="#FF0000">"aM"</font><font color="#990000">,</font>@progbits<font color="#990000">,</font><font color="#993399">8</font>
+<b><font color="#000080">	.align</font></b> <font color="#993399">8</font>
+<b><font color="#000080">.LC0</font></b><font color="#990000">:</font>
+<b><font color="#000080">	.long</font></b>	<font color="#993399">0</font>
+<b><font color="#000080">	.long</font></b>	<font color="#993399">1073741824</font>
+<b><font color="#000080">	.ident</font></b>	<font color="#FF0000">"GCC: (GNU) 7.1.1 20170630"</font>
+<b><font color="#000080">	.section</font></b>	<font color="#990000">.</font>note<font color="#990000">.</font>GNU<font color="#990000">-</font>stack<font color="#990000">,</font><font color="#FF0000">""</font><font color="#990000">,</font>@progbits
+</tt></pre>

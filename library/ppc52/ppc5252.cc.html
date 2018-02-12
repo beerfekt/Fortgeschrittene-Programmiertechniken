@@ -1,0 +1,76 @@
+<!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><i><font color="#9A1900">/*</font></i>
+<i><font color="#9A1900"> * ++C - C++ introduction</font></i>
+<i><font color="#9A1900"> * Copyright (C) 2013, 2014, 2015, 2016, 2017 Wilhelm Meier </font></i><u><font color="#0000FF">&lt;wilhelm.meier@hs-kl.de&gt;</font></u>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is free software: you can redistribute it and/or modify</font></i>
+<i><font color="#9A1900"> * it under the terms of the GNU General Public License as published by</font></i>
+<i><font color="#9A1900"> * the Free Software Foundation, either version 3 of the License, or</font></i>
+<i><font color="#9A1900"> * (at your option) any later version.</font></i>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is distributed in the hope that it will be useful,</font></i>
+<i><font color="#9A1900"> * but WITHOUT ANY WARRANTY; without even the implied warranty of</font></i>
+<i><font color="#9A1900"> * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</font></i>
+<i><font color="#9A1900"> * GNU General Public License for more details.</font></i>
+
+<i><font color="#9A1900"> * You should have received a copy of the GNU General Public License</font></i>
+<i><font color="#9A1900"> * along with this program.  If not, see </font></i><u><font color="#0000FF">&lt;http://www.gnu.org/licenses/&gt;</font></u><i><font color="#9A1900">.</font></i>
+<i><font color="#9A1900"> */</font></i>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;array&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;algorithm&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;cassert&gt;</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">T</font><font color="#990000">&gt;</font>
+concept <font color="#008080">bool</font> <b><font color="#000000">StrictOrdered</font></b><font color="#990000">()</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">return</font></b> <b><font color="#000000">requires</font></b><font color="#990000">(</font><font color="#008080">T</font> a<font color="#990000">,</font> <font color="#008080">T</font> b<font color="#990000">)</font>   <i><font color="#9A1900">// &lt;&gt; Hier steht `requires` für einen `requires`-Ausdruck</font></i>
+    <font color="#FF0000">{</font>
+        a <font color="#990000">&gt;</font> b<font color="#990000">;</font> <i><font color="#9A1900">//&lt;&gt; Ausdrucks-Anforderung: dieser Audruck muss _wohlgeformt_ sein, damit diese Anforderung erfüllt ist.</font></i>
+    <font color="#FF0000">}</font><font color="#990000">;</font>
+<font color="#FF0000">}</font>
+<b><font color="#000080">#if</font></b> <font color="#993399">0</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">First</font><font color="#990000">,</font> <b><font color="#0000FF">typename</font></b><font color="#990000">...</font> P<font color="#990000">&gt;</font>
+<font color="#008080">requires</font> StrictOrdered<font color="#990000">&lt;</font>First<font color="#990000">&gt;()</font> <i><font color="#9A1900">// &lt;&gt; Die Anforderung der _strengen Ordnung_  an den Parameter `First`</font></i>
+<font color="#990000">&amp;&amp;</font> <font color="#990000">(</font>StrictOrdered<font color="#990000">&lt;</font>P<font color="#990000">&gt;()</font> <font color="#990000">&amp;&amp;</font> <font color="#990000">...)</font> <i><font color="#9A1900">// &lt;&gt; Expansion des Parameter-Packs `P` in einem Faltungsausdruck</font></i>
+constexpr <font color="#008080">First</font> <b><font color="#000000">maximum</font></b><font color="#990000">(</font><font color="#008080">First</font> f<font color="#990000">,</font> P<font color="#990000">...</font> tail<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">if</font></b> <b><font color="#000000">constexpr</font></b><font color="#990000">(</font><b><font color="#0000FF">sizeof</font></b><font color="#990000">...(</font>tail<font color="#990000">)</font> <font color="#990000">==</font> <font color="#993399">0</font><font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+        <b><font color="#0000FF">return</font></b> f<font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    <b><font color="#0000FF">else</font></b>
+    <font color="#FF0000">{</font>
+        <b><font color="#0000FF">return</font></b> f <font color="#990000">&gt;</font> <b><font color="#000000">maximum</font></b><font color="#990000">(</font>tail<font color="#990000">...)</font> <font color="#990000">?</font> f <font color="#990000">:</font> <b><font color="#000000">maximum</font></b><font color="#990000">(</font>tail<font color="#990000">...);</font>
+    <font color="#FF0000">}</font>
+<font color="#FF0000">}</font>
+<b><font color="#000080">#else</font></b>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><font color="#008080">StrictOrdered</font> First<font color="#990000">,</font> StrictOrdered<font color="#990000">...</font> P<font color="#990000">&gt;</font> <i><font color="#9A1900">// &lt;&gt; Die Anforderungen an die Template-Typ-Parameter oder die Elemente des Paramter-Packs stehen unmittelbat in der Template-Präambel</font></i>
+constexpr <font color="#008080">First</font> <b><font color="#000000">maximum</font></b><font color="#990000">(</font><font color="#008080">First</font> f<font color="#990000">,</font> P<font color="#990000">...</font> tail<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">if</font></b> <b><font color="#000000">constexpr</font></b><font color="#990000">(</font><b><font color="#0000FF">sizeof</font></b><font color="#990000">...(</font>tail<font color="#990000">)</font> <font color="#990000">==</font> <font color="#993399">0</font><font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+        <b><font color="#0000FF">return</font></b> f<font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    <b><font color="#0000FF">else</font></b>
+    <font color="#FF0000">{</font>
+        <b><font color="#0000FF">return</font></b> f <font color="#990000">&gt;</font> <b><font color="#000000">maximum</font></b><font color="#990000">(</font>tail<font color="#990000">...)</font> <font color="#990000">?</font> f <font color="#990000">:</font> <b><font color="#000000">maximum</font></b><font color="#990000">(</font>tail<font color="#990000">...);</font>
+    <font color="#FF0000">}</font>
+<font color="#FF0000">}</font>
+<b><font color="#000080">#endif</font></b>
+<b><font color="#0000FF">struct</font></b> <font color="#008080">A</font>
+<font color="#FF0000">{</font>
+    <font color="#009900">int</font> mValue <font color="#990000">=</font> <font color="#993399">0</font><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font>
+<font color="#FF0000">{</font>
+    constexpr <font color="#008080">auto</font> max <font color="#990000">=</font> <b><font color="#000000">maximum</font></b><font color="#990000">(</font><font color="#993399">1</font><font color="#990000">,</font> <font color="#993399">3</font><font color="#990000">,</font> <font color="#993399">5</font><font color="#990000">);</font>
+    <b><font color="#000000">static_assert</font></b><font color="#990000">(</font>max <font color="#990000">==</font> <font color="#993399">5</font><font color="#990000">);</font>
+<b><font color="#000080">#if</font></b> <font color="#993399">0</font>
+    <b><font color="#0000FF">auto</font></b> max2 <font color="#990000">=</font> <b><font color="#000000">maximum</font></b><font color="#990000">(</font>A <font color="#FF0000">{</font><font color="#993399">1</font><font color="#FF0000">}</font><font color="#990000">,</font> A <font color="#FF0000">{</font><font color="#993399">2</font><font color="#FF0000">}</font><font color="#990000">);</font>
+<b><font color="#000080">#endif</font></b>
+<font color="#FF0000">}</font>
+
+</tt></pre>

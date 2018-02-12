@@ -1,0 +1,85 @@
+<!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><i><font color="#9A1900">/*</font></i>
+<i><font color="#9A1900"> * ++C - C++ introduction</font></i>
+<i><font color="#9A1900"> * Copyright (C) 2013, 2014, 2015, 2016, 2017 Wilhelm Meier </font></i><u><font color="#0000FF">&lt;wilhelm.meier@hs-kl.de&gt;</font></u>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is free software: you can redistribute it and/or modify</font></i>
+<i><font color="#9A1900"> * it under the terms of the GNU General Public License as published by</font></i>
+<i><font color="#9A1900"> * the Free Software Foundation, either version 3 of the License, or</font></i>
+<i><font color="#9A1900"> * (at your option) any later version.</font></i>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is distributed in the hope that it will be useful,</font></i>
+<i><font color="#9A1900"> * but WITHOUT ANY WARRANTY; without even the implied warranty of</font></i>
+<i><font color="#9A1900"> * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</font></i>
+<i><font color="#9A1900"> * GNU General Public License for more details.</font></i>
+<i><font color="#9A1900"> * You should have received a copy of the GNU General Public License</font></i>
+<i><font color="#9A1900"> * along with this program.  If not, see </font></i><u><font color="#0000FF">&lt;http://www.gnu.org/licenses/&gt;</font></u><i><font color="#9A1900">.</font></i>
+<i><font color="#9A1900"> */</font></i>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;algorithm&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;cmath&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;vector&gt;</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">T</font><font color="#990000">&gt;</font> <i><font color="#9A1900">// &lt;&gt; Definition eines allgemeinen Templates</font></i>
+<b><font color="#0000FF">class</font></b> <font color="#008080">Equals</font>
+<font color="#FF0000">{</font>
+<b><font color="#0000FF">public</font></b><font color="#990000">:</font>
+    <b><font color="#0000FF">explicit</font></b> <b><font color="#000000">Equals</font></b><font color="#990000">(</font><b><font color="#0000FF">const</font></b> T<font color="#990000">&amp;</font> v<font color="#990000">)</font> <font color="#990000">:</font> <b><font color="#000000">mValue</font></b><font color="#990000">(</font>v<font color="#990000">)</font> <font color="#FF0000">{}</font>
+    <font color="#009900">bool</font> <b><font color="#0000FF">operator</font></b><font color="#990000">()(</font><b><font color="#0000FF">const</font></b> T<font color="#990000">&amp;</font> v<font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+        std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> __PRETTY_FUNCTION__ <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font>
+        <b><font color="#0000FF">return</font></b> v <font color="#990000">==</font> mValue<font color="#990000">;</font> <i><font color="#9A1900">// &lt;&gt; Hier im allgemeinen Fall benutzt dieses Template den _natürlichen_ Vergleich-Operator des Datentyps `T`</font></i>
+    <font color="#FF0000">}</font>
+<b><font color="#0000FF">private</font></b><font color="#990000">:</font>
+    <font color="#008080">T</font> mValue<font color="#FF0000">{}</font><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;&gt;</font>
+<b><font color="#0000FF">class</font></b> <font color="#008080">Equals</font><font color="#990000">&lt;</font><font color="#009900">double</font><font color="#990000">&gt;</font> <i><font color="#9A1900">// &lt;&gt; Als _Ausnahme_ fügen wir eine _Spezialisierung_ für den Datentyp `double` hinzu</font></i>
+<font color="#FF0000">{</font>
+<b><font color="#0000FF">public</font></b><font color="#990000">:</font>
+    <b><font color="#0000FF">explicit</font></b> <b><font color="#000000">Equals</font></b><font color="#990000">(</font><font color="#009900">double</font> v<font color="#990000">)</font> <font color="#990000">:</font> <b><font color="#000000">mValue</font></b><font color="#990000">(</font>v<font color="#990000">)</font> <font color="#FF0000">{}</font>
+    <font color="#009900">bool</font> <b><font color="#0000FF">operator</font></b><font color="#990000">()(</font><font color="#009900">double</font> v<font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+        std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> __PRETTY_FUNCTION__ <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font>
+        <b><font color="#0000FF">return</font></b> <font color="#990000">(</font>std<font color="#990000">::</font><b><font color="#000000">fabs</font></b><font color="#990000">(</font>v <font color="#990000">-</font> mValue<font color="#990000">)</font> <font color="#990000">&lt;=</font> std<font color="#990000">::</font>numeric_limits<font color="#990000">&lt;</font><font color="#009900">double</font><font color="#990000">&gt;::</font><b><font color="#000000">epsilon</font></b><font color="#990000">());</font> <i><font color="#9A1900">// &lt;&gt; Hier wird dann abweichend vom Standardfall ein _Epsilon_-Vergleih durchgeführt.</font></i>
+    <font color="#FF0000">}</font>
+<b><font color="#0000FF">private</font></b><font color="#990000">:</font>
+    <font color="#009900">double</font> mValue<font color="#FF0000">{}</font><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;&gt;</font>
+<b><font color="#0000FF">class</font></b> <font color="#008080">Equals</font><font color="#990000">&lt;</font><font color="#009900">float</font><font color="#990000">&gt;</font> <i><font color="#9A1900">// &lt;&gt; Ein Ausnahem für den DT `float`</font></i>
+<font color="#FF0000">{</font>
+<b><font color="#0000FF">public</font></b><font color="#990000">:</font>
+    <b><font color="#0000FF">explicit</font></b> <b><font color="#000000">Equals</font></b><font color="#990000">(</font><font color="#009900">float</font> v<font color="#990000">)</font> <font color="#990000">:</font> <b><font color="#000000">mValue</font></b><font color="#990000">(</font>v<font color="#990000">)</font> <font color="#FF0000">{}</font>
+    <font color="#009900">bool</font> <b><font color="#0000FF">operator</font></b><font color="#990000">()(</font><font color="#009900">float</font> v<font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+        std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> __PRETTY_FUNCTION__ <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font>
+        <b><font color="#0000FF">return</font></b> <font color="#990000">(</font>std<font color="#990000">::</font><b><font color="#000000">fabs</font></b><font color="#990000">(</font>v <font color="#990000">-</font> mValue<font color="#990000">)</font> <font color="#990000">&lt;=</font> std<font color="#990000">::</font>numeric_limits<font color="#990000">&lt;</font><font color="#009900">float</font><font color="#990000">&gt;::</font><b><font color="#000000">epsilon</font></b><font color="#990000">());</font>
+    <font color="#FF0000">}</font>
+<b><font color="#0000FF">private</font></b><font color="#990000">:</font>
+    <font color="#009900">float</font> mValue<font color="#FF0000">{}</font><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">T</font><font color="#990000">&gt;</font>
+<font color="#008080">Equals&lt;T&gt;</font> <b><font color="#000000">make_equals</font></b><font color="#990000">(</font><b><font color="#0000FF">const</font></b> T<font color="#990000">&amp;</font> v<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">return</font></b> Equals<font color="#990000">&lt;</font>T<font color="#990000">&gt;(</font>v<font color="#990000">);</font>
+<font color="#FF0000">}</font>
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font>
+<font color="#FF0000">{</font>
+    std<font color="#990000">::</font><font color="#008080">vector&lt;double&gt;</font> v<font color="#FF0000">{</font><font color="#993399">1.0</font><font color="#990000">,</font> <font color="#993399">2.0</font><font color="#990000">,</font> <font color="#993399">3.0</font><font color="#990000">,</font> <font color="#993399">1.0</font><font color="#FF0000">}</font><font color="#990000">;</font>
+    <b><font color="#0000FF">auto</font></b> n <font color="#990000">=</font> std<font color="#990000">::</font><b><font color="#000000">count_if</font></b><font color="#990000">(</font>std<font color="#990000">::</font><b><font color="#000000">begin</font></b><font color="#990000">(</font>v<font color="#990000">),</font> std<font color="#990000">::</font><b><font color="#000000">end</font></b><font color="#990000">(</font>v<font color="#990000">),</font> Equals<font color="#990000">&lt;</font><font color="#009900">double</font><font color="#990000">&gt;(</font><font color="#993399">1.0</font><font color="#990000">));</font>
+    std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> n <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font>
+    std<font color="#990000">::</font><font color="#008080">vector&lt;double&gt;</font> w<font color="#FF0000">{</font><font color="#993399">1</font><font color="#990000">,</font> <font color="#993399">2</font><font color="#990000">,</font> <font color="#993399">3</font><font color="#990000">,</font> <font color="#993399">1</font><font color="#FF0000">}</font><font color="#990000">;</font>
+    <b><font color="#0000FF">auto</font></b> m <font color="#990000">=</font> std<font color="#990000">::</font><b><font color="#000000">count_if</font></b><font color="#990000">(</font>std<font color="#990000">::</font><b><font color="#000000">begin</font></b><font color="#990000">(</font>v<font color="#990000">),</font> std<font color="#990000">::</font><b><font color="#000000">end</font></b><font color="#990000">(</font>v<font color="#990000">),</font> Equals<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;(</font><font color="#993399">2</font><font color="#990000">));</font>
+    std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> m <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font>
+    <b><font color="#0000FF">auto</font></b> n2 <font color="#990000">=</font> std<font color="#990000">::</font><b><font color="#000000">count_if</font></b><font color="#990000">(</font>std<font color="#990000">::</font><b><font color="#000000">begin</font></b><font color="#990000">(</font>v<font color="#990000">),</font> std<font color="#990000">::</font><b><font color="#000000">end</font></b><font color="#990000">(</font>v<font color="#990000">),</font> <b><font color="#000000">make_equals</font></b><font color="#990000">(</font><font color="#993399">2.0</font><font color="#990000">));</font>
+    std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> n2 <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font>
+<b><font color="#000080">#if</font></b> __GNUC__ <font color="#990000">&gt;=</font> <font color="#993399">7</font>
+    <b><font color="#0000FF">auto</font></b> n3 <font color="#990000">=</font> std<font color="#990000">::</font><b><font color="#000000">count_if</font></b><font color="#990000">(</font>std<font color="#990000">::</font><b><font color="#000000">begin</font></b><font color="#990000">(</font>v<font color="#990000">),</font> std<font color="#990000">::</font><b><font color="#000000">end</font></b><font color="#990000">(</font>v<font color="#990000">),</font> <b><font color="#000000">Equals</font></b><font color="#990000">(</font><font color="#993399">2.0</font><font color="#990000">));</font> <i><font color="#9A1900">// &lt;&gt; Automatische Ableitung von `double` als Typ-Parameter</font></i>
+    std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> n3 <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font>
+<b><font color="#000080">#endif</font></b>
+<font color="#FF0000">}</font>
+
+</tt></pre>

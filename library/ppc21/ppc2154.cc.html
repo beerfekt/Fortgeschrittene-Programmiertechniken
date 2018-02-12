@@ -1,0 +1,99 @@
+<!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><i><font color="#9A1900">/*</font></i>
+<i><font color="#9A1900"> * ++C - C++ introduction</font></i>
+<i><font color="#9A1900"> * Copyright (C) 2013, 2014, 2015, 2016, 2017 Wilhelm Meier </font></i><u><font color="#0000FF">&lt;wilhelm.meier@hs-kl.de&gt;</font></u>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is free software: you can redistribute it and/or modify</font></i>
+<i><font color="#9A1900"> * it under the terms of the GNU General Public License as published by</font></i>
+<i><font color="#9A1900"> * the Free Software Foundation, either version 3 of the License, or</font></i>
+<i><font color="#9A1900"> * (at your option) any later version.</font></i>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is distributed in the hope that it will be useful,</font></i>
+<i><font color="#9A1900"> * but WITHOUT ANY WARRANTY; without even the implied warranty of</font></i>
+<i><font color="#9A1900"> * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</font></i>
+<i><font color="#9A1900"> * GNU General Public License for more details.</font></i>
+<i><font color="#9A1900"> * You should have received a copy of the GNU General Public License</font></i>
+<i><font color="#9A1900"> * along with this program.  If not, see </font></i><u><font color="#0000FF">&lt;http://www.gnu.org/licenses/&gt;</font></u><i><font color="#9A1900">.</font></i>
+<i><font color="#9A1900"> */</font></i>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;cstdlib&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;cassert&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;cmath&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;vector&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;list&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;array&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;cassert&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#0000FF">class</font></b> <font color="#008080">Point</font>
+<font color="#FF0000">{</font>
+<b><font color="#0000FF">public</font></b><font color="#990000">:</font>
+    <b><font color="#000000">Point</font></b><font color="#990000">(</font><font color="#009900">double</font> x <font color="#990000">=</font> <font color="#993399">0.0</font><font color="#990000">,</font> <font color="#009900">double</font> y <font color="#990000">=</font> <font color="#993399">0.0</font><font color="#990000">);</font>
+    <font color="#009900">double</font> <b><font color="#000000">x</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b><font color="#990000">;</font>
+    <font color="#009900">double</font> <b><font color="#000000">y</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b><font color="#990000">;</font>
+<b><font color="#0000FF">private</font></b><font color="#990000">:</font>
+    <font color="#009900">double</font> mRadius <font color="#990000">=</font> <font color="#993399">0.0</font><font color="#990000">;</font>
+    <font color="#009900">double</font> mAngle <font color="#990000">=</font> <font color="#993399">0.0</font><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<font color="#009900">double</font> <b><font color="#000000">distance</font></b><font color="#990000">(</font><b><font color="#0000FF">const</font></b> Point<font color="#990000">&amp;</font> p1<font color="#990000">,</font> <b><font color="#0000FF">const</font></b> Point<font color="#990000">&amp;</font>p2<font color="#990000">);</font>
+<b><font color="#000080">#pragma</font></b> GCC diagnostic push
+<b><font color="#000080">#pragma</font></b> GCC <font color="#008080">diagnostic</font> ignored <font color="#FF0000">"-Wunused-variable"</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">T</font><font color="#990000">&gt;</font>
+<font color="#009900">double</font> <b><font color="#000000">pathLength</font></b><font color="#990000">(</font><b><font color="#0000FF">const</font></b> std<font color="#990000">::</font>vector<font color="#990000">&lt;</font>T<font color="#990000">&gt;&amp;</font> path<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <font color="#009900">double</font> length <font color="#990000">=</font> <font color="#993399">0.0</font><font color="#990000">;</font>
+    <b><font color="#0000FF">for</font></b><font color="#990000">(</font><font color="#008080">size_t</font> i <font color="#990000">=</font> <font color="#993399">1</font><font color="#990000">;</font> i <font color="#990000">&lt;</font> path<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">();</font> <font color="#990000">++</font>i<font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+        length <font color="#990000">+=</font> <b><font color="#000000">distance</font></b><font color="#990000">(</font>path<font color="#990000">[</font>i<font color="#990000">-</font><font color="#993399">1</font><font color="#990000">],</font> path<font color="#990000">[</font>i<font color="#990000">]);</font>
+    <font color="#FF0000">}</font>
+    <b><font color="#0000FF">return</font></b> length<font color="#990000">;</font>
+<font color="#FF0000">}</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">C</font><font color="#990000">&gt;</font>
+<b><font color="#0000FF">auto</font></b> <b><font color="#000000">pathLength2</font></b><font color="#990000">(</font><b><font color="#0000FF">const</font></b> C<font color="#990000">&amp;</font> path<font color="#990000">)</font> <i><font color="#9A1900">// &lt;&gt; Der Container-Typ ist generisch: Template-Typ-Parameter C. Der Rückgabetype ist derselbe, der auch von `distance` geliefert wird.</font></i>
+<font color="#FF0000">{</font>
+    <b><font color="#000000">assert</font></b><font color="#990000">(</font>std<font color="#990000">::</font><b><font color="#000000">size</font></b><font color="#990000">(</font>path<font color="#990000">)</font> <font color="#990000">&gt;</font> <font color="#993399">1</font><font color="#990000">);</font> <i><font color="#9A1900">// &lt;&gt; Die Verwendung der des _freien_ Funktionstemplates {stdsize} macht den Code generisch.</font></i>
+    <b><font color="#0000FF">auto</font></b> it1 <font color="#990000">=</font> std<font color="#990000">::</font><b><font color="#000000">cbegin</font></b><font color="#990000">(</font>path<font color="#990000">);</font> <i><font color="#9A1900">// &lt;&gt; Alle Container der {stdlib} unterstützen _Iteratoren_, aber nicht alle den _subscript_-Operator.</font></i>
+    <b><font color="#0000FF">auto</font></b> it2 <font color="#990000">=</font> it1<font color="#990000">;</font>
+    <font color="#990000">++</font>it2<font color="#990000">;</font> <i><font color="#9A1900">// &lt;&gt; Alternativ könnte man hier das freie Funktionstemplate {stdadvance} einsetzen.</font></i>
+    <b><font color="#000000">decltype</font></b><font color="#990000">(</font><b><font color="#000000">distance</font></b><font color="#990000">(*</font>it1<font color="#990000">,</font> <font color="#990000">*</font>it1<font color="#990000">))</font> length <font color="#990000">=</font> <font color="#993399">0</font><font color="#990000">;</font> <i><font color="#9A1900">// &lt;&gt; Die lokale Variable sollte _denselben_ Typ besitzen wie die freie Funktion `distance()`.</font></i>
+    <b><font color="#0000FF">while</font></b><font color="#990000">(</font>it2 <font color="#990000">!=</font> std<font color="#990000">::</font><b><font color="#000000">cend</font></b><font color="#990000">(</font>path<font color="#990000">))</font>   <i><font color="#9A1900">// &lt;&gt; Eine Schleife über den gesamten Container ohne Verwendung des _subscript_-Operators `operator[]`.</font></i>
+    <font color="#FF0000">{</font>
+        length <font color="#990000">+=</font> <b><font color="#000000">distance</font></b><font color="#990000">(*</font>it2<font color="#990000">++,</font> <font color="#990000">*</font>it1<font color="#990000">++);</font>
+    <font color="#FF0000">}</font>
+    <b><font color="#0000FF">return</font></b> length<font color="#990000">;</font> <i><font color="#9A1900">// &lt;&gt; Der Typ der Variablen `length` bestimmt den Rückgabetyp dieses Funktionstemplates.</font></i>
+<font color="#FF0000">}</font>
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font>
+<font color="#FF0000">{</font>
+    std<font color="#990000">::</font><font color="#008080">vector&lt;Point&gt;</font> points <font color="#990000">=</font> <font color="#FF0000">{{</font><font color="#993399">0.0</font><font color="#990000">,</font> <font color="#993399">0.0</font><font color="#FF0000">}</font><font color="#990000">,</font> <font color="#FF0000">{</font><font color="#993399">1.0</font><font color="#990000">,</font> <font color="#993399">1.0</font><font color="#FF0000">}</font><font color="#990000">,</font> <font color="#FF0000">{</font><font color="#993399">2.0</font><font color="#990000">,</font> <font color="#993399">2.0</font><font color="#FF0000">}}</font><font color="#990000">;</font>
+    <font color="#009900">double</font> l1 <font color="#990000">=</font> <b><font color="#000000">pathLength</font></b><font color="#990000">(</font>points<font color="#990000">);</font>
+    std<font color="#990000">::</font><font color="#008080">vector&lt;double&gt;</font> values <font color="#990000">=</font> <font color="#FF0000">{</font><font color="#993399">0.0</font><font color="#990000">,</font> <font color="#993399">1.0</font><font color="#990000">,</font> <font color="#993399">2.0</font><font color="#FF0000">}</font><font color="#990000">;</font>
+    <font color="#009900">double</font> l2 <font color="#990000">=</font> <b><font color="#000000">pathLength</font></b><font color="#990000">(</font>values<font color="#990000">);</font>
+    <font color="#009900">double</font> l11 <font color="#990000">=</font> <b><font color="#000000">pathLength2</font></b><font color="#990000">(</font>points<font color="#990000">);</font>
+    <font color="#009900">double</font> l21 <font color="#990000">=</font> <b><font color="#000000">pathLength2</font></b><font color="#990000">(</font>values<font color="#990000">);</font>
+    std<font color="#990000">::</font><font color="#008080">list&lt;int&gt;</font> values2 <font color="#990000">=</font> <font color="#FF0000">{</font><font color="#993399">0</font><font color="#990000">,</font> <font color="#993399">0</font><font color="#FF0000">}</font><font color="#990000">;</font>
+    <font color="#009900">double</font> l3 <font color="#990000">=</font> <b><font color="#000000">pathLength2</font></b><font color="#990000">(</font>values2<font color="#990000">);</font>
+    std<font color="#990000">::</font><font color="#008080">array&lt;float, 3&gt;</font> values3 <font color="#990000">=</font> <font color="#FF0000">{{</font><font color="#993399">1</font><font color="#990000">,</font> <font color="#993399">2</font><font color="#990000">,</font> <font color="#993399">3</font><font color="#FF0000">}}</font><font color="#990000">;</font>
+    <font color="#009900">double</font> l4 <font color="#990000">=</font> <b><font color="#000000">pathLength2</font></b><font color="#990000">(</font>values3<font color="#990000">);</font>
+    <font color="#009900">double</font> values4<font color="#990000">[</font><font color="#993399">4</font><font color="#990000">]</font> <font color="#990000">=</font> <font color="#FF0000">{</font><font color="#993399">0</font><font color="#990000">,</font> <font color="#993399">1</font><font color="#990000">,</font> <font color="#993399">2</font><font color="#990000">,</font> <font color="#993399">10</font><font color="#FF0000">}</font><font color="#990000">;</font>
+    <font color="#009900">double</font> l5 <font color="#990000">=</font> <b><font color="#000000">pathLength2</font></b><font color="#990000">(</font>values4<font color="#990000">);</font>
+<font color="#FF0000">}</font>
+<b><font color="#000080">#pragma</font></b> GCC diagnostic pop
+<font color="#009900">double</font> <b><font color="#000000">distance</font></b><font color="#990000">(</font><b><font color="#0000FF">const</font></b> Point<font color="#990000">&amp;</font> p1<font color="#990000">,</font> <b><font color="#0000FF">const</font></b> Point<font color="#990000">&amp;</font> p2<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">return</font></b> std<font color="#990000">::</font><b><font color="#000000">hypot</font></b><font color="#990000">(</font>p1<font color="#990000">.</font><b><font color="#000000">x</font></b><font color="#990000">()</font> <font color="#990000">-</font> p2<font color="#990000">.</font><b><font color="#000000">x</font></b><font color="#990000">(),</font> p1<font color="#990000">.</font><b><font color="#000000">y</font></b><font color="#990000">()</font> <font color="#990000">-</font> p2<font color="#990000">.</font><b><font color="#000000">y</font></b><font color="#990000">());</font>
+<font color="#FF0000">}</font>
+Point<font color="#990000">::</font><b><font color="#000000">Point</font></b><font color="#990000">(</font><font color="#009900">double</font> x<font color="#990000">,</font> <font color="#009900">double</font> y<font color="#990000">)</font> <font color="#990000">:</font>
+    <b><font color="#000000">mRadius</font></b><font color="#990000">(</font>std<font color="#990000">::</font><b><font color="#000000">hypot</font></b><font color="#990000">(</font>x<font color="#990000">,</font> y<font color="#990000">)),</font> <b><font color="#000000">mAngle</font></b><font color="#990000">(</font>std<font color="#990000">::</font><b><font color="#000000">atan2</font></b><font color="#990000">(</font>y<font color="#990000">,</font> x<font color="#990000">))</font>
+<font color="#FF0000">{</font>
+<font color="#FF0000">}</font>
+<font color="#009900">double</font> Point<font color="#990000">::</font><b><font color="#000000">x</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">return</font></b> mRadius <font color="#990000">*</font> std<font color="#990000">::</font><b><font color="#000000">cos</font></b><font color="#990000">(</font>mAngle<font color="#990000">);</font>
+<font color="#FF0000">}</font>
+<font color="#009900">double</font> Point<font color="#990000">::</font><b><font color="#000000">y</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">return</font></b> mRadius <font color="#990000">*</font> std<font color="#990000">::</font><b><font color="#000000">sin</font></b><font color="#990000">(</font>mAngle<font color="#990000">);</font>
+<font color="#FF0000">}</font>
+
+</tt></pre>

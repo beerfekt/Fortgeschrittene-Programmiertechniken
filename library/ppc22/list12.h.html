@@ -1,0 +1,171 @@
+<!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><i><font color="#9A1900">/*</font></i>
+<i><font color="#9A1900"> * ++C - C++ introduction</font></i>
+<i><font color="#9A1900"> * Copyright (C) 2013, 2014, 2015, 2016, 2017 Wilhelm Meier </font></i><u><font color="#0000FF">&lt;wilhelm.meier@hs-kl.de&gt;</font></u>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is free software: you can redistribute it and/or modify</font></i>
+<i><font color="#9A1900"> * it under the terms of the GNU General Public License as published by</font></i>
+<i><font color="#9A1900"> * the Free Software Foundation, either version 3 of the License, or</font></i>
+<i><font color="#9A1900"> * (at your option) any later version.</font></i>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is distributed in the hope that it will be useful,</font></i>
+<i><font color="#9A1900"> * but WITHOUT ANY WARRANTY; without even the implied warranty of</font></i>
+<i><font color="#9A1900"> * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</font></i>
+<i><font color="#9A1900"> * GNU General Public License for more details.</font></i>
+<i><font color="#9A1900"> * You should have received a copy of the GNU General Public License</font></i>
+<i><font color="#9A1900"> * along with this program.  If not, see </font></i><u><font color="#0000FF">&lt;http://www.gnu.org/licenses/&gt;</font></u><i><font color="#9A1900">.</font></i>
+<i><font color="#9A1900"> */</font></i>
+<b><font color="#000080">#pragma</font></b> once
+<b><font color="#000080">#if</font></b> <b><font color="#000000">__has_include</font></b><font color="#990000">(</font><font color="#FF0000">"../ppc.h"</font><font color="#990000">)</font>
+<b><font color="#000080"># include</font></b> <font color="#FF0000">"../ppc.h"</font>
+<b><font color="#000080">#endif</font></b>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;memory&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;cassert&gt;</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">T</font><font color="#990000">&gt;</font>
+<b><font color="#0000FF">class</font></b> <font color="#008080">List</font> final
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">class</font></b> <font color="#008080">ListNode</font><font color="#990000">;</font>
+<b><font color="#0000FF">public</font></b><font color="#990000">:</font>
+    <b><font color="#0000FF">class</font></b> <font color="#008080">ListIterator</font> final
+            <font color="#990000">:</font> <b><font color="#0000FF">public</font></b> std<font color="#990000">::</font>iterator<font color="#990000">&lt;</font>std<font color="#990000">::</font>forward_iterator_tag<font color="#990000">,</font> T<font color="#990000">&gt;</font> <i><font color="#9A1900">// &lt;&gt; Notwendig für die Algorithmen der {cppstdlib}</font></i>
+    <font color="#FF0000">{</font>
+    <b><font color="#0000FF">public</font></b><font color="#990000">:</font>
+        <b><font color="#000000">ListIterator</font></b><font color="#990000">(</font>ListNode<font color="#990000">*</font> p <font color="#990000">=</font> nullptr<font color="#990000">)</font> <font color="#990000">:</font> <b><font color="#000000">mPtr</font></b><font color="#990000">(</font>p<font color="#990000">)</font> <font color="#FF0000">{}</font>
+        ListIterator<font color="#990000">&amp;</font> <b><font color="#0000FF">operator</font></b><font color="#990000">++()</font>
+        <font color="#FF0000">{</font>
+            <b><font color="#000000">assert</font></b><font color="#990000">(</font>mPtr<font color="#990000">);</font>
+            mPtr <font color="#990000">=</font> mPtr<font color="#990000">-&gt;</font>mNext<font color="#990000">.</font><b><font color="#000000">get</font></b><font color="#990000">();</font>
+            <b><font color="#0000FF">return</font></b> <font color="#990000">*</font><b><font color="#0000FF">this</font></b><font color="#990000">;</font>
+        <font color="#FF0000">}</font>
+        T<font color="#990000">&amp;</font> <b><font color="#0000FF">operator</font></b><font color="#990000">*()</font>
+        <font color="#FF0000">{</font>
+            <b><font color="#000000">assert</font></b><font color="#990000">(</font>mPtr<font color="#990000">);</font>
+            <b><font color="#0000FF">return</font></b> mPtr<font color="#990000">-&gt;</font>mValue<font color="#990000">;</font>
+        <font color="#FF0000">}</font>
+        <font color="#009900">bool</font> <b><font color="#0000FF">operator</font></b><font color="#990000">!=(</font><b><font color="#0000FF">const</font></b> ListIterator<font color="#990000">&amp;</font> rhs<font color="#990000">)</font>
+        <font color="#FF0000">{</font>
+            <b><font color="#0000FF">return</font></b> mPtr <font color="#990000">!=</font> rhs<font color="#990000">.</font>mPtr<font color="#990000">;</font>
+        <font color="#FF0000">}</font>
+    <b><font color="#0000FF">private</font></b><font color="#990000">:</font>
+        ListNode<font color="#990000">*</font> mPtr <font color="#990000">=</font> nullptr<font color="#990000">;</font>
+    <font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#0000FF">private</font></b><font color="#990000">:</font>
+    <b><font color="#0000FF">class</font></b> <font color="#008080">ListNode</font>
+    <font color="#FF0000">{</font>
+        <b><font color="#0000FF">friend</font></b> <b><font color="#0000FF">class</font></b> <font color="#008080">List</font><font color="#990000">;</font>
+    <b><font color="#0000FF">public</font></b><font color="#990000">:</font>
+        <b><font color="#000000">ListNode</font></b><font color="#990000">(</font><b><font color="#0000FF">const</font></b> T<font color="#990000">&amp;</font> v<font color="#990000">)</font> <font color="#990000">:</font> <b><font color="#000000">mValue</font></b><font color="#990000">(</font>v<font color="#990000">)</font> <font color="#FF0000">{}</font>
+    <b><font color="#0000FF">private</font></b><font color="#990000">:</font>
+        std<font color="#990000">::</font><font color="#008080">unique_ptr&lt;ListNode&gt;</font> mNext<font color="#990000">;</font>
+        <font color="#008080">T</font> mValue<font color="#990000">;</font>
+    <font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#0000FF">public</font></b><font color="#990000">:</font>
+    <b><font color="#000000">List</font></b><font color="#990000">()</font> <font color="#FF0000">{}</font>
+    <b><font color="#000000">List</font></b><font color="#990000">(</font><b><font color="#0000FF">const</font></b> List<font color="#990000">&amp;</font> other<font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+        ListNode<font color="#990000">*</font> node <font color="#990000">=</font> other<font color="#990000">.</font>mHead<font color="#990000">.</font><b><font color="#000000">get</font></b><font color="#990000">();</font>
+        <b><font color="#0000FF">while</font></b><font color="#990000">(</font>node<font color="#990000">)</font>
+        <font color="#FF0000">{</font>
+            <font color="#990000">*</font><b><font color="#0000FF">this</font></b> <font color="#990000">+=</font> node<font color="#990000">-&gt;</font>mValue<font color="#990000">;</font>
+            node <font color="#990000">=</font> node<font color="#990000">-&gt;</font>mNext<font color="#990000">.</font><b><font color="#000000">get</font></b><font color="#990000">();</font>
+        <font color="#FF0000">}</font>
+    <font color="#FF0000">}</font>
+    <font color="#008080">ListIterator</font> <b><font color="#000000">begin</font></b><font color="#990000">()</font>
+    <font color="#FF0000">{</font>
+        <b><font color="#0000FF">return</font></b> <b><font color="#000000">ListIterator</font></b><font color="#990000">(</font>mHead<font color="#990000">.</font><b><font color="#000000">get</font></b><font color="#990000">());</font>
+    <font color="#FF0000">}</font>
+    <font color="#008080">ListIterator</font> <b><font color="#000000">end</font></b><font color="#990000">()</font>
+    <font color="#FF0000">{</font>
+        <b><font color="#0000FF">return</font></b> <b><font color="#000000">ListIterator</font></b><font color="#990000">();</font>
+    <font color="#FF0000">}</font>
+    <b><font color="#000000">List</font></b><font color="#990000">(</font>List<font color="#990000">&amp;&amp;</font> other<font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+        <b><font color="#000000">swap</font></b><font color="#990000">(</font>other<font color="#990000">);</font>
+    <font color="#FF0000">}</font>
+    List<font color="#990000">&amp;</font> <b><font color="#0000FF">operator</font></b><font color="#990000">=(</font><font color="#008080">List</font> rhs<font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+        <b><font color="#000000">swap</font></b><font color="#990000">(</font>rhs<font color="#990000">);</font>
+        <b><font color="#0000FF">return</font></b> <font color="#990000">*</font><b><font color="#0000FF">this</font></b><font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    List<font color="#990000">&amp;</font> <b><font color="#0000FF">operator</font></b><font color="#990000">=(</font>List<font color="#990000">&amp;&amp;</font> rhs<font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+        <b><font color="#000000">swap</font></b><font color="#990000">(</font>rhs<font color="#990000">);</font>
+        <b><font color="#0000FF">return</font></b> <font color="#990000">*</font><b><font color="#0000FF">this</font></b><font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    <b><font color="#000000">List</font></b><font color="#990000">(</font><b><font color="#0000FF">const</font></b> std<font color="#990000">::</font>initializer_list<font color="#990000">&lt;</font>T<font color="#990000">&gt;&amp;</font> ilist<font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+        <b><font color="#0000FF">for</font></b><font color="#990000">(</font><b><font color="#0000FF">const</font></b> T<font color="#990000">&amp;</font> v<font color="#990000">:</font> ilist<font color="#990000">)</font>
+        <font color="#FF0000">{</font>
+            <font color="#990000">*</font><b><font color="#0000FF">this</font></b> <font color="#990000">+=</font> v<font color="#990000">;</font>
+        <font color="#FF0000">}</font>
+    <font color="#FF0000">}</font>
+    List<font color="#990000">&amp;</font> <b><font color="#0000FF">operator</font></b><font color="#990000">+=(</font><b><font color="#0000FF">const</font></b> T<font color="#990000">&amp;</font> value<font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>mTail<font color="#990000">)</font>
+        <font color="#FF0000">{</font>
+            mTail<font color="#990000">-&gt;</font>mNext <font color="#990000">=</font> std<font color="#990000">::</font>make_unique<font color="#990000">&lt;</font>ListNode<font color="#990000">&gt;(</font>value<font color="#990000">);</font>
+            mTail <font color="#990000">=</font> mTail<font color="#990000">-&gt;</font>mNext<font color="#990000">.</font><b><font color="#000000">get</font></b><font color="#990000">();</font>
+        <font color="#FF0000">}</font>
+        <b><font color="#0000FF">else</font></b>
+        <font color="#FF0000">{</font>
+            mHead <font color="#990000">=</font> std<font color="#990000">::</font>make_unique<font color="#990000">&lt;</font>ListNode<font color="#990000">&gt;(</font>value<font color="#990000">);</font>
+            mTail <font color="#990000">=</font> mHead<font color="#990000">.</font><b><font color="#000000">get</font></b><font color="#990000">();</font>
+        <font color="#FF0000">}</font>
+        mSize <font color="#990000">+=</font> <font color="#993399">1</font><font color="#990000">;</font>
+        <b><font color="#0000FF">return</font></b> <font color="#990000">*</font><b><font color="#0000FF">this</font></b><font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    <font color="#009900">bool</font> <b><font color="#000000">empty</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b>
+    <font color="#FF0000">{</font>
+        <b><font color="#0000FF">return</font></b> <font color="#990000">(</font>mSize <font color="#990000">==</font> <font color="#993399">0</font><font color="#990000">);</font>
+    <font color="#FF0000">}</font>
+    <font color="#009900">void</font> <b><font color="#000000">clear</font></b><font color="#990000">()</font>
+    <font color="#FF0000">{</font>
+        <font color="#008080">List&lt;T&gt;</font> emptyList<font color="#990000">;</font>
+        <b><font color="#000000">swap</font></b><font color="#990000">(</font>emptyList<font color="#990000">);</font>
+    <font color="#FF0000">}</font>
+    T<font color="#990000">&amp;</font> <b><font color="#000000">front</font></b><font color="#990000">()</font>
+    <font color="#FF0000">{</font>
+        <b><font color="#000000">assert</font></b><font color="#990000">(</font>mHead<font color="#990000">);</font>
+        <b><font color="#0000FF">return</font></b> mHead<font color="#990000">-&gt;</font>mValue<font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    <b><font color="#0000FF">const</font></b> T<font color="#990000">&amp;</font> <b><font color="#000000">front</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b>
+    <font color="#FF0000">{</font>
+        <b><font color="#000000">assert</font></b><font color="#990000">(</font>mHead<font color="#990000">);</font>
+        <b><font color="#0000FF">return</font></b> mHead<font color="#990000">-&gt;</font>mValue<font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    <font color="#009900">void</font> <b><font color="#000000">pop_front</font></b><font color="#990000">()</font>
+    <font color="#FF0000">{</font>
+        <b><font color="#000000">assert</font></b><font color="#990000">(</font>mHead<font color="#990000">);</font>
+        mHead <font color="#990000">=</font> std<font color="#990000">::</font><b><font color="#000000">move</font></b><font color="#990000">(</font>mHead<font color="#990000">-&gt;</font>mNext<font color="#990000">);</font>
+        mSize <font color="#990000">-=</font> <font color="#993399">1</font><font color="#990000">;</font>
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(!</font>mHead<font color="#990000">)</font>
+        <font color="#FF0000">{</font>
+            mTail <font color="#990000">=</font> nullptr<font color="#990000">;</font>
+        <font color="#FF0000">}</font>
+    <font color="#FF0000">}</font>
+    <font color="#009900">void</font> <b><font color="#000000">swap</font></b><font color="#990000">(</font>List<font color="#990000">&lt;</font>T<font color="#990000">&gt;&amp;</font> o<font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+        <b><font color="#0000FF">using</font></b> std<font color="#990000">::</font>swap<font color="#990000">;</font>
+        <b><font color="#000000">swap</font></b><font color="#990000">(</font>mHead<font color="#990000">,</font> o<font color="#990000">.</font>mHead<font color="#990000">);</font>
+        <b><font color="#000000">swap</font></b><font color="#990000">(</font>mTail<font color="#990000">,</font> o<font color="#990000">.</font>mTail<font color="#990000">);</font>
+        <b><font color="#000000">swap</font></b><font color="#990000">(</font>mSize<font color="#990000">,</font> o<font color="#990000">.</font>mSize<font color="#990000">);</font>
+    <font color="#FF0000">}</font>
+    <font color="#008080">size_t</font> <b><font color="#000000">size</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b>
+    <font color="#FF0000">{</font>
+        <b><font color="#0000FF">return</font></b> mSize<font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+<b><font color="#0000FF">private</font></b><font color="#990000">:</font>
+    std<font color="#990000">::</font><font color="#008080">unique_ptr&lt;ListNode&gt;</font> mHead<font color="#990000">;</font>
+    ListNode<font color="#990000">*</font> mTail <font color="#990000">=</font> nullptr<font color="#990000">;</font>
+    <font color="#008080">size_t</font> mSize <font color="#990000">=</font> <font color="#993399">0</font><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">T</font><font color="#990000">&gt;</font>
+<font color="#009900">void</font> <b><font color="#000000">swap</font></b><font color="#990000">(</font>List<font color="#990000">&lt;</font>T<font color="#990000">&gt;&amp;</font> a<font color="#990000">,</font> List<font color="#990000">&lt;</font>T<font color="#990000">&gt;&amp;</font> b<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    a<font color="#990000">.</font><b><font color="#000000">swap</font></b><font color="#990000">(</font>b<font color="#990000">);</font>
+<font color="#FF0000">}</font>
+
+</tt></pre>

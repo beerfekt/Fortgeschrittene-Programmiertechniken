@@ -1,0 +1,77 @@
+<!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><i><font color="#9A1900">/*</font></i>
+<i><font color="#9A1900"> * ++C - C++ introduction</font></i>
+<i><font color="#9A1900"> * Copyright (C) 2013, 2014, 2015, 2016, 2017 Wilhelm Meier </font></i><u><font color="#0000FF">&lt;wilhelm.meier@hs-kl.de&gt;</font></u>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is free software: you can redistribute it and/or modify</font></i>
+<i><font color="#9A1900"> * it under the terms of the GNU General Public License as published by</font></i>
+<i><font color="#9A1900"> * the Free Software Foundation, either version 3 of the License, or</font></i>
+<i><font color="#9A1900"> * (at your option) any later version.</font></i>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is distributed in the hope that it will be useful,</font></i>
+<i><font color="#9A1900"> * but WITHOUT ANY WARRANTY; without even the implied warranty of</font></i>
+<i><font color="#9A1900"> * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</font></i>
+<i><font color="#9A1900"> * GNU General Public License for more details.</font></i>
+
+<i><font color="#9A1900"> * You should have received a copy of the GNU General Public License</font></i>
+<i><font color="#9A1900"> * along with this program.  If not, see </font></i><u><font color="#0000FF">&lt;http://www.gnu.org/licenses/&gt;</font></u><i><font color="#9A1900">.</font></i>
+<i><font color="#9A1900"> */</font></i>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;type_traits&gt;</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">T</font><font color="#990000">&gt;</font>
+<b><font color="#0000FF">struct</font></b> <font color="#008080">F</font>
+<font color="#FF0000">{</font>
+    <b><font color="#000000">F</font></b><font color="#990000">(</font><b><font color="#0000FF">const</font></b> T<font color="#990000">&amp;</font> f<font color="#990000">)</font> <font color="#990000">:</font> mf<font color="#FF0000">{</font>f<font color="#FF0000">}</font>
+    <font color="#FF0000">{</font>
+        std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> __PRETTY_FUNCTION__ <font color="#990000">&lt;&lt;</font> <font color="#FF0000">'</font><font color="#CC33CC">\n</font><font color="#FF0000">'</font><font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    <font color="#009900">void</font> <b><font color="#000000">test</font></b><font color="#990000">()</font>
+    <font color="#FF0000">{</font>
+        std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> __PRETTY_FUNCTION__ <font color="#990000">&lt;&lt;</font> <font color="#FF0000">'</font><font color="#CC33CC">\n</font><font color="#FF0000">'</font><font color="#990000">;</font>
+        <b><font color="#000000">mf</font></b><font color="#990000">();</font>
+    <font color="#FF0000">}</font>
+    std<font color="#990000">::</font><font color="#008080">decay_t&lt;T&gt;</font> mf<font color="#990000">;</font>
+<i><font color="#9A1900">//    const T&amp; mf;</font></i>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<i><font color="#9A1900">//template&lt;typename T&gt;</font></i>
+<i><font color="#9A1900">//struct F&lt;T*&gt; {</font></i>
+<i><font color="#9A1900">//    F(T f) : mf{f} {</font></i>
+<i><font color="#9A1900">//        std::cout &lt;&lt; __PRETTY_FUNCTION__ &lt;&lt; '\n';</font></i>
+<i><font color="#9A1900">//    }</font></i>
+<i><font color="#9A1900">//    void test() {</font></i>
+<i><font color="#9A1900">//        std::cout &lt;&lt; __PRETTY_FUNCTION__ &lt;&lt; '\n';</font></i>
+<i><font color="#9A1900">//        mf();</font></i>
+<i><font color="#9A1900">//    }</font></i>
+<i><font color="#9A1900">//    T* mf;</font></i>
+<i><font color="#9A1900">//};</font></i>
+<font color="#009900">void</font> <b><font color="#000000">g</font></b><font color="#990000">()</font>
+<font color="#FF0000">{</font>
+    std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> __PRETTY_FUNCTION__ <font color="#990000">&lt;&lt;</font> <font color="#FF0000">'</font><font color="#CC33CC">\n</font><font color="#FF0000">'</font><font color="#990000">;</font>
+<font color="#FF0000">}</font>
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font>
+<font color="#FF0000">{</font>
+    <font color="#008080">F&lt;void(void)&gt;</font> <b><font color="#000000">f1</font></b><font color="#990000">(</font>g<font color="#990000">);</font>
+    f1<font color="#990000">.</font><b><font color="#000000">test</font></b><font color="#990000">();</font>
+
+    <b><font color="#0000FF">auto</font></b> g1 <font color="#990000">=</font> g<font color="#990000">;</font> <i><font color="#9A1900">// decay to function pointer</font></i>
+
+    <font color="#008080">F</font> <b><font color="#000000">f2</font></b><font color="#990000">(</font>g1<font color="#990000">);</font>
+    f2<font color="#990000">.</font><b><font color="#000000">test</font></b><font color="#990000">();</font>
+
+    <font color="#008080">F</font> <b><font color="#000000">f3</font></b><font color="#990000">([]()</font>  <i><font color="#9A1900">// lifetime?</font></i>
+    <font color="#FF0000">{</font>
+        std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> __PRETTY_FUNCTION__ <font color="#990000">&lt;&lt;</font> <font color="#FF0000">'</font><font color="#CC33CC">\n</font><font color="#FF0000">'</font><font color="#990000">;</font>
+    <font color="#FF0000">}</font><font color="#990000">);</font>
+    f3<font color="#990000">.</font><b><font color="#000000">test</font></b><font color="#990000">();</font>
+    <b><font color="#0000FF">auto</font></b> l1 <font color="#990000">=</font> <font color="#990000">[]()</font>
+    <font color="#FF0000">{</font>
+        std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> __PRETTY_FUNCTION__ <font color="#990000">&lt;&lt;</font> <font color="#FF0000">'</font><font color="#CC33CC">\n</font><font color="#FF0000">'</font><font color="#990000">;</font>
+    <font color="#FF0000">}</font><font color="#990000">;</font>
+    <font color="#008080">F</font> <b><font color="#000000">f4</font></b><font color="#990000">(</font>l1<font color="#990000">);</font>
+    f4<font color="#990000">.</font><b><font color="#000000">test</font></b><font color="#990000">();</font>
+<font color="#FF0000">}</font>
+
+</tt></pre>

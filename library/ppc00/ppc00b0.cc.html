@@ -1,0 +1,37 @@
+<!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><i><font color="#9A1900">/*</font></i>
+<i><font color="#9A1900"> * ++C - C++ introduction</font></i>
+<i><font color="#9A1900"> * Copyright (C) 2013, 2014, 2015, 2016, 2017 Wilhelm Meier </font></i><u><font color="#0000FF">&lt;wilhelm.meier@hs-kl.de&gt;</font></u>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is free software: you can redistribute it and/or modify</font></i>
+<i><font color="#9A1900"> * it under the terms of the GNU General Public License as published by</font></i>
+<i><font color="#9A1900"> * the Free Software Foundation, either version 3 of the License, or</font></i>
+<i><font color="#9A1900"> * (at your option) any later version.</font></i>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is distributed in the hope that it will be useful,</font></i>
+<i><font color="#9A1900"> * but WITHOUT ANY WARRANTY; without even the implied warranty of</font></i>
+<i><font color="#9A1900"> * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</font></i>
+<i><font color="#9A1900"> * GNU General Public License for more details.</font></i>
+<i><font color="#9A1900"> * You should have received a copy of the GNU General Public License</font></i>
+<i><font color="#9A1900"> * along with this program.  If not, see </font></i><u><font color="#0000FF">&lt;http://www.gnu.org/licenses/&gt;</font></u><i><font color="#9A1900">.</font></i>
+<i><font color="#9A1900"> */</font></i>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font> <i><font color="#9A1900">// &lt;&gt; Präprozessor `include`-Anweisung, damit die Ausgabe möglich ist</font></i>
+<b><font color="#0000FF">class</font></b> <font color="#008080">Hello</font>   <i><font color="#9A1900">// &lt;&gt; Beginn der Klassendefinition</font></i>
+<font color="#FF0000">{</font>
+<b><font color="#0000FF">public</font></b><font color="#990000">:</font>       <i><font color="#9A1900">// &lt;&gt; Beginn der `public`-Sektion</font></i>
+    <b><font color="#0000FF">static</font></b> <font color="#009900">void</font> <b><font color="#000000">main</font></b><font color="#990000">()</font>   <i><font color="#9A1900">// &lt;&gt; Definition der Klassenmethode `void main()` (statische Elementfunktion)</font></i>
+    <font color="#FF0000">{</font>
+        std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"Hallo Welt</font><font color="#CC33CC">\n</font><font color="#FF0000">"</font><font color="#990000">;</font> <i><font color="#9A1900">// &lt;&gt; Ausgabe mit Hilfe des sog. Ausgabe-Operators `&lt;&lt;`</font></i>
+    <font color="#FF0000">}</font>
+<font color="#FF0000">}</font><font color="#990000">;</font> <i><font color="#9A1900">// &lt;&gt; das *Semikolon* ist hier *ganz wichtig*!!!</font></i>
+<b><font color="#000080">#ifndef</font></b> NO_MAIN <i><font color="#9A1900">// &lt;&gt; Präprozessoranweisung (nur zu Demonstrationszwecken)</font></i>
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font>   <i><font color="#9A1900">// &lt;&gt; *Jedes* Programm beginnt in der freien Funktion `int main()`</font></i>
+<font color="#FF0000">{</font>
+    Hello<font color="#990000">::</font><b><font color="#000000">main</font></b><font color="#990000">();</font> <i><font color="#9A1900">// &lt;&gt; Aufruf der Klassenmethode (statische Elementfunktion) `void main()` aus der Klasse `Hello`</font></i>
+<font color="#FF0000">}</font>
+<b><font color="#000080">#endif</font></b> <i><font color="#9A1900">// &lt;&gt; gehört zu `#ifndef` von oben</font></i>
+
+</tt></pre>

@@ -1,0 +1,44 @@
+<!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><i><font color="#9A1900">/*</font></i>
+<i><font color="#9A1900"> * ++C - C++ introduction</font></i>
+<i><font color="#9A1900"> * Copyright (C) 2013, 2014, 2015, 2016, 2017 Wilhelm Meier </font></i><u><font color="#0000FF">&lt;wilhelm.meier@hs-kl.de&gt;</font></u>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is free software: you can redistribute it and/or modify</font></i>
+<i><font color="#9A1900"> * it under the terms of the GNU General Public License as published by</font></i>
+<i><font color="#9A1900"> * the Free Software Foundation, either version 3 of the License, or</font></i>
+<i><font color="#9A1900"> * (at your option) any later version.</font></i>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is distributed in the hope that it will be useful,</font></i>
+<i><font color="#9A1900"> * but WITHOUT ANY WARRANTY; without even the implied warranty of</font></i>
+<i><font color="#9A1900"> * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</font></i>
+<i><font color="#9A1900"> * GNU General Public License for more details.</font></i>
+<i><font color="#9A1900"> * You should have received a copy of the GNU General Public License</font></i>
+<i><font color="#9A1900"> * along with this program.  If not, see </font></i><u><font color="#0000FF">&lt;http://www.gnu.org/licenses/&gt;</font></u><i><font color="#9A1900">.</font></i>
+<i><font color="#9A1900"> */</font></i>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font> <i><font color="#9A1900">// &lt;&gt; Notwendig, damit man `std::cout &lt;&lt; "ausgabe"` schreiben kann</font></i>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;vector&gt;</font>   <i><font color="#9A1900">// &lt;&gt; Notwendig, damit man den _generischen_ Typ `std::vector&lt;T&gt;` verwenden kann</font></i>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;string&gt;</font>   <i><font color="#9A1900">// &lt;&gt; Notwendig, damit man den Typ `std::string` verwenden kann.</font></i>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iterator&gt;</font>
+<b><font color="#0000FF">class</font></b> <font color="#008080">Hello</font>
+<font color="#FF0000">{</font>
+<b><font color="#0000FF">public</font></b><font color="#990000">:</font>
+    <b><font color="#0000FF">static</font></b> <font color="#009900">void</font> <b><font color="#000000">main</font></b><font color="#990000">(</font>std<font color="#990000">::</font><font color="#008080">vector&lt;std::string&gt;</font> arguments<font color="#990000">)</font>   <i><font color="#9A1900">// &lt;&gt; `arguments` ist Parametervariable der Funktion</font></i>
+    <font color="#FF0000">{</font>
+        std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"Hallo C++-Welt"</font> <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font> <i><font color="#9A1900">// &lt;&gt; Ausgabe eines C-Strings</font></i>
+        <b><font color="#0000FF">for</font></b><font color="#990000">(</font>std<font color="#990000">::</font><font color="#008080">string</font> s<font color="#990000">:</font> arguments<font color="#990000">)</font>   <i><font color="#9A1900">// &lt;&gt; *Container-for-loop* (_range-based_-`for`) über den Container `arguments`</font></i>
+        <font color="#FF0000">{</font>
+            std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> s <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font> <i><font color="#9A1900">// &lt;&gt; Ausgabe von `s` mit Zeilenvorschub</font></i>
+        <font color="#FF0000">}</font>
+    <font color="#FF0000">}</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">(</font><font color="#009900">int</font> argc<font color="#990000">,</font> <b><font color="#0000FF">const</font></b> <font color="#009900">char</font><font color="#990000">**</font> argv<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    std<font color="#990000">::</font><font color="#008080">vector&lt;std::string&gt;</font> args<font color="#990000">;</font>
+    std<font color="#990000">::</font><b><font color="#000000">copy</font></b><font color="#990000">(</font>argv<font color="#990000">,</font> argv <font color="#990000">+</font> argc<font color="#990000">,</font> std<font color="#990000">::</font><b><font color="#000000">back_inserter</font></b><font color="#990000">(</font>args<font color="#990000">));</font>
+    Hello<font color="#990000">::</font><b><font color="#000000">main</font></b><font color="#990000">(</font>args<font color="#990000">);</font> <i><font color="#9A1900">// &lt;&gt; Aufruf der statischen Elementfunktion(Klassenmethode) `main(...)` der Klasse `Hello`</font></i>
+<font color="#FF0000">}</font>
+
+</tt></pre>

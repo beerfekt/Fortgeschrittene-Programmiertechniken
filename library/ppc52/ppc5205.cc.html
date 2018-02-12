@@ -1,0 +1,97 @@
+<!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><i><font color="#9A1900">/*</font></i>
+<i><font color="#9A1900"> * ++C - C++ introduction</font></i>
+<i><font color="#9A1900"> * Copyright (C) 2013, 2014, 2015, 2016, 2017 Wilhelm Meier </font></i><u><font color="#0000FF">&lt;wilhelm.meier@hs-kl.de&gt;</font></u>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is free software: you can redistribute it and/or modify</font></i>
+<i><font color="#9A1900"> * it under the terms of the GNU General Public License as published by</font></i>
+<i><font color="#9A1900"> * the Free Software Foundation, either version 3 of the License, or</font></i>
+<i><font color="#9A1900"> * (at your option) any later version.</font></i>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is distributed in the hope that it will be useful,</font></i>
+<i><font color="#9A1900"> * but WITHOUT ANY WARRANTY; without even the implied warranty of</font></i>
+<i><font color="#9A1900"> * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</font></i>
+<i><font color="#9A1900"> * GNU General Public License for more details.</font></i>
+
+<i><font color="#9A1900"> * You should have received a copy of the GNU General Public License</font></i>
+<i><font color="#9A1900"> * along with this program.  If not, see </font></i><u><font color="#0000FF">&lt;http://www.gnu.org/licenses/&gt;</font></u><i><font color="#9A1900">.</font></i>
+<i><font color="#9A1900"> */</font></i>
+<b><font color="#000080">#if</font></b> <b><font color="#000000">__has_include</font></b><font color="#990000">(</font><font color="#FF0000">"../ppc.h"</font><font color="#990000">)</font>
+<b><font color="#000080"># include</font></b> <font color="#FF0000">"../ppc.h"</font>
+<b><font color="#000080">#endif</font></b>
+<b><font color="#000080">#ifndef</font></b> _MSC_VER
+<b><font color="#000080"># pragma</font></b> GCC <font color="#008080">diagnostic</font> ignored <font color="#FF0000">"-Wunused-variable"</font>
+<b><font color="#000080">#endif</font></b>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;vector&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;array&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;algorithm&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;limits&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;cassert&gt;</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">First</font><font color="#990000">,</font> <b><font color="#0000FF">typename</font></b><font color="#990000">...</font> P<font color="#990000">&gt;</font>
+<font color="#008080">First</font> <b><font color="#000000">sum1</font></b><font color="#990000">(</font><font color="#008080">First</font> f<font color="#990000">,</font> P<font color="#990000">...</font> tail<font color="#990000">)</font>   <i><font color="#9A1900">// &lt;&gt; Problematisch, da ggf. ein _leerer_ Parameter-Pack resultiert</font></i>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">auto</font></b> tailSum <font color="#990000">=</font> <font color="#990000">(</font>tail <font color="#990000">+</font> <font color="#990000">...);</font> <i><font color="#9A1900">// &lt;&gt; Rechsseitige Faltung = `(t#1 + ... + (t#N-2 + (t#N-1 + t#N)))`</font></i>
+    <b><font color="#0000FF">return</font></b> f <font color="#990000">+</font> tailSum<font color="#990000">;</font>
+<font color="#FF0000">}</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">First</font><font color="#990000">,</font> <b><font color="#0000FF">typename</font></b><font color="#990000">...</font> P<font color="#990000">&gt;</font>
+<font color="#008080">First</font> <b><font color="#000000">sum2</font></b><font color="#990000">(</font><font color="#008080">First</font> f<font color="#990000">,</font> P<font color="#990000">...</font> tail<font color="#990000">)</font>   <i><font color="#9A1900">// &lt;&gt; Problematisch, da ggf. ein _leerer_ Parameter-Pack resultiert</font></i>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">auto</font></b> tailSum <font color="#990000">=</font> <font color="#990000">(...</font> <font color="#990000">+</font> tail<font color="#990000">);</font> <i><font color="#9A1900">// &lt;&gt; Linksseitige Faltung = `(((t#1 + t#2) + t#3) + ... + t#N)`</font></i>
+    <b><font color="#0000FF">return</font></b> f <font color="#990000">+</font> tailSum<font color="#990000">;</font>
+<font color="#FF0000">}</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">First</font><font color="#990000">,</font> <b><font color="#0000FF">typename</font></b><font color="#990000">...</font> P<font color="#990000">&gt;</font>
+<font color="#008080">First</font> <b><font color="#000000">sum3</font></b><font color="#990000">(</font><font color="#008080">First</font> f<font color="#990000">,</font> P<font color="#990000">...</font> tail<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">return</font></b> <font color="#990000">(</font>f <font color="#990000">+</font> <font color="#990000">...</font> <font color="#990000">+</font> tail<font color="#990000">);</font> <i><font color="#9A1900">// &lt;&gt; Linksseitige Faltung mit Initialisierung, dadurch ist auch ein _leerer_ Parameter-Pack möglich</font></i>
+<font color="#FF0000">}</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">First</font><font color="#990000">,</font> <b><font color="#0000FF">typename</font></b><font color="#990000">...</font> P<font color="#990000">&gt;</font>
+<font color="#008080">First</font> <b><font color="#000000">maximum</font></b><font color="#990000">(</font><font color="#008080">First</font> f<font color="#990000">,</font> P<font color="#990000">...</font> tail<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <font color="#008080">First</font> maxSoFar <font color="#990000">=</font> f<font color="#990000">;</font>
+    <font color="#990000">((</font>maxSoFar <font color="#990000">=</font> maxSoFar <font color="#990000">&gt;</font> tail <font color="#990000">?</font> maxSoFar <font color="#990000">:</font> tail<font color="#990000">),...);</font> <i><font color="#9A1900">//&lt;&gt; Rechtsseitige Faltung mit dem Komma-Operator</font></i>
+    <b><font color="#0000FF">return</font></b> maxSoFar<font color="#990000">;</font>
+<font color="#FF0000">}</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">First</font><font color="#990000">,</font> <b><font color="#0000FF">typename</font></b><font color="#990000">...</font> P<font color="#990000">&gt;</font>
+<font color="#008080">First</font> <b><font color="#000000">maximum2</font></b><font color="#990000">(</font><font color="#008080">First</font> f<font color="#990000">,</font> P<font color="#990000">...</font> tail<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <font color="#008080">First</font> maxSoFar <font color="#990000">=</font> f<font color="#990000">;</font>
+    <font color="#990000">((</font>maxSoFar <font color="#990000">=</font> std<font color="#990000">::</font><b><font color="#000000">max</font></b><font color="#990000">(</font>maxSoFar<font color="#990000">,</font> tail<font color="#990000">)),...);</font> <i><font color="#9A1900">//&lt;&gt; Rechtsseitige Faltung mit dem Komma-Operator</font></i>
+    <b><font color="#0000FF">return</font></b> maxSoFar<font color="#990000">;</font>
+<font color="#FF0000">}</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">First</font><font color="#990000">,</font> <b><font color="#0000FF">typename</font></b><font color="#990000">...</font> P<font color="#990000">&gt;</font>
+<font color="#008080">First</font> <b><font color="#000000">last</font></b><font color="#990000">(</font><font color="#008080">First</font> f<font color="#990000">,</font> P<font color="#990000">...</font> tail<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">return</font></b> <font color="#990000">(</font>f<font color="#990000">,</font> <font color="#990000">...,</font> tail<font color="#990000">);</font>  <i><font color="#9A1900">//&lt;&gt; Linksseitige Faltung über den Komma-Operator ergibt das letzte Element der Expansion (Achtung: Warnungen vom Compiler)</font></i>
+<font color="#FF0000">}</font>
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">auto</font></b> max <font color="#990000">=</font> <b><font color="#000000">maximum</font></b><font color="#990000">(</font><font color="#993399">1</font><font color="#990000">,</font> <font color="#993399">3</font><font color="#990000">,</font> <font color="#993399">5</font><font color="#990000">);</font>
+    <b><font color="#000000">assert</font></b><font color="#990000">(</font>max <font color="#990000">==</font> <font color="#993399">5</font><font color="#990000">);</font>
+    <b><font color="#0000FF">auto</font></b> max1 <font color="#990000">=</font> <b><font color="#000000">maximum</font></b><font color="#990000">(</font><font color="#993399">1</font><font color="#990000">);</font>
+    <b><font color="#000000">assert</font></b><font color="#990000">(</font>max1 <font color="#990000">==</font> <font color="#993399">1</font><font color="#990000">);</font>
+
+    <b><font color="#0000FF">auto</font></b> max2 <font color="#990000">=</font> <b><font color="#000000">maximum2</font></b><font color="#990000">(</font><font color="#993399">1</font><font color="#990000">,</font> <font color="#993399">3</font><font color="#990000">,</font> <font color="#993399">5</font><font color="#990000">);</font>
+    <b><font color="#000000">assert</font></b><font color="#990000">(</font>max2 <font color="#990000">==</font> <font color="#993399">5</font><font color="#990000">);</font>
+    max2 <font color="#990000">=</font> <b><font color="#000000">maximum2</font></b><font color="#990000">(</font><font color="#993399">1</font><font color="#990000">);</font>
+    <b><font color="#0000FF">auto</font></b> s <font color="#990000">=</font> <b><font color="#000000">sum1</font></b><font color="#990000">(</font><font color="#993399">1</font><font color="#990000">,</font> <font color="#993399">3</font><font color="#990000">,</font> <font color="#993399">5</font><font color="#990000">);</font>
+    <b><font color="#000000">assert</font></b><font color="#990000">(</font>s <font color="#990000">==</font> <font color="#993399">9</font><font color="#990000">);</font>
+<b><font color="#000080">#if</font></b> <font color="#993399">0</font>
+    <b><font color="#000000">sum1</font></b><font color="#990000">(</font><font color="#993399">1</font><font color="#990000">);</font> <i><font color="#9A1900">// &lt;&gt; nicht möglich, da hier ein _leerer_ Parameter-Pack entsteht, über den nicht gefaltet werden kann</font></i>
+    <b><font color="#000000">sum2</font></b><font color="#990000">(</font><font color="#993399">1</font><font color="#990000">);</font>
+<b><font color="#000080">#endif</font></b>
+    <b><font color="#0000FF">auto</font></b> x <font color="#990000">=</font> <b><font color="#000000">sum3</font></b><font color="#990000">(</font><font color="#993399">1</font><font color="#990000">);</font> <i><font color="#9A1900">// &lt;&gt; besser</font></i>
+
+    <b><font color="#0000FF">auto</font></b> s2 <font color="#990000">=</font> <b><font color="#000000">sum2</font></b><font color="#990000">(</font><font color="#993399">1</font><font color="#990000">,</font> <font color="#993399">3</font><font color="#990000">,</font> <font color="#993399">5</font><font color="#990000">);</font>
+    <b><font color="#000000">assert</font></b><font color="#990000">(</font>s2 <font color="#990000">==</font> <font color="#993399">9</font><font color="#990000">);</font>
+    <b><font color="#0000FF">auto</font></b> s3 <font color="#990000">=</font> <b><font color="#000000">sum3</font></b><font color="#990000">(</font><font color="#993399">1</font><font color="#990000">,</font> <font color="#993399">3</font><font color="#990000">,</font> <font color="#993399">5</font><font color="#990000">,</font> <font color="#993399">3</font><font color="#990000">,</font> <font color="#993399">1</font><font color="#990000">);</font>
+    <b><font color="#000000">assert</font></b><font color="#990000">(</font>s3 <font color="#990000">==</font> <font color="#993399">13</font><font color="#990000">);</font>
+    <b><font color="#0000FF">auto</font></b> l1 <font color="#990000">=</font> <b><font color="#000000">last</font></b><font color="#990000">(</font><font color="#993399">1</font><font color="#990000">,</font> <font color="#993399">3</font><font color="#990000">,</font> <font color="#993399">5</font><font color="#990000">,</font> <font color="#993399">4</font><font color="#990000">);</font>
+    <b><font color="#000000">assert</font></b><font color="#990000">(</font>l1 <font color="#990000">==</font> <font color="#993399">4</font><font color="#990000">);</font>
+    <b><font color="#0000FF">auto</font></b> l2 <font color="#990000">=</font> <b><font color="#000000">last</font></b><font color="#990000">(</font><font color="#993399">1</font><font color="#990000">);</font>
+    <b><font color="#000000">assert</font></b><font color="#990000">(</font>l2 <font color="#990000">==</font> <font color="#993399">1</font><font color="#990000">);</font>
+<font color="#FF0000">}</font>
+
+</tt></pre>

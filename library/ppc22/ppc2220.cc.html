@@ -1,0 +1,48 @@
+<!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><i><font color="#9A1900">/*</font></i>
+<i><font color="#9A1900"> * ++C - C++ introduction</font></i>
+<i><font color="#9A1900"> * Copyright (C) 2013, 2014, 2015, 2016, 2017 Wilhelm Meier </font></i><u><font color="#0000FF">&lt;wilhelm.meier@hs-kl.de&gt;</font></u>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is free software: you can redistribute it and/or modify</font></i>
+<i><font color="#9A1900"> * it under the terms of the GNU General Public License as published by</font></i>
+<i><font color="#9A1900"> * the Free Software Foundation, either version 3 of the License, or</font></i>
+<i><font color="#9A1900"> * (at your option) any later version.</font></i>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is distributed in the hope that it will be useful,</font></i>
+<i><font color="#9A1900"> * but WITHOUT ANY WARRANTY; without even the implied warranty of</font></i>
+<i><font color="#9A1900"> * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</font></i>
+<i><font color="#9A1900"> * GNU General Public License for more details.</font></i>
+<i><font color="#9A1900"> * You should have received a copy of the GNU General Public License</font></i>
+<i><font color="#9A1900"> * along with this program.  If not, see </font></i><u><font color="#0000FF">&lt;http://www.gnu.org/licenses/&gt;</font></u><i><font color="#9A1900">.</font></i>
+<i><font color="#9A1900"> */</font></i>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<font color="#009900">void</font> <b><font color="#000000">f</font></b><font color="#990000">()</font>
+<font color="#FF0000">{</font>
+    std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> __PRETTY_FUNCTION__ <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font>
+<font color="#FF0000">}</font>
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font>
+<font color="#FF0000">{</font>
+    std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> f <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font> <i><font color="#9A1900">// &lt;&gt; Es gibt keine passende Überladung des Ausgabe-Operators für diesen Funktionszeigertyp, so daß die nächste Konvertierung die nach `bool`, was als `1` ausgegeben wird.</font></i>
+    std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> <b><font color="#0000FF">reinterpret_cast</font></b><font color="#990000">&lt;</font><font color="#009900">void</font><font color="#990000">*&gt;(</font>f<font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font> <i><font color="#9A1900">// &lt;&gt; Um den Zeigerwert auszugeben, muss man den Typ auf `void*` konvertieren.</font></i>
+    std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> <b><font color="#0000FF">reinterpret_cast</font></b><font color="#990000">&lt;</font><font color="#009900">void</font><font color="#990000">*&gt;(&amp;</font>f<font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font> <i><font color="#9A1900">// &lt;&gt; Dies ist die _konsequente_ Notation für die obige Zeile.</font></i>
+    <b><font color="#000000">f</font></b><font color="#990000">();</font> <i><font color="#9A1900">// &lt;&gt; Der _Aufruf_-Operator ist auf Funktion-_Bezeichner_ anwendbar.</font></i>
+    <font color="#990000">(*</font>f<font color="#990000">)();</font> <i><font color="#9A1900">// &lt;&gt; Wegen der impliziten Wandlung einer _Funktion_ in einen _Zeiger-auf-Funktion_ geht auch dies.</font></i>
+    <font color="#990000">(**</font>f<font color="#990000">)();</font> <i><font color="#9A1900">// &lt;&gt; ... auch dies geht (per Definition)!</font></i>
+    <font color="#990000">(&amp;</font>f<font color="#990000">)();</font> <i><font color="#9A1900">// &lt;&gt; Der Adress-Operator kann auch auf _Funktionen_ angewendet werden: auf den resultierenden _Zeiger-auf-Funktion_ kann auch der _Aufruf_-Operator angewendet werden.</font></i>
+<i><font color="#9A1900">//    (&amp;&amp;f)(); // &lt;&gt; Geht nicht, da &amp;f() ein rvalue liefert.</font></i>
+    <font color="#009900">void</font> <font color="#990000">(*</font>p<font color="#990000">)()</font> <font color="#FF0000">{}</font><font color="#990000">;</font> <i><font color="#9A1900">// &lt;&gt; Initialisieung mit `nullptr`.</font></i>
+    p <font color="#990000">=</font> f<font color="#990000">;</font> <i><font color="#9A1900">// &lt;&gt; `p` wird die Adresse von `f` zugeweisen: implizite Wandlung von _Funktion_  zu _Zeiger-auf-Funktion_.</font></i>
+    p <font color="#990000">=</font> <font color="#990000">&amp;</font>f<font color="#990000">;</font> <i><font color="#9A1900">// &lt;&gt; wie oben, allerdings _ohne_ die implizite Wandlung!</font></i>
+    std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> p <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font> <i><font color="#9A1900">// &lt;&gt; Es gibt keine Überladung: s.o.</font></i>
+    std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> <b><font color="#0000FF">reinterpret_cast</font></b><font color="#990000">&lt;</font><font color="#009900">void</font><font color="#990000">*&gt;(</font>p<font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font> <i><font color="#9A1900">// &lt;&gt; So kann man den Adresswert in der Variablen `p` ausgeben.</font></i>
+    std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> <b><font color="#0000FF">reinterpret_cast</font></b><font color="#990000">&lt;</font><font color="#009900">void</font><font color="#990000">*&gt;(&amp;</font>p<font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font> <i><font color="#9A1900">// &lt;&gt; *Achtung*: dies ist nun die Ausgabe der Adresse der *Variablen* `p`!</font></i>
+    <b><font color="#000000">p</font></b><font color="#990000">();</font>
+    <font color="#990000">(*</font>p<font color="#990000">)();</font>
+    <font color="#990000">(**</font>p<font color="#990000">)();</font>
+<i><font color="#9A1900">//    (&amp;p)(); // nicht möglich</font></i>
+<font color="#FF0000">}</font>
+
+</tt></pre>

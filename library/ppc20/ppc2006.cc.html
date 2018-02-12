@@ -1,0 +1,41 @@
+<!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><i><font color="#9A1900">/*</font></i>
+<i><font color="#9A1900"> * ++C - C++ introduction</font></i>
+<i><font color="#9A1900"> * Copyright (C) 2013, 2014, 2015, 2016, 2017 Wilhelm Meier </font></i><u><font color="#0000FF">&lt;wilhelm.meier@hs-kl.de&gt;</font></u>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is free software: you can redistribute it and/or modify</font></i>
+<i><font color="#9A1900"> * it under the terms of the GNU General Public License as published by</font></i>
+<i><font color="#9A1900"> * the Free Software Foundation, either version 3 of the License, or</font></i>
+<i><font color="#9A1900"> * (at your option) any later version.</font></i>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is distributed in the hope that it will be useful,</font></i>
+<i><font color="#9A1900"> * but WITHOUT ANY WARRANTY; without even the implied warranty of</font></i>
+<i><font color="#9A1900"> * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</font></i>
+<i><font color="#9A1900"> * GNU General Public License for more details.</font></i>
+<i><font color="#9A1900"> * You should have received a copy of the GNU General Public License</font></i>
+<i><font color="#9A1900"> * along with this program.  If not, see </font></i><u><font color="#0000FF">&lt;http://www.gnu.org/licenses/&gt;</font></u><i><font color="#9A1900">.</font></i>
+<i><font color="#9A1900"> */</font></i>
+<b><font color="#000080">#if</font></b> <b><font color="#000000">__has_include</font></b><font color="#990000">(</font><font color="#FF0000">"../ppc.h"</font><font color="#990000">)</font>
+<b><font color="#000080"># include</font></b> <font color="#FF0000">"../ppc.h"</font>
+<b><font color="#000080">#endif</font></b>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">"templates.h"</font> <i><font color="#9A1900">// &lt;&gt; Inklusion der Template-Definitionen</font></i>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">"integer.h"</font> <i><font color="#9A1900">// &lt;&gt; Deklaration der Klasse `Integer`</font></i>
+<b><font color="#000080">#ifndef</font></b> _MSC_VER
+<b><font color="#000080"># pragma</font></b> GCC <font color="#008080">diagnostic</font> ignored <font color="#FF0000">"-Wunused-variable"</font>
+<b><font color="#000080"># ifndef</font></b> __clang__
+<b><font color="#000080">#  pragma</font></b> GCC <font color="#008080">diagnostic</font> ignored <font color="#FF0000">"-Wunused-but-set-variable"</font>
+<b><font color="#000080"># endif</font></b>
+<b><font color="#000080">#endif</font></b>
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font>
+<font color="#FF0000">{</font>
+    <font color="#008080">Integer</font> i1 <font color="#990000">=</font> <font color="#993399">1</font><font color="#990000">;</font>
+    <font color="#008080">Integer</font> i2 <font color="#990000">=</font> <font color="#993399">2</font><font color="#990000">;</font>
+    <font color="#008080">Integer</font> i3 <font color="#990000">=</font> <b><font color="#000000">maximum</font></b><font color="#990000">(</font>i1<font color="#990000">,</font> i2<font color="#990000">);</font> <i><font color="#9A1900">// &lt;&gt; *Implizite* Instanziierung mit der Typableitung: `T` -&gt; `Integer`</font></i>
+    <font color="#008080">Integer</font> i4 <font color="#990000">=</font> <font color="#008080">minimum&lt;Integer&gt;(i1, i2); // &lt;&gt;</font> <font color="#990000">*</font>Explizite<font color="#990000">*</font> Instanziierung<font color="#990000">:</font> `T` <font color="#990000">-&gt;</font> `Integer`
+    <font color="#009900">double</font> d <font color="#990000">=</font> maximum<font color="#990000">&lt;</font><font color="#009900">double</font><font color="#990000">&gt;(</font><font color="#993399">1</font><font color="#990000">,</font> <font color="#993399">2</font><font color="#990000">);</font> <i><font color="#9A1900">// &lt;&gt; Explizite Instanziierung: `T` -&gt; `double`. Beachte: bei der Parameterübergabe findet noch eine Typkonvertierung von `int` -&gt; `double` statt.</font></i>
+<font color="#FF0000">}</font>
+
+</tt></pre>

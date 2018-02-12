@@ -1,0 +1,384 @@
+<!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><i><font color="#9A1900">/*</font></i>
+<i><font color="#9A1900"> * ++C - C++ introduction</font></i>
+<i><font color="#9A1900"> * Copyright (C) 2013, 2014, 2015, 2016, 2017 Wilhelm Meier </font></i><u><font color="#0000FF">&lt;wilhelm.meier@hs-kl.de&gt;</font></u>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is free software: you can redistribute it and/or modify</font></i>
+<i><font color="#9A1900"> * it under the terms of the GNU General Public License as published by</font></i>
+<i><font color="#9A1900"> * the Free Software Foundation, either version 3 of the License, or</font></i>
+<i><font color="#9A1900"> * (at your option) any later version.</font></i>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is distributed in the hope that it will be useful,</font></i>
+<i><font color="#9A1900"> * but WITHOUT ANY WARRANTY; without even the implied warranty of</font></i>
+<i><font color="#9A1900"> * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</font></i>
+<i><font color="#9A1900"> * GNU General Public License for more details.</font></i>
+<i><font color="#9A1900"> * You should have received a copy of the GNU General Public License</font></i>
+<i><font color="#9A1900"> * along with this program.  If not, see </font></i><u><font color="#0000FF">&lt;http://www.gnu.org/licenses/&gt;</font></u><i><font color="#9A1900">.</font></i>
+<i><font color="#9A1900"> */</font></i>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">"point53.h"</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">"../lib/simpletest.h"</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">"math.h"</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;cassert&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;cmath&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;sstream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;algorithm&gt;</font>
+<font color="#009900">bool</font> <b><font color="#0000FF">operator</font></b><font color="#990000">==(</font><b><font color="#0000FF">const</font></b> Point<font color="#990000">&amp;</font> p1<font color="#990000">,</font> <b><font color="#0000FF">const</font></b> Point<font color="#990000">&amp;</font> p2<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">return</font></b> <font color="#990000">(</font>Math<font color="#990000">::</font><b><font color="#000000">equal</font></b><font color="#990000">(</font>p1<font color="#990000">.</font>mX<font color="#990000">,</font> p2<font color="#990000">.</font>mX<font color="#990000">)</font> <font color="#990000">&amp;&amp;</font> Math<font color="#990000">::</font><b><font color="#000000">equal</font></b><font color="#990000">(</font>p1<font color="#990000">.</font>mY<font color="#990000">,</font> p2<font color="#990000">.</font>mY<font color="#990000">));</font>
+<font color="#FF0000">}</font>
+<font color="#009900">bool</font> <b><font color="#0000FF">operator</font></b><font color="#990000">!=(</font><b><font color="#0000FF">const</font></b> Point<font color="#990000">&amp;</font> p1<font color="#990000">,</font> <b><font color="#0000FF">const</font></b> Point<font color="#990000">&amp;</font> p2<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">return</font></b> <font color="#990000">!(</font>p1 <font color="#990000">==</font> p2<font color="#990000">);</font>
+<font color="#FF0000">}</font>
+std<font color="#990000">::</font>ostream<font color="#990000">&amp;</font> <b><font color="#0000FF">operator</font></b><font color="#990000">&lt;&lt;(</font>std<font color="#990000">::</font>ostream<font color="#990000">&amp;</font> outputStream<font color="#990000">,</font> <b><font color="#0000FF">const</font></b> Point<font color="#990000">&amp;</font> p<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    outputStream <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"Point["</font> <font color="#990000">&lt;&lt;</font> p<font color="#990000">.</font>mSNR <font color="#990000">&lt;&lt;</font> <font color="#FF0000">","</font> <font color="#990000">&lt;&lt;</font> p<font color="#990000">.</font>mX <font color="#990000">&lt;&lt;</font> <font color="#FF0000">","</font> <font color="#990000">&lt;&lt;</font> p<font color="#990000">.</font>mY <font color="#990000">&lt;&lt;</font> <font color="#FF0000">","</font> <font color="#990000">&lt;&lt;</font> p<font color="#990000">.</font>mColor <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"]"</font><font color="#990000">;</font>
+    <b><font color="#0000FF">return</font></b> outputStream<font color="#990000">;</font>
+<font color="#FF0000">}</font>
+<font color="#009900">double</font> <b><font color="#0000FF">operator</font></b><font color="#990000">-(</font><b><font color="#0000FF">const</font></b> Point<font color="#990000">&amp;</font> a<font color="#990000">,</font> <b><font color="#0000FF">const</font></b> Point<font color="#990000">&amp;</font> b<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">return</font></b> std<font color="#990000">::</font><b><font color="#000000">hypot</font></b><font color="#990000">(</font>a<font color="#990000">.</font>mX <font color="#990000">-</font> b<font color="#990000">.</font>mX<font color="#990000">,</font> a<font color="#990000">.</font>mY <font color="#990000">-</font> b<font color="#990000">.</font>mY<font color="#990000">);</font>
+<font color="#FF0000">}</font>
+<font color="#009900">double</font> <b><font color="#000000">distance</font></b><font color="#990000">(</font><b><font color="#0000FF">const</font></b> Point<font color="#990000">&amp;</font> a<font color="#990000">,</font> <b><font color="#0000FF">const</font></b> Point<font color="#990000">&amp;</font> b<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <font color="#009900">double</font> dx <font color="#990000">=</font> a<font color="#990000">.</font><b><font color="#000000">getX</font></b><font color="#990000">()</font> <font color="#990000">-</font> b<font color="#990000">.</font><b><font color="#000000">getX</font></b><font color="#990000">();</font>
+    <font color="#009900">double</font> dy <font color="#990000">=</font> a<font color="#990000">.</font><b><font color="#000000">getY</font></b><font color="#990000">()</font> <font color="#990000">-</font> b<font color="#990000">.</font><b><font color="#000000">getY</font></b><font color="#990000">();</font>
+    <b><font color="#0000FF">return</font></b> std<font color="#990000">::</font><b><font color="#000000">hypot</font></b><font color="#990000">(</font>dx<font color="#990000">,</font> dy<font color="#990000">);</font>
+<font color="#FF0000">}</font>
+Point<font color="#990000">::</font><b><font color="#000000">Point</font></b><font color="#990000">(</font><font color="#009900">double</font> x<font color="#990000">,</font> <font color="#009900">double</font> y<font color="#990000">,</font> <b><font color="#0000FF">const</font></b> std<font color="#990000">::</font>string<font color="#990000">&amp;</font> color<font color="#990000">)</font> <font color="#990000">:</font> <i><font color="#9A1900">// &lt;&gt; Dieser _private_ Konstruktor übernimmt die Initialiserung der Datenelemente. Er ist wegen der unspezifischen `double`-Parameter nur zur _Delegation_ in der Klasse selbst bestimmt.</font></i>
+    <b><font color="#000000">mX</font></b><font color="#990000">(</font>x<font color="#990000">),</font> <b><font color="#000000">mY</font></b><font color="#990000">(</font>y<font color="#990000">),</font> <b><font color="#000000">mColor</font></b><font color="#990000">(</font>color<font color="#990000">),</font>
+    <b><font color="#000000">mSNR</font></b><font color="#990000">(++</font>mObjectCounter<font color="#990000">)</font> <i><font color="#9A1900">// &lt;&gt; Der _zentrale_ Algorithmus für die Generierung der Seriennummer</font></i>
+<font color="#FF0000">{</font>
+<font color="#FF0000">}</font>
+Point<font color="#990000">::</font><b><font color="#000000">Point</font></b><font color="#990000">(</font><font color="#008080">XCoor</font> x<font color="#990000">,</font> <font color="#008080">YCoor</font> y<font color="#990000">)</font> <font color="#990000">:</font> <b><font color="#000000">Point</font></b><font color="#990000">(</font>x<font color="#990000">.</font>mValue<font color="#990000">,</font> y<font color="#990000">.</font>mValue<font color="#990000">)</font> <i><font color="#9A1900">// &lt;&gt; Delegation an den _privaten_ Konstruktor</font></i>
+<font color="#FF0000">{</font>
+<font color="#FF0000">}</font>
+Point<font color="#990000">::</font><b><font color="#000000">Point</font></b><font color="#990000">(</font><font color="#008080">Radius</font> r<font color="#990000">,</font> <font color="#008080">Angle</font> phi<font color="#990000">)</font> <font color="#990000">:</font> <b><font color="#000000">Point</font></b><font color="#990000">(</font>r<font color="#990000">.</font>mValue <font color="#990000">*</font> std<font color="#990000">::</font><b><font color="#000000">cos</font></b><font color="#990000">(</font>phi<font color="#990000">.</font>mRadiant<font color="#990000">),</font> r<font color="#990000">.</font>mValue <font color="#990000">*</font> std<font color="#990000">::</font><b><font color="#000000">sin</font></b><font color="#990000">(</font>phi<font color="#990000">.</font>mRadiant<font color="#990000">))</font> <i><font color="#9A1900">// &lt;&gt; Delegation an den _privaten_ Konstruktor</font></i>
+<font color="#FF0000">{</font>
+<font color="#FF0000">}</font>
+Point<font color="#990000">::</font><b><font color="#000000">Point</font></b><font color="#990000">(</font><b><font color="#0000FF">const</font></b> Point<font color="#990000">&amp;</font> other<font color="#990000">)</font> <font color="#990000">:</font> <b><font color="#000000">Point</font></b><font color="#990000">(</font>other<font color="#990000">.</font>mX<font color="#990000">,</font> other<font color="#990000">.</font>mY<font color="#990000">,</font> other<font color="#990000">.</font>mColor<font color="#990000">)</font> <i><font color="#9A1900">// &lt;&gt; Delegation an den _privaten_ Konstruktor</font></i>
+<font color="#FF0000">{</font>
+<font color="#FF0000">}</font>
+<font color="#009900">double</font> Point<font color="#990000">::</font><b><font color="#000000">getX</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">return</font></b> mX<font color="#990000">;</font>
+<font color="#FF0000">}</font>
+<font color="#009900">double</font> Point<font color="#990000">::</font><b><font color="#000000">getY</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">return</font></b> mY<font color="#990000">;</font>
+<font color="#FF0000">}</font>
+<b><font color="#0000FF">const</font></b> std<font color="#990000">::</font>string<font color="#990000">&amp;</font> Point<font color="#990000">::</font><b><font color="#000000">getColor</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">return</font></b> mColor<font color="#990000">;</font>
+<font color="#FF0000">}</font>
+std<font color="#990000">::</font><font color="#008080">string</font> Point<font color="#990000">::</font><b><font color="#000000">toSVG</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b>
+<font color="#FF0000">{</font>
+    std<font color="#990000">::</font><font color="#008080">string</font> svgString <font color="#990000">=</font> <font color="#FF0000">"&lt;circle "</font><font color="#990000">;</font>
+    svgString <font color="#990000">+=</font> <font color="#FF0000">"cx=</font><font color="#CC33CC">\"</font><font color="#FF0000">"</font> <font color="#990000">+</font> std<font color="#990000">::</font><b><font color="#000000">to_string</font></b><font color="#990000">(</font>Math<font color="#990000">::</font><b><font color="#000000">toInt</font></b><font color="#990000">(</font>mX<font color="#990000">))</font> <font color="#990000">+</font> <font color="#FF0000">"</font><font color="#CC33CC">\"</font><font color="#FF0000"> "</font><font color="#990000">;</font>
+    svgString <font color="#990000">+=</font> <font color="#FF0000">"cy=</font><font color="#CC33CC">\"</font><font color="#FF0000">"</font> <font color="#990000">+</font> std<font color="#990000">::</font><b><font color="#000000">to_string</font></b><font color="#990000">(</font>Math<font color="#990000">::</font><b><font color="#000000">toInt</font></b><font color="#990000">(</font>mY<font color="#990000">))</font> <font color="#990000">+</font> <font color="#FF0000">"</font><font color="#CC33CC">\"</font><font color="#FF0000"> "</font><font color="#990000">;</font>
+    svgString <font color="#990000">+=</font> <font color="#FF0000">"r=</font><font color="#CC33CC">\"</font><font color="#FF0000">"</font> <font color="#990000">+</font> std<font color="#990000">::</font><b><font color="#000000">to_string</font></b><font color="#990000">(</font>mSVGRadius<font color="#990000">)</font> <font color="#990000">+</font> <font color="#FF0000">"</font><font color="#CC33CC">\"</font><font color="#FF0000"> "</font><font color="#990000">;</font>
+    svgString <font color="#990000">+=</font> <font color="#FF0000">"stroke=</font><font color="#CC33CC">\"</font><font color="#FF0000">"</font> <font color="#990000">+</font> mColor <font color="#990000">+</font> <font color="#FF0000">"</font><font color="#CC33CC">\"</font><font color="#FF0000"> "</font><font color="#990000">;</font>
+    svgString <font color="#990000">+=</font> <font color="#FF0000">"fill=</font><font color="#CC33CC">\"</font><font color="#FF0000">"</font> <font color="#990000">+</font> mColor <font color="#990000">+</font> <font color="#FF0000">"</font><font color="#CC33CC">\"</font><font color="#FF0000"> "</font><font color="#990000">;</font>
+    svgString <font color="#990000">+=</font>  <font color="#FF0000">"/&gt;"</font><font color="#990000">;</font>
+    <b><font color="#0000FF">return</font></b> svgString<font color="#990000">;</font> <i><font color="#9A1900">// &lt;&gt; Ergebnisrückgabe als Wertkopie *notwendig*</font></i>
+<font color="#FF0000">}</font>
+<font color="#008080">DRect</font> Point<font color="#990000">::</font><b><font color="#000000">svgArea</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">return</font></b> DRect<font color="#FF0000">{</font>DPoint<font color="#FF0000">{</font>Math<font color="#990000">::</font><b><font color="#000000">toInt</font></b><font color="#990000">(</font>mX<font color="#990000">)</font> <font color="#990000">-</font> mSVGRadius<font color="#990000">,</font> Math<font color="#990000">::</font><b><font color="#000000">toInt</font></b><font color="#990000">(</font>mY<font color="#990000">)</font> <font color="#990000">+</font> mSVGRadius<font color="#FF0000">}</font><font color="#990000">,</font> DPoint<font color="#FF0000">{</font>Math<font color="#990000">::</font><b><font color="#000000">toInt</font></b><font color="#990000">(</font>mX<font color="#990000">)</font> <font color="#990000">+</font> mSVGRadius<font color="#990000">,</font> Math<font color="#990000">::</font><b><font color="#000000">toInt</font></b><font color="#990000">(</font>mY<font color="#990000">)</font> <font color="#990000">-</font> mSVGRadius<font color="#FF0000">}}</font><font color="#990000">;</font>
+<font color="#FF0000">}</font>
+<font color="#009900">int</font> Point<font color="#990000">::</font><b><font color="#000000">svgRadius</font></b><font color="#990000">()</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">return</font></b> mSVGRadius<font color="#990000">;</font>
+<font color="#FF0000">}</font>
+<font color="#009900">void</font> Point<font color="#990000">::</font><b><font color="#000000">setX</font></b><font color="#990000">(</font><font color="#009900">double</font> x<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    mX <font color="#990000">=</font> x<font color="#990000">;</font>
+<font color="#FF0000">}</font>
+<font color="#009900">void</font> Point<font color="#990000">::</font><b><font color="#000000">setY</font></b><font color="#990000">(</font><font color="#009900">double</font> y<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    mY <font color="#990000">=</font> y<font color="#990000">;</font>
+<font color="#FF0000">}</font>
+<font color="#009900">void</font> Point<font color="#990000">::</font><b><font color="#000000">move</font></b><font color="#990000">(</font><font color="#009900">double</font> dx<font color="#990000">,</font> <font color="#009900">double</font> dy<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    mX <font color="#990000">+=</font> dx<font color="#990000">;</font>
+    mY <font color="#990000">+=</font> dy<font color="#990000">;</font>
+<font color="#FF0000">}</font>
+<font color="#009900">int</font> Point<font color="#990000">::</font><b><font color="#000000">getSNR</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">return</font></b> mSNR<font color="#990000">;</font>
+<font color="#FF0000">}</font>
+<font color="#009900">void</font> Point<font color="#990000">::</font><b><font color="#000000">setColor</font></b><font color="#990000">(</font><b><font color="#0000FF">const</font></b> std<font color="#990000">::</font>string<font color="#990000">&amp;</font> color<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    mColor <font color="#990000">=</font> color<font color="#990000">;</font>
+<font color="#FF0000">}</font>
+<font color="#009900">void</font> Point<font color="#990000">::</font><b><font color="#000000">setColor</font></b><font color="#990000">(</font><font color="#009900">unsigned</font> <font color="#009900">char</font> r<font color="#990000">,</font> <font color="#009900">unsigned</font> <font color="#009900">char</font> g<font color="#990000">,</font> <font color="#009900">unsigned</font> <font color="#009900">char</font> b<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    mColor <font color="#990000">=</font> <font color="#FF0000">"rgb("</font> <font color="#990000">+</font> std<font color="#990000">::</font><b><font color="#000000">to_string</font></b><font color="#990000">(</font>r<font color="#990000">)</font> <font color="#990000">+</font> <font color="#FF0000">","</font> <font color="#990000">+</font> std<font color="#990000">::</font><b><font color="#000000">to_string</font></b><font color="#990000">(</font>g<font color="#990000">)</font> <font color="#990000">+</font> <font color="#FF0000">","</font> <font color="#990000">+</font> std<font color="#990000">::</font><b><font color="#000000">to_string</font></b><font color="#990000">(</font>b<font color="#990000">)</font> <font color="#990000">+</font> <font color="#FF0000">")"</font><font color="#990000">;</font>
+<font color="#FF0000">}</font>
+<font color="#008080">Radius</font> <b><font color="#0000FF">operator</font></b><font color="#990000">*(</font><font color="#008080">Radius</font> a<font color="#990000">,</font> <font color="#008080">Radius</font> b<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">return</font></b> Radius<font color="#FF0000">{</font>a<font color="#990000">.</font>mValue <font color="#990000">*</font> b<font color="#990000">.</font>mValue<font color="#FF0000">}</font><font color="#990000">;</font>
+<font color="#FF0000">}</font>
+<font color="#008080">Radius</font> <b><font color="#0000FF">operator</font></b><font color="#990000">*(</font><font color="#009900">double</font> a<font color="#990000">,</font> <font color="#008080">Radius</font> b<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">return</font></b> Radius<font color="#FF0000">{</font>a <font color="#990000">*</font> b<font color="#990000">.</font>mValue<font color="#FF0000">}</font><font color="#990000">;</font>
+<font color="#FF0000">}</font>
+<font color="#008080">Radius</font> <b><font color="#0000FF">operator</font></b><font color="#990000">*(</font><font color="#008080">Radius</font> a<font color="#990000">,</font> <font color="#009900">double</font> b<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">return</font></b> Radius<font color="#FF0000">{</font>a<font color="#990000">.</font>mValue <font color="#990000">*</font> b<font color="#FF0000">}</font><font color="#990000">;</font>
+<font color="#FF0000">}</font>
+Radius<font color="#990000">::</font><b><font color="#000000">Radius</font></b><font color="#990000">(</font><font color="#009900">double</font> r<font color="#990000">)</font> <font color="#990000">:</font> <b><font color="#000000">mValue</font></b><font color="#990000">(</font>r<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <b><font color="#000000">assert</font></b><font color="#990000">(</font>r <font color="#990000">&gt;=</font> <font color="#993399">0.0</font><font color="#990000">);</font> <i><font color="#9A1900">// &lt;&gt; Sicherstellen eines validen Zustands</font></i>
+<font color="#FF0000">}</font>
+<font color="#008080">Angle</font> <b><font color="#0000FF">operator</font></b><font color="#990000">+(</font><font color="#008080">Angle</font> a<font color="#990000">,</font> <font color="#008080">Angle</font> b<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">return</font></b> <font color="#FF0000">{</font>a<font color="#990000">.</font>mRadiant <font color="#990000">+</font> b<font color="#990000">.</font>mRadiant<font color="#FF0000">}</font><font color="#990000">;</font>
+<font color="#FF0000">}</font>
+<b><font color="#000000">SIMPLETEST</font></b><font color="#990000">(</font><font color="#FF0000">"Point ctor1"</font><font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <font color="#008080">Point</font> p<font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(!</font>Math<font color="#990000">::</font><b><font color="#000000">equal</font></b><font color="#990000">(</font>p<font color="#990000">.</font><b><font color="#000000">getX</font></b><font color="#990000">(),</font> <font color="#993399">0.0</font><font color="#990000">))</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(!</font>Math<font color="#990000">::</font><b><font color="#000000">equal</font></b><font color="#990000">(</font>p<font color="#990000">.</font><b><font color="#000000">getY</font></b><font color="#990000">(),</font> <font color="#993399">0.0</font><font color="#990000">))</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">true</font></b><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#000000">SIMPLETEST</font></b><font color="#990000">(</font><font color="#FF0000">"Point ctor2"</font><font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <font color="#008080">Point</font> p<font color="#FF0000">{</font>XCoor<font color="#FF0000">{</font><font color="#993399">1.0</font><font color="#FF0000">}</font><font color="#990000">,</font> YCoor<font color="#FF0000">{</font><font color="#993399">2.0</font><font color="#FF0000">}}</font><font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(!</font>Math<font color="#990000">::</font><b><font color="#000000">equal</font></b><font color="#990000">(</font>p<font color="#990000">.</font><b><font color="#000000">getX</font></b><font color="#990000">(),</font> <font color="#993399">1.0</font><font color="#990000">))</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(!</font>Math<font color="#990000">::</font><b><font color="#000000">equal</font></b><font color="#990000">(</font>p<font color="#990000">.</font><b><font color="#000000">getY</font></b><font color="#990000">(),</font> <font color="#993399">2.0</font><font color="#990000">))</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">true</font></b><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#000000">SIMPLETEST</font></b><font color="#990000">(</font><font color="#FF0000">"Point ctor3"</font><font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <font color="#008080">Point</font> p<font color="#FF0000">{</font>XCoor<font color="#FF0000">{</font><font color="#993399">1.0</font><font color="#FF0000">}}</font><font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(!</font>Math<font color="#990000">::</font><b><font color="#000000">equal</font></b><font color="#990000">(</font>p<font color="#990000">.</font><b><font color="#000000">getX</font></b><font color="#990000">(),</font> <font color="#993399">1.0</font><font color="#990000">))</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(!</font>Math<font color="#990000">::</font><b><font color="#000000">equal</font></b><font color="#990000">(</font>p<font color="#990000">.</font><b><font color="#000000">getY</font></b><font color="#990000">(),</font> <font color="#993399">0.0</font><font color="#990000">))</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">true</font></b><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#000000">SIMPLETEST</font></b><font color="#990000">(</font><font color="#FF0000">"Point setX"</font><font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <font color="#008080">Point</font> p<font color="#990000">;</font>
+    p<font color="#990000">.</font><b><font color="#000000">setX</font></b><font color="#990000">(</font><font color="#993399">1.0</font><font color="#990000">);</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(!</font>Math<font color="#990000">::</font><b><font color="#000000">equal</font></b><font color="#990000">(</font>p<font color="#990000">.</font><b><font color="#000000">getX</font></b><font color="#990000">(),</font> <font color="#993399">1.0</font><font color="#990000">))</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(!</font>Math<font color="#990000">::</font><b><font color="#000000">equal</font></b><font color="#990000">(</font>p<font color="#990000">.</font><b><font color="#000000">getY</font></b><font color="#990000">(),</font> <font color="#993399">0.0</font><font color="#990000">))</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">true</font></b><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#000000">SIMPLETEST</font></b><font color="#990000">(</font><font color="#FF0000">"Point setY"</font><font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <font color="#008080">Point</font> p<font color="#990000">;</font>
+    p<font color="#990000">.</font><b><font color="#000000">setY</font></b><font color="#990000">(</font><font color="#993399">1.0</font><font color="#990000">);</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(!</font>Math<font color="#990000">::</font><b><font color="#000000">equal</font></b><font color="#990000">(</font>p<font color="#990000">.</font><b><font color="#000000">getX</font></b><font color="#990000">(),</font> <font color="#993399">0.0</font><font color="#990000">))</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(!</font>Math<font color="#990000">::</font><b><font color="#000000">equal</font></b><font color="#990000">(</font>p<font color="#990000">.</font><b><font color="#000000">getY</font></b><font color="#990000">(),</font> <font color="#993399">1.0</font><font color="#990000">))</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">true</font></b><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#000000">SIMPLETEST</font></b><font color="#990000">(</font><font color="#FF0000">"Point move"</font><font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <font color="#008080">Point</font> p<font color="#990000">;</font>
+    p<font color="#990000">.</font><b><font color="#000000">move</font></b><font color="#990000">(</font><font color="#993399">1.1</font><font color="#990000">,</font> <font color="#993399">2.2</font><font color="#990000">);</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(!</font>Math<font color="#990000">::</font><b><font color="#000000">equal</font></b><font color="#990000">(</font>p<font color="#990000">.</font><b><font color="#000000">getX</font></b><font color="#990000">(),</font> <font color="#993399">1.1</font><font color="#990000">))</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(!</font>Math<font color="#990000">::</font><b><font color="#000000">equal</font></b><font color="#990000">(</font>p<font color="#990000">.</font><b><font color="#000000">getY</font></b><font color="#990000">(),</font> <font color="#993399">2.2</font><font color="#990000">))</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">true</font></b><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#000000">SIMPLETEST</font></b><font color="#990000">(</font><font color="#FF0000">"Point color"</font><font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <font color="#008080">Point</font> p<font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>p<font color="#990000">.</font><b><font color="#000000">getColor</font></b><font color="#990000">()</font> <font color="#990000">!=</font> <font color="#FF0000">"black"</font><font color="#990000">)</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    p<font color="#990000">.</font><b><font color="#000000">setColor</font></b><font color="#990000">(</font><font color="#FF0000">"red"</font><font color="#990000">);</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>p<font color="#990000">.</font><b><font color="#000000">getColor</font></b><font color="#990000">()</font> <font color="#990000">!=</font> <font color="#FF0000">"red"</font><font color="#990000">)</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">true</font></b><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#000000">SIMPLETEST</font></b><font color="#990000">(</font><font color="#FF0000">"Point color2"</font><font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <font color="#008080">Point</font> p<font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>p<font color="#990000">.</font><b><font color="#000000">getColor</font></b><font color="#990000">()</font> <font color="#990000">!=</font> <font color="#FF0000">"black"</font><font color="#990000">)</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    p<font color="#990000">.</font><b><font color="#000000">setColor</font></b><font color="#990000">(</font><font color="#993399">100</font><font color="#990000">,</font> <font color="#993399">101</font><font color="#990000">,</font> <font color="#993399">102</font><font color="#990000">);</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>p<font color="#990000">.</font><b><font color="#000000">getColor</font></b><font color="#990000">()</font> <font color="#990000">!=</font> <font color="#FF0000">"rgb(100,101,102)"</font><font color="#990000">)</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">true</font></b><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#000000">SIMPLETEST</font></b><font color="#990000">(</font><font color="#FF0000">"Point toSVG"</font><font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <font color="#008080">Point</font> p<font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>p<font color="#990000">.</font><b><font color="#000000">toSVG</font></b><font color="#990000">()</font> <font color="#990000">!=</font> <font color="#FF0000">"&lt;circle cx=</font><font color="#CC33CC">\"</font><font color="#FF0000">0</font><font color="#CC33CC">\"</font><font color="#FF0000"> cy=</font><font color="#CC33CC">\"</font><font color="#FF0000">0</font><font color="#CC33CC">\"</font><font color="#FF0000"> r=</font><font color="#CC33CC">\"</font><font color="#FF0000">10</font><font color="#CC33CC">\"</font><font color="#FF0000"> stroke=</font><font color="#CC33CC">\"</font><font color="#FF0000">black</font><font color="#CC33CC">\"</font><font color="#FF0000"> fill=</font><font color="#CC33CC">\"</font><font color="#FF0000">black</font><font color="#CC33CC">\"</font><font color="#FF0000"> /&gt;"</font><font color="#990000">)</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">true</font></b><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#000000">SIMPLETEST</font></b><font color="#990000">(</font><font color="#FF0000">"Point toSVG2"</font><font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <font color="#008080">Point</font> p <font color="#990000">=</font> <font color="#FF0000">{</font>XCoor<font color="#FF0000">{</font><font color="#993399">1.1</font><font color="#FF0000">}</font><font color="#990000">,</font> YCoor<font color="#FF0000">{</font><font color="#993399">2.9</font><font color="#FF0000">}}</font><font color="#990000">;</font>
+    p<font color="#990000">.</font><b><font color="#000000">setColor</font></b><font color="#990000">(</font><font color="#FF0000">"red"</font><font color="#990000">);</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>p<font color="#990000">.</font><b><font color="#000000">toSVG</font></b><font color="#990000">()</font> <font color="#990000">!=</font> <font color="#FF0000">"&lt;circle cx=</font><font color="#CC33CC">\"</font><font color="#FF0000">1</font><font color="#CC33CC">\"</font><font color="#FF0000"> cy=</font><font color="#CC33CC">\"</font><font color="#FF0000">3</font><font color="#CC33CC">\"</font><font color="#FF0000"> r=</font><font color="#CC33CC">\"</font><font color="#FF0000">10</font><font color="#CC33CC">\"</font><font color="#FF0000"> stroke=</font><font color="#CC33CC">\"</font><font color="#FF0000">red</font><font color="#CC33CC">\"</font><font color="#FF0000"> fill=</font><font color="#CC33CC">\"</font><font color="#FF0000">red</font><font color="#CC33CC">\"</font><font color="#FF0000"> /&gt;"</font><font color="#990000">)</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">true</font></b><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#000000">SIMPLETEST</font></b><font color="#990000">(</font><font color="#FF0000">"Point distance"</font><font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <font color="#008080">Point</font> p1<font color="#990000">;</font>
+    <font color="#008080">Point</font> p2 <font color="#990000">=</font> <font color="#FF0000">{</font>XCoor<font color="#FF0000">{</font><font color="#993399">1.0</font><font color="#FF0000">}</font><font color="#990000">,</font> YCoor<font color="#FF0000">{</font><font color="#993399">1.0</font><font color="#FF0000">}}</font><font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(!</font>Math<font color="#990000">::</font><b><font color="#000000">equal</font></b><font color="#990000">(</font><b><font color="#000000">distance</font></b><font color="#990000">(</font>p1<font color="#990000">,</font> p1<font color="#990000">),</font> <font color="#993399">0.0</font><font color="#990000">))</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(!</font>Math<font color="#990000">::</font><b><font color="#000000">equal</font></b><font color="#990000">(</font><b><font color="#000000">distance</font></b><font color="#990000">(</font>p2<font color="#990000">,</font> p2<font color="#990000">),</font> <font color="#993399">0.0</font><font color="#990000">))</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(!</font>Math<font color="#990000">::</font><b><font color="#000000">equal</font></b><font color="#990000">(</font><b><font color="#000000">distance</font></b><font color="#990000">(</font>p1<font color="#990000">,</font> p2<font color="#990000">),</font> std<font color="#990000">::</font><b><font color="#000000">sqrt</font></b><font color="#990000">(</font><font color="#993399">2.0</font><font color="#990000">)))</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">true</font></b><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#000000">SIMPLETEST</font></b><font color="#990000">(</font><font color="#FF0000">"Point &lt;&lt;"</font><font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <font color="#008080">Point</font> p1<font color="#990000">;</font>
+    std<font color="#990000">::</font><font color="#008080">stringstream</font> ss<font color="#990000">;</font>
+    ss <font color="#990000">&lt;&lt;</font> p1<font color="#990000">;</font>
+    std<font color="#990000">::</font><font color="#008080">string</font> expected <font color="#990000">=</font> <font color="#FF0000">"Point["</font> <font color="#990000">+</font> std<font color="#990000">::</font><b><font color="#000000">to_string</font></b><font color="#990000">(</font>p1<font color="#990000">.</font><b><font color="#000000">getSNR</font></b><font color="#990000">())</font> <font color="#990000">+</font> <font color="#FF0000">",0,0,black]"</font><font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>ss<font color="#990000">.</font><b><font color="#000000">str</font></b><font color="#990000">()</font> <font color="#990000">!=</font> expected<font color="#990000">)</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">true</font></b><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#000000">SIMPLETEST</font></b><font color="#990000">(</font><font color="#FF0000">"Point op=="</font><font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <font color="#008080">Point</font> p1<font color="#990000">;</font>
+    <font color="#008080">Point</font> p2 <font color="#990000">=</font> <font color="#FF0000">{</font>XCoor<font color="#FF0000">{</font><font color="#993399">1.0</font><font color="#FF0000">}</font><font color="#990000">,</font> YCoor<font color="#FF0000">{</font><font color="#993399">1.0</font><font color="#FF0000">}}</font><font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>p1 <font color="#990000">==</font> p2<font color="#990000">)</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(!(</font>p1 <font color="#990000">!=</font> p2<font color="#990000">))</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">true</font></b><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#000000">SIMPLETEST</font></b><font color="#990000">(</font><font color="#FF0000">"Point op== 2"</font><font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <font color="#008080">Point</font> p1<font color="#990000">;</font>
+    <font color="#008080">Point</font> p2 <font color="#990000">=</font> p1<font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(!(</font>p1 <font color="#990000">==</font> p2<font color="#990000">))</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>p1 <font color="#990000">!=</font> p2<font color="#990000">)</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">true</font></b><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#000000">SIMPLETEST</font></b><font color="#990000">(</font><font color="#FF0000">"Point op-"</font><font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <font color="#008080">Point</font> p1<font color="#990000">;</font>
+    <font color="#008080">Point</font> p2 <font color="#990000">=</font> <font color="#FF0000">{</font>XCoor<font color="#FF0000">{</font><font color="#993399">1.0</font><font color="#FF0000">}</font><font color="#990000">,</font> YCoor<font color="#FF0000">{</font><font color="#993399">1.0</font><font color="#FF0000">}}</font><font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(!</font>Math<font color="#990000">::</font><b><font color="#000000">equal</font></b><font color="#990000">(</font>p1 <font color="#990000">-</font> p1<font color="#990000">,</font> <font color="#993399">0.0</font><font color="#990000">))</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(!</font>Math<font color="#990000">::</font><b><font color="#000000">equal</font></b><font color="#990000">(</font>p2 <font color="#990000">-</font> p2<font color="#990000">,</font> <font color="#993399">0.0</font><font color="#990000">))</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(!</font>Math<font color="#990000">::</font><b><font color="#000000">equal</font></b><font color="#990000">(</font>p1 <font color="#990000">-</font> p2<font color="#990000">,</font> std<font color="#990000">::</font><b><font color="#000000">sqrt</font></b><font color="#990000">(</font><font color="#993399">2.0</font><font color="#990000">)))</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">true</font></b><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#000000">SIMPLETEST</font></b><font color="#990000">(</font><font color="#FF0000">"Point ctor4"</font><font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <font color="#008080">Point</font> p <font color="#990000">=</font> <font color="#FF0000">{</font>Radius<font color="#FF0000">{</font><font color="#993399">1.0</font><font color="#FF0000">}</font><font color="#990000">,</font> Angle<font color="#FF0000">{</font><font color="#993399">0.0</font><font color="#FF0000">}}</font><font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(!</font>Math<font color="#990000">::</font><b><font color="#000000">equal</font></b><font color="#990000">(</font>p<font color="#990000">.</font><b><font color="#000000">getX</font></b><font color="#990000">(),</font> <font color="#993399">1.0</font><font color="#990000">))</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(!</font>Math<font color="#990000">::</font><b><font color="#000000">equal</font></b><font color="#990000">(</font>p<font color="#990000">.</font><b><font color="#000000">getY</font></b><font color="#990000">(),</font> <font color="#993399">0.0</font><font color="#990000">))</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">true</font></b><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#000000">SIMPLETEST</font></b><font color="#990000">(</font><font color="#FF0000">"Point ctor5"</font><font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <font color="#008080">Point</font> p <font color="#990000">=</font> <font color="#FF0000">{</font>Radius<font color="#FF0000">{</font><font color="#993399">1.0</font><font color="#FF0000">}</font><font color="#990000">,</font> Angle<font color="#FF0000">{</font>Math<font color="#990000">::</font><b><font color="#000000">pi</font></b><font color="#990000">()</font> <font color="#990000">/</font> <font color="#993399">2.0</font><font color="#FF0000">}}</font><font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(!</font>Math<font color="#990000">::</font><b><font color="#000000">equal</font></b><font color="#990000">(</font>p<font color="#990000">.</font><b><font color="#000000">getX</font></b><font color="#990000">(),</font> <font color="#993399">0.0</font><font color="#990000">))</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(!</font>Math<font color="#990000">::</font><b><font color="#000000">equal</font></b><font color="#990000">(</font>p<font color="#990000">.</font><b><font color="#000000">getY</font></b><font color="#990000">(),</font> <font color="#993399">1.0</font><font color="#990000">))</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">true</font></b><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#000000">SIMPLETEST</font></b><font color="#990000">(</font><font color="#FF0000">"Point area"</font><font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <font color="#008080">Point</font> p<font color="#990000">;</font>
+    <font color="#008080">DRect</font> r <font color="#990000">=</font> p<font color="#990000">.</font><b><font color="#000000">svgArea</font></b><font color="#990000">();</font>
+    <font color="#009900">int</font> d <font color="#990000">=</font> <font color="#993399">2</font> <font color="#990000">*</font> p<font color="#990000">.</font><b><font color="#000000">svgRadius</font></b><font color="#990000">();</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>r<font color="#990000">.</font><b><font color="#000000">area</font></b><font color="#990000">()</font> <font color="#990000">!=</font> <font color="#990000">(</font>d <font color="#990000">*</font> d<font color="#990000">))</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">true</font></b><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#000000">SIMPLETEST</font></b><font color="#990000">(</font><font color="#FF0000">"Point cctor"</font><font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <font color="#008080">Point</font> p <font color="#990000">=</font> <font color="#FF0000">{</font>Radius<font color="#FF0000">{</font><font color="#993399">1.0</font><font color="#FF0000">}</font><font color="#990000">,</font> Angle<font color="#FF0000">{</font>Math<font color="#990000">::</font><b><font color="#000000">pi</font></b><font color="#990000">()</font> <font color="#990000">/</font> <font color="#993399">2.0</font><font color="#FF0000">}}</font><font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(!</font>Math<font color="#990000">::</font><b><font color="#000000">equal</font></b><font color="#990000">(</font>p<font color="#990000">.</font><b><font color="#000000">getX</font></b><font color="#990000">(),</font> <font color="#993399">0.0</font><font color="#990000">))</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(!</font>Math<font color="#990000">::</font><b><font color="#000000">equal</font></b><font color="#990000">(</font>p<font color="#990000">.</font><b><font color="#000000">getY</font></b><font color="#990000">(),</font> <font color="#993399">1.0</font><font color="#990000">))</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <font color="#008080">Point</font> p2 <font color="#990000">=</font> p<font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(!</font>Math<font color="#990000">::</font><b><font color="#000000">equal</font></b><font color="#990000">(</font>p2<font color="#990000">.</font><b><font color="#000000">getX</font></b><font color="#990000">(),</font> <font color="#993399">0.0</font><font color="#990000">))</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(!</font>Math<font color="#990000">::</font><b><font color="#000000">equal</font></b><font color="#990000">(</font>p2<font color="#990000">.</font><b><font color="#000000">getY</font></b><font color="#990000">(),</font> <font color="#993399">1.0</font><font color="#990000">))</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>p2<font color="#990000">.</font><b><font color="#000000">getSNR</font></b><font color="#990000">()</font> <font color="#990000">==</font> p<font color="#990000">.</font><b><font color="#000000">getSNR</font></b><font color="#990000">())</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">true</font></b><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+DRect<font color="#990000">::</font><b><font color="#000000">DRect</font></b><font color="#990000">(</font><font color="#008080">DPoint</font> upperLeft<font color="#990000">,</font> <font color="#008080">DPoint</font> bottomRight<font color="#990000">)</font> <font color="#990000">:</font> <b><font color="#000000">mUpperLeft</font></b><font color="#990000">(</font>upperLeft<font color="#990000">),</font> <b><font color="#000000">mBottomRight</font></b><font color="#990000">(</font>bottomRight<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+<font color="#FF0000">}</font>
+<font color="#009900">int</font> DRect<font color="#990000">::</font><b><font color="#000000">width</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b>
+<font color="#FF0000">{</font>
+    <font color="#009900">int</font> w <font color="#990000">=</font> mBottomRight<font color="#990000">.</font>mX <font color="#990000">-</font> mUpperLeft<font color="#990000">.</font>mX<font color="#990000">;</font>
+    <b><font color="#000000">assert</font></b><font color="#990000">(</font>w <font color="#990000">&gt;=</font> <font color="#993399">0</font><font color="#990000">);</font>
+    <b><font color="#0000FF">return</font></b> w<font color="#990000">;</font>
+<font color="#FF0000">}</font>
+<font color="#009900">int</font> DRect<font color="#990000">::</font><b><font color="#000000">height</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b>
+<font color="#FF0000">{</font>
+    <font color="#009900">int</font> h <font color="#990000">=</font> mUpperLeft<font color="#990000">.</font>mY <font color="#990000">-</font> mBottomRight<font color="#990000">.</font>mY<font color="#990000">;</font>
+    <b><font color="#000000">assert</font></b><font color="#990000">(</font>h <font color="#990000">&gt;=</font> <font color="#993399">0</font><font color="#990000">);</font>
+    <b><font color="#0000FF">return</font></b> h<font color="#990000">;</font>
+<font color="#FF0000">}</font>
+<font color="#009900">int</font> DRect<font color="#990000">::</font><b><font color="#000000">area</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">return</font></b> <b><font color="#000000">width</font></b><font color="#990000">()</font> <font color="#990000">*</font> <b><font color="#000000">height</font></b><font color="#990000">();</font>
+<font color="#FF0000">}</font>
+DRect<font color="#990000">::</font><b><font color="#0000FF">operator</font></b> <font color="#009900">bool</font><font color="#990000">()</font> <b><font color="#0000FF">const</font></b>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">return</font></b> <b><font color="#000000">area</font></b><font color="#990000">()</font> <font color="#990000">!=</font> <font color="#993399">0</font><font color="#990000">;</font>
+<font color="#FF0000">}</font>
+<font color="#008080">DPoint</font> DRect<font color="#990000">::</font><b><font color="#000000">upperLeft</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">return</font></b> mUpperLeft<font color="#990000">;</font>
+<font color="#FF0000">}</font>
+<font color="#008080">DPoint</font> DRect<font color="#990000">::</font><b><font color="#000000">bottomRight</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">return</font></b> mBottomRight<font color="#990000">;</font>
+<font color="#FF0000">}</font>
+DRect<font color="#990000">&amp;</font> DRect<font color="#990000">::</font><b><font color="#0000FF">operator</font></b><font color="#990000">+=(</font><b><font color="#0000FF">const</font></b> DRect<font color="#990000">&amp;</font> rhs<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>rhs<font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+        mUpperLeft<font color="#990000">.</font>mX   <font color="#990000">=</font> std<font color="#990000">::</font><b><font color="#000000">min</font></b><font color="#990000">(</font>mUpperLeft<font color="#990000">.</font>mX<font color="#990000">,</font> rhs<font color="#990000">.</font>mUpperLeft<font color="#990000">.</font>mX<font color="#990000">);</font>
+        mBottomRight<font color="#990000">.</font>mX <font color="#990000">=</font> std<font color="#990000">::</font><b><font color="#000000">max</font></b><font color="#990000">(</font>mBottomRight<font color="#990000">.</font>mX<font color="#990000">,</font> rhs<font color="#990000">.</font>mBottomRight<font color="#990000">.</font>mX<font color="#990000">);</font>
+        mBottomRight<font color="#990000">.</font>mY <font color="#990000">=</font> std<font color="#990000">::</font><b><font color="#000000">min</font></b><font color="#990000">(</font>mBottomRight<font color="#990000">.</font>mY<font color="#990000">,</font> rhs<font color="#990000">.</font>mBottomRight<font color="#990000">.</font>mY<font color="#990000">);</font>
+        mUpperLeft<font color="#990000">.</font>mY <font color="#990000">=</font> std<font color="#990000">::</font><b><font color="#000000">max</font></b><font color="#990000">(</font>mUpperLeft<font color="#990000">.</font>mY<font color="#990000">,</font> rhs<font color="#990000">.</font>mUpperLeft<font color="#990000">.</font>mY<font color="#990000">);</font>
+    <font color="#FF0000">}</font>
+    <b><font color="#0000FF">return</font></b> <font color="#990000">*</font><b><font color="#0000FF">this</font></b><font color="#990000">;</font>
+<font color="#FF0000">}</font>
+<font color="#008080">DRect</font> <b><font color="#0000FF">operator</font></b><font color="#990000">+(</font><b><font color="#0000FF">const</font></b> DRect<font color="#990000">&amp;</font> a<font color="#990000">,</font> <b><font color="#0000FF">const</font></b> DRect<font color="#990000">&amp;</font> b<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">return</font></b> <b><font color="#000000">DRect</font></b><font color="#990000">(</font>a<font color="#990000">)</font> <font color="#990000">+=</font> b<font color="#990000">;</font>
+<font color="#FF0000">}</font>
+<b><font color="#000000">SIMPLETEST</font></b><font color="#990000">(</font><font color="#FF0000">"DG std-ctor"</font><font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <font color="#008080">DRect</font> dr<font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>dr<font color="#990000">)</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">true</font></b><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#000000">SIMPLETEST</font></b><font color="#990000">(</font><font color="#FF0000">"DG ctor1"</font><font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <font color="#008080">DRect</font> dr<font color="#FF0000">{{</font><font color="#993399">0</font><font color="#990000">,</font> <font color="#993399">1</font><font color="#FF0000">}</font><font color="#990000">,</font> <font color="#FF0000">{</font><font color="#993399">1</font><font color="#990000">,</font> <font color="#993399">0</font><font color="#FF0000">}}</font><font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(!</font>dr<font color="#990000">)</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>dr<font color="#990000">.</font><b><font color="#000000">area</font></b><font color="#990000">()</font> <font color="#990000">!=</font> <font color="#993399">1</font><font color="#990000">)</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">true</font></b><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#000000">SIMPLETEST</font></b><font color="#990000">(</font><font color="#FF0000">"DG attr1"</font><font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <font color="#008080">DRect</font> dr<font color="#FF0000">{{</font><font color="#993399">0</font><font color="#990000">,</font> <font color="#993399">2</font><font color="#FF0000">}</font><font color="#990000">,</font> <font color="#FF0000">{</font><font color="#993399">2</font><font color="#990000">,</font> <font color="#993399">0</font><font color="#FF0000">}}</font><font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(!</font>dr<font color="#990000">)</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>dr<font color="#990000">.</font><b><font color="#000000">height</font></b><font color="#990000">()</font> <font color="#990000">!=</font> <font color="#993399">2</font><font color="#990000">)</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>dr<font color="#990000">.</font><b><font color="#000000">width</font></b><font color="#990000">()</font> <font color="#990000">!=</font> <font color="#993399">2</font><font color="#990000">)</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>dr<font color="#990000">.</font><b><font color="#000000">area</font></b><font color="#990000">()</font> <font color="#990000">!=</font> <font color="#993399">4</font><font color="#990000">)</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">true</font></b><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#000000">SIMPLETEST</font></b><font color="#990000">(</font><font color="#FF0000">"DG op+=1"</font><font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <font color="#008080">DRect</font> dr1<font color="#FF0000">{{</font><font color="#993399">0</font><font color="#990000">,</font> <font color="#993399">2</font><font color="#FF0000">}</font><font color="#990000">,</font> <font color="#FF0000">{</font><font color="#993399">2</font><font color="#990000">,</font> <font color="#993399">0</font><font color="#FF0000">}}</font><font color="#990000">;</font>
+    <font color="#008080">DRect</font> dr2<font color="#990000">;</font>
+
+    dr1 <font color="#990000">+=</font> dr2<font color="#990000">;</font>
+
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(!</font>dr1<font color="#990000">)</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>dr1<font color="#990000">.</font><b><font color="#000000">area</font></b><font color="#990000">()</font> <font color="#990000">!=</font> <font color="#993399">4</font><font color="#990000">)</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+
+    <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">true</font></b><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#000000">SIMPLETEST</font></b><font color="#990000">(</font><font color="#FF0000">"DG op+=2"</font><font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <font color="#008080">DRect</font> dr1<font color="#FF0000">{{</font><font color="#993399">0</font><font color="#990000">,</font> <font color="#993399">2</font><font color="#FF0000">}</font><font color="#990000">,</font> <font color="#FF0000">{</font><font color="#993399">2</font><font color="#990000">,</font> <font color="#993399">0</font><font color="#FF0000">}}</font><font color="#990000">;</font>
+    <font color="#008080">DRect</font> dr2<font color="#FF0000">{{</font><font color="#993399">1</font><font color="#990000">,</font> <font color="#993399">3</font><font color="#FF0000">}</font><font color="#990000">,</font> <font color="#FF0000">{</font><font color="#993399">3</font><font color="#990000">,</font> <font color="#993399">1</font><font color="#FF0000">}}</font><font color="#990000">;</font>
+
+    dr1 <font color="#990000">+=</font> dr2<font color="#990000">;</font>
+
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(!</font>dr1<font color="#990000">)</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>dr1<font color="#990000">.</font><b><font color="#000000">area</font></b><font color="#990000">()</font> <font color="#990000">!=</font> <font color="#993399">9</font><font color="#990000">)</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+
+    <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">true</font></b><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+
+</tt></pre>

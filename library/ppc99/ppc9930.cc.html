@@ -1,0 +1,61 @@
+<!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><i><font color="#9A1900">/*</font></i>
+<i><font color="#9A1900"> * ++C - C++ introduction</font></i>
+<i><font color="#9A1900"> * Copyright (C) 2013, 2014, 2015, 2016, 2017 Wilhelm Meier </font></i><u><font color="#0000FF">&lt;wilhelm.meier@hs-kl.de&gt;</font></u>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is free software: you can redistribute it and/or modify</font></i>
+<i><font color="#9A1900"> * it under the terms of the GNU General Public License as published by</font></i>
+<i><font color="#9A1900"> * the Free Software Foundation, either version 3 of the License, or</font></i>
+<i><font color="#9A1900"> * (at your option) any later version.</font></i>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is distributed in the hope that it will be useful,</font></i>
+<i><font color="#9A1900"> * but WITHOUT ANY WARRANTY; without even the implied warranty of</font></i>
+<i><font color="#9A1900"> * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</font></i>
+<i><font color="#9A1900"> * GNU General Public License for more details.</font></i>
+
+<i><font color="#9A1900"> * You should have received a copy of the GNU General Public License</font></i>
+<i><font color="#9A1900"> * along with this program.  If not, see </font></i><u><font color="#0000FF">&lt;http://www.gnu.org/licenses/&gt;</font></u><i><font color="#9A1900">.</font></i>
+<i><font color="#9A1900"> */</font></i>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;malloc.h&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;chrono&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;vector&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;memory&gt;</font>
+constexpr <font color="#008080">auto</font> size <font color="#990000">=</font> <font color="#993399">1024</font> <font color="#990000">*</font> <font color="#993399">1024</font> <font color="#990000">*</font> <font color="#993399">16</font><font color="#990000">;</font>
+<i><font color="#9A1900">//constexpr auto size = 1024 * 128 + 512;</font></i>
+constexpr <font color="#008080">auto</font> iterations <font color="#990000">=</font> <font color="#993399">1024</font><font color="#990000">;</font>
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font>
+<font color="#FF0000">{</font>
+    <b><font color="#000000">mallopt</font></b><font color="#990000">(</font>M_CHECK_ACTION<font color="#990000">,</font> <font color="#993399">0</font><font color="#990000">);</font>
+
+    <b><font color="#0000FF">using</font></b> time_type <font color="#990000">=</font> std<font color="#990000">::</font>chrono<font color="#990000">::</font>nanoseconds<font color="#990000">;</font>
+    std<font color="#990000">::</font><font color="#008080">vector&lt;time_type&gt;</font> t<font color="#990000">;</font>
+
+    <b><font color="#0000FF">for</font></b><font color="#990000">(</font><font color="#008080">size_t</font> i <font color="#990000">=</font> <font color="#993399">0</font><font color="#990000">;</font> i <font color="#990000">&lt;</font> iterations<font color="#990000">;</font> <font color="#990000">++</font>i<font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+        <b><font color="#0000FF">auto</font></b> a <font color="#990000">=</font> std<font color="#990000">::</font>make_unique<font color="#990000">&lt;</font><font color="#009900">char</font><font color="#990000">[]&gt;(</font>size<font color="#990000">);</font>
+        <b><font color="#0000FF">auto</font></b> start <font color="#990000">=</font> std<font color="#990000">::</font>chrono<font color="#990000">::</font>steady_clock<font color="#990000">::</font><b><font color="#000000">now</font></b><font color="#990000">();</font>
+        a<font color="#990000">.</font><b><font color="#000000">reset</font></b><font color="#990000">();</font>
+        <b><font color="#0000FF">auto</font></b> duration <font color="#990000">=</font> std<font color="#990000">::</font>chrono<font color="#990000">::</font>duration_cast<font color="#990000">&lt;</font>time_type<font color="#990000">&gt;(</font>std<font color="#990000">::</font>chrono<font color="#990000">::</font>steady_clock<font color="#990000">::</font><b><font color="#000000">now</font></b><font color="#990000">()</font> <font color="#990000">-</font> start<font color="#990000">);</font>
+        t<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font>duration<font color="#990000">);</font>
+    <font color="#FF0000">}</font>
+    <font color="#008080">time_type</font> min<font color="#FF0000">{</font>t<font color="#990000">[</font><font color="#993399">0</font><font color="#990000">]</font><font color="#FF0000">}</font><font color="#990000">;</font>
+    <font color="#008080">time_type</font> max<font color="#FF0000">{</font>t<font color="#990000">[</font><font color="#993399">0</font><font color="#990000">]</font><font color="#FF0000">}</font><font color="#990000">;</font>
+    <font color="#008080">time_type</font> mean<font color="#FF0000">{</font><font color="#993399">0</font><font color="#FF0000">}</font><font color="#990000">;</font>
+    <b><font color="#0000FF">for</font></b><font color="#990000">(</font><b><font color="#0000FF">auto</font></b><font color="#990000">&amp;</font> d<font color="#990000">:</font> t<font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+        min <font color="#990000">=</font> std<font color="#990000">::</font><b><font color="#000000">min</font></b><font color="#990000">(</font>min<font color="#990000">,</font> d<font color="#990000">);</font>
+        max <font color="#990000">=</font> std<font color="#990000">::</font><b><font color="#000000">max</font></b><font color="#990000">(</font>max<font color="#990000">,</font> d<font color="#990000">);</font>
+        mean <font color="#990000">+=</font> d<font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    mean <font color="#990000">/=</font> iterations<font color="#990000">;</font>
+
+    std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"min: "</font> <font color="#990000">&lt;&lt;</font> min<font color="#990000">.</font><b><font color="#000000">count</font></b><font color="#990000">()</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">'</font><font color="#CC33CC">\n</font><font color="#FF0000">'</font><font color="#990000">;</font>
+    std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"max: "</font> <font color="#990000">&lt;&lt;</font> max<font color="#990000">.</font><b><font color="#000000">count</font></b><font color="#990000">()</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">'</font><font color="#CC33CC">\n</font><font color="#FF0000">'</font><font color="#990000">;</font>
+    std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"mean: "</font> <font color="#990000">&lt;&lt;</font> mean<font color="#990000">.</font><b><font color="#000000">count</font></b><font color="#990000">()</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">'</font><font color="#CC33CC">\n</font><font color="#FF0000">'</font><font color="#990000">;</font>
+<font color="#FF0000">}</font>
+
+</tt></pre>

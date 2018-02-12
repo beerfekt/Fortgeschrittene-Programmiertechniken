@@ -1,0 +1,171 @@
+<!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><i><font color="#9A1900">/*</font></i>
+<i><font color="#9A1900"> * ++C - C++ introduction</font></i>
+<i><font color="#9A1900"> * Copyright (C) 2013, 2014, 2015, 2016, 2017 Wilhelm Meier </font></i><u><font color="#0000FF">&lt;wilhelm.meier@hs-kl.de&gt;</font></u>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is free software: you can redistribute it and/or modify</font></i>
+<i><font color="#9A1900"> * it under the terms of the GNU General Public License as published by</font></i>
+<i><font color="#9A1900"> * the Free Software Foundation, either version 3 of the License, or</font></i>
+<i><font color="#9A1900"> * (at your option) any later version.</font></i>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is distributed in the hope that it will be useful,</font></i>
+<i><font color="#9A1900"> * but WITHOUT ANY WARRANTY; without even the implied warranty of</font></i>
+<i><font color="#9A1900"> * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</font></i>
+<i><font color="#9A1900"> * GNU General Public License for more details.</font></i>
+<i><font color="#9A1900"> * You should have received a copy of the GNU General Public License</font></i>
+<i><font color="#9A1900"> * along with this program.  If not, see </font></i><u><font color="#0000FF">&lt;http://www.gnu.org/licenses/&gt;</font></u><i><font color="#9A1900">.</font></i>
+<i><font color="#9A1900"> */</font></i>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">"heaparray31.h"</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">"../lib/simpletest.h"</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">"math.h"</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;type_traits&gt;</font>
+<b><font color="#000000">static_assert</font></b><font color="#990000">(!</font>std<font color="#990000">::</font>is_default_constructible<font color="#990000">&lt;</font>HeapArray<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;&gt;::</font>value<font color="#990000">,</font> <font color="#FF0000">"HeapArray&lt;T&gt; must not be default-constructible"</font><font color="#990000">);</font>
+<b><font color="#000000">static_assert</font></b><font color="#990000">(</font>std<font color="#990000">::</font>is_copy_constructible<font color="#990000">&lt;</font>HeapArray<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;&gt;::</font>value<font color="#990000">,</font> <font color="#FF0000">"HeapArray&lt;T&gt; should be copy-constructible"</font><font color="#990000">);</font>
+<b><font color="#000000">static_assert</font></b><font color="#990000">(</font>std<font color="#990000">::</font>is_copy_assignable<font color="#990000">&lt;</font>HeapArray<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;&gt;::</font>value<font color="#990000">,</font> <font color="#FF0000">"HeapArray&lt;T&gt; should be copy-assignable"</font><font color="#990000">);</font>
+<b><font color="#000000">static_assert</font></b><font color="#990000">(</font>std<font color="#990000">::</font>is_move_constructible<font color="#990000">&lt;</font>HeapArray<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;&gt;::</font>value<font color="#990000">,</font> <font color="#FF0000">"HeapArray&lt;T&gt; should be move-constructible"</font><font color="#990000">);</font>
+<b><font color="#000000">static_assert</font></b><font color="#990000">(</font>std<font color="#990000">::</font>is_move_assignable<font color="#990000">&lt;</font>HeapArray<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;&gt;::</font>value<font color="#990000">,</font> <font color="#FF0000">"HeapArray&lt;T&gt; should be move-assignable"</font><font color="#990000">);</font>
+<b><font color="#000000">SIMPLETEST</font></b><font color="#990000">(</font><font color="#FF0000">"ctor1"</font><font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">const</font></b> <font color="#009900">int</font> size <font color="#990000">=</font> <font color="#993399">100</font><font color="#990000">;</font>
+    <font color="#008080">HeapArray&lt;int&gt;</font> <b><font color="#000000">ha</font></b><font color="#990000">(</font>size<font color="#990000">);</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>ha<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">!=</font> size<font color="#990000">)</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">true</font></b><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#000000">SIMPLETEST</font></b><font color="#990000">(</font><font color="#FF0000">"ctor2"</font><font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">const</font></b> <font color="#009900">int</font> size <font color="#990000">=</font> <font color="#993399">100</font><font color="#990000">;</font>
+    <font color="#008080">HeapArray&lt;int&gt;</font> <b><font color="#000000">ha</font></b><font color="#990000">(</font>size<font color="#990000">);</font>
+    <b><font color="#0000FF">for</font></b><font color="#990000">(</font><font color="#008080">size_t</font> i <font color="#990000">=</font> <font color="#993399">0</font><font color="#990000">;</font> i <font color="#990000">&lt;</font> ha<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">();</font> <font color="#990000">++</font>i<font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>ha<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">!=</font> <font color="#993399">0</font><font color="#990000">)</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">true</font></b><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#000000">SIMPLETEST</font></b><font color="#990000">(</font><font color="#FF0000">"ctor3"</font><font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">const</font></b> <font color="#009900">int</font> size <font color="#990000">=</font> <font color="#993399">100</font><font color="#990000">;</font>
+    <font color="#008080">HeapArray&lt;int&gt;</font> <b><font color="#000000">ha</font></b><font color="#990000">(</font>size<font color="#990000">);</font>
+    <b><font color="#0000FF">for</font></b><font color="#990000">(</font><font color="#008080">size_t</font> i <font color="#990000">=</font> <font color="#993399">0</font><font color="#990000">;</font> i <font color="#990000">&lt;</font> ha<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">();</font> <font color="#990000">++</font>i<font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+        ha<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">=</font> <font color="#993399">42</font><font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    <b><font color="#0000FF">const</font></b> HeapArray<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;&amp;</font> ha2 <font color="#990000">=</font> ha<font color="#990000">;</font>
+    <b><font color="#0000FF">for</font></b><font color="#990000">(</font><font color="#008080">size_t</font> i <font color="#990000">=</font> <font color="#993399">0</font><font color="#990000">;</font> i <font color="#990000">&lt;</font> ha<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">();</font> <font color="#990000">++</font>i<font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>ha2<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">!=</font> <font color="#993399">42</font><font color="#990000">)</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">true</font></b><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#000000">SIMPLETEST</font></b><font color="#990000">(</font><font color="#FF0000">"ctor4"</font><font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">const</font></b> <font color="#009900">int</font> size <font color="#990000">=</font> <font color="#993399">100</font><font color="#990000">;</font>
+    <font color="#008080">HeapArray&lt;long double&gt;</font> <b><font color="#000000">ha</font></b><font color="#990000">(</font>size<font color="#990000">);</font>
+    <b><font color="#0000FF">for</font></b><font color="#990000">(</font><font color="#008080">size_t</font> i <font color="#990000">=</font> <font color="#993399">0</font><font color="#990000">;</font> i <font color="#990000">&lt;</font> ha<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">();</font> <font color="#990000">++</font>i<font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(!</font>Math<font color="#990000">::</font><b><font color="#000000">equal</font></b><font color="#990000">(</font>ha<font color="#990000">[</font>i<font color="#990000">],</font> <font color="#993399">0.0L</font><font color="#990000">))</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">true</font></b><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#000000">SIMPLETEST</font></b><font color="#990000">(</font><font color="#FF0000">"ctor5"</font><font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">const</font></b> <font color="#009900">int</font> size <font color="#990000">=</font> <font color="#993399">100</font><font color="#990000">;</font>
+    <b><font color="#0000FF">const</font></b> <font color="#009900">long</font> <font color="#009900">double</font> value <font color="#990000">=</font> <font color="#993399">1.0</font><font color="#990000">;</font>
+    <font color="#008080">HeapArray&lt;long double&gt;</font> <b><font color="#000000">ha</font></b><font color="#990000">(</font>size<font color="#990000">,</font> value<font color="#990000">);</font>
+    <b><font color="#0000FF">for</font></b><font color="#990000">(</font><font color="#008080">size_t</font> i <font color="#990000">=</font> <font color="#993399">0</font><font color="#990000">;</font> i <font color="#990000">&lt;</font> ha<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">();</font> <font color="#990000">++</font>i<font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(!</font>Math<font color="#990000">::</font><b><font color="#000000">equal</font></b><font color="#990000">(</font>ha<font color="#990000">[</font>i<font color="#990000">],</font> <font color="#993399">1.0L</font><font color="#990000">))</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">true</font></b><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#000000">SIMPLETEST</font></b><font color="#990000">(</font><font color="#FF0000">"move assign"</font><font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <font color="#008080">HeapArray&lt;int&gt;</font> <b><font color="#000000">ha</font></b><font color="#990000">(</font><font color="#993399">100</font><font color="#990000">);</font>
+    ha <font color="#990000">=</font> HeapArray<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;(</font><font color="#993399">2</font><font color="#990000">);</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>ha<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">!=</font> <font color="#993399">2</font><font color="#990000">)</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">true</font></b><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#000000">SIMPLETEST</font></b><font color="#990000">(</font><font color="#FF0000">"move construct"</font><font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <font color="#008080">HeapArray&lt;int&gt;</font> ha <font color="#990000">=</font> HeapArray<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;(</font><font color="#993399">2</font><font color="#990000">);</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>ha<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">!=</font> <font color="#993399">2</font><font color="#990000">)</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">true</font></b><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#000000">SIMPLETEST</font></b><font color="#990000">(</font><font color="#FF0000">"move construct2"</font><font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <font color="#008080">HeapArray&lt;int&gt;</font> hx <font color="#990000">=</font> HeapArray<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;(</font><font color="#993399">2</font><font color="#990000">);</font>
+    hx<font color="#990000">[</font><font color="#993399">1</font><font color="#990000">]</font> <font color="#990000">=</font> <font color="#993399">42</font><font color="#990000">;</font>
+    <font color="#008080">HeapArray&lt;int&gt;</font> ha <font color="#990000">=</font> std<font color="#990000">::</font><b><font color="#000000">move</font></b><font color="#990000">(</font>hx<font color="#990000">);</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>ha<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">!=</font> <font color="#993399">2</font><font color="#990000">)</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>ha<font color="#990000">[</font><font color="#993399">1</font><font color="#990000">]</font> <font color="#990000">!=</font> <font color="#993399">42</font><font color="#990000">)</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>hx<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">!=</font> <font color="#993399">0</font><font color="#990000">)</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font> <i><font color="#9A1900">// &lt;&gt; Dadurch kein Blackboxtest mehr!</font></i>
+    <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">true</font></b><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#000000">SIMPLETEST</font></b><font color="#990000">(</font><font color="#FF0000">"move assign2"</font><font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <font color="#008080">HeapArray&lt;int&gt;</font> hx <font color="#990000">=</font> HeapArray<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;(</font><font color="#993399">2</font><font color="#990000">);</font>
+    hx<font color="#990000">[</font><font color="#993399">1</font><font color="#990000">]</font> <font color="#990000">=</font> <font color="#993399">42</font><font color="#990000">;</font>
+    <font color="#008080">HeapArray&lt;int&gt;</font> ha <font color="#990000">=</font> HeapArray<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;(</font><font color="#993399">10</font><font color="#990000">);</font>
+    ha <font color="#990000">=</font> std<font color="#990000">::</font><b><font color="#000000">move</font></b><font color="#990000">(</font>hx<font color="#990000">);</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>ha<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">!=</font> <font color="#993399">2</font><font color="#990000">)</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>ha<font color="#990000">[</font><font color="#993399">1</font><font color="#990000">]</font> <font color="#990000">!=</font> <font color="#993399">42</font><font color="#990000">)</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>hx<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">!=</font> <font color="#993399">10</font><font color="#990000">)</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font> <i><font color="#9A1900">// &lt;&gt; Dadurch kein Blackboxtest mehr!</font></i>
+    <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">true</font></b><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#000000">SIMPLETEST</font></b><font color="#990000">(</font><font color="#FF0000">"copy construct"</font><font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <font color="#008080">HeapArray&lt;int&gt;</font> <b><font color="#000000">ha1</font></b><font color="#990000">(</font><font color="#993399">100</font><font color="#990000">);</font>
+    ha1<font color="#990000">[</font><font color="#993399">42</font><font color="#990000">]</font> <font color="#990000">=</font> <font color="#993399">42</font><font color="#990000">;</font>
+    <font color="#008080">HeapArray&lt;int&gt;</font> ha2 <font color="#990000">=</font> ha1<font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>ha2<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">!=</font> <font color="#993399">100</font><font color="#990000">)</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>ha2<font color="#990000">[</font><font color="#993399">42</font><font color="#990000">]</font> <font color="#990000">!=</font> <font color="#993399">42</font><font color="#990000">)</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">true</font></b><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#000000">SIMPLETEST</font></b><font color="#990000">(</font><font color="#FF0000">"copy assign"</font><font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <font color="#008080">HeapArray&lt;int&gt;</font> <b><font color="#000000">ha1</font></b><font color="#990000">(</font><font color="#993399">100</font><font color="#990000">);</font>
+    ha1<font color="#990000">[</font><font color="#993399">42</font><font color="#990000">]</font> <font color="#990000">=</font> <font color="#993399">42</font><font color="#990000">;</font>
+    <font color="#008080">HeapArray&lt;int&gt;</font> <b><font color="#000000">ha2</font></b><font color="#990000">(</font><font color="#993399">200</font><font color="#990000">);</font>
+    ha2<font color="#990000">[</font><font color="#993399">42</font><font color="#990000">]</font> <font color="#990000">=</font> <font color="#993399">43</font><font color="#990000">;</font>
+    ha1 <font color="#990000">=</font> ha2<font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>ha2<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">!=</font> <font color="#993399">200</font><font color="#990000">)</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>ha2<font color="#990000">[</font><font color="#993399">42</font><font color="#990000">]</font> <font color="#990000">!=</font> <font color="#993399">43</font><font color="#990000">)</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">true</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">true</font></b><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#000000">SIMPLETEST</font></b><font color="#990000">(</font><font color="#FF0000">"swap1"</font><font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <font color="#008080">HeapArray&lt;long double&gt;</font> <b><font color="#000000">ha1</font></b><font color="#990000">(</font><font color="#993399">10</font><font color="#990000">);</font>
+    <font color="#008080">HeapArray&lt;long double&gt;</font> <b><font color="#000000">ha2</font></b><font color="#990000">(</font><font color="#993399">20</font><font color="#990000">);</font>
+    ha1<font color="#990000">.</font><b><font color="#000000">swap</font></b><font color="#990000">(</font>ha2<font color="#990000">);</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>ha1<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">!=</font> <font color="#993399">20</font><font color="#990000">)</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>ha2<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">!=</font> <font color="#993399">10</font><font color="#990000">)</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">true</font></b><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#000000">SIMPLETEST</font></b><font color="#990000">(</font><font color="#FF0000">"initializer_list"</font><font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <font color="#008080">HeapArray&lt;int&gt;</font> ha<font color="#FF0000">{</font><font color="#993399">1</font><font color="#990000">,</font> <font color="#993399">2</font><font color="#990000">,</font> <font color="#993399">3</font><font color="#990000">,</font> <font color="#993399">4</font><font color="#990000">,</font> <font color="#993399">5</font><font color="#FF0000">}</font><font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>ha<font color="#990000">[</font><font color="#993399">0</font><font color="#990000">]</font> <font color="#990000">!=</font> <font color="#993399">1</font><font color="#990000">)</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>ha<font color="#990000">[</font><font color="#993399">1</font><font color="#990000">]</font> <font color="#990000">!=</font> <font color="#993399">2</font><font color="#990000">)</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>ha<font color="#990000">[</font><font color="#993399">2</font><font color="#990000">]</font> <font color="#990000">!=</font> <font color="#993399">3</font><font color="#990000">)</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>ha<font color="#990000">[</font><font color="#993399">3</font><font color="#990000">]</font> <font color="#990000">!=</font> <font color="#993399">4</font><font color="#990000">)</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+    <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">true</font></b><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#000000">SIMPLETEST</font></b><font color="#990000">(</font><font color="#FF0000">"iterator1"</font><font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <font color="#008080">HeapArray&lt;int&gt;</font> <b><font color="#000000">ha</font></b><font color="#990000">(</font><font color="#993399">10</font><font color="#990000">);</font>
+    <b><font color="#0000FF">for</font></b><font color="#990000">(</font><b><font color="#0000FF">auto</font></b> it <font color="#990000">=</font> ha<font color="#990000">.</font><b><font color="#000000">begin</font></b><font color="#990000">();</font> <i><font color="#9A1900">// &lt;&gt; Der Anfang-Iterator wird bestimmt.</font></i>
+            it <font color="#990000">!=</font> ha<font color="#990000">.</font><b><font color="#000000">end</font></b><font color="#990000">();</font> <i><font color="#9A1900">// &lt;&gt; Vergleih mit dem Ende-Iterator</font></i>
+            <font color="#990000">++</font>it<font color="#990000">)</font>   <i><font color="#9A1900">// &lt;&gt; Inkrement des Operators</font></i>
+    <font color="#FF0000">{</font>
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(*</font>it <font color="#990000">!=</font> <font color="#993399">0</font><font color="#990000">)</font>   <i><font color="#9A1900">// &lt;&gt; Dereferenzierung über den Indirektionsoperator</font></i>
+        <font color="#FF0000">{</font>
+            <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+        <font color="#FF0000">}</font>
+    <font color="#FF0000">}</font>
+    <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">true</font></b><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+
+</tt></pre>

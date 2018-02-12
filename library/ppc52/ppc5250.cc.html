@@ -1,0 +1,53 @@
+<!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><i><font color="#9A1900">/*</font></i>
+<i><font color="#9A1900"> * ++C - C++ introduction</font></i>
+<i><font color="#9A1900"> * Copyright (C) 2013, 2014, 2015, 2016, 2017 Wilhelm Meier </font></i><u><font color="#0000FF">&lt;wilhelm.meier@hs-kl.de&gt;</font></u>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is free software: you can redistribute it and/or modify</font></i>
+<i><font color="#9A1900"> * it under the terms of the GNU General Public License as published by</font></i>
+<i><font color="#9A1900"> * the Free Software Foundation, either version 3 of the License, or</font></i>
+<i><font color="#9A1900"> * (at your option) any later version.</font></i>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is distributed in the hope that it will be useful,</font></i>
+<i><font color="#9A1900"> * but WITHOUT ANY WARRANTY; without even the implied warranty of</font></i>
+<i><font color="#9A1900"> * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</font></i>
+<i><font color="#9A1900"> * GNU General Public License for more details.</font></i>
+
+<i><font color="#9A1900"> * You should have received a copy of the GNU General Public License</font></i>
+<i><font color="#9A1900"> * along with this program.  If not, see </font></i><u><font color="#0000FF">&lt;http://www.gnu.org/licenses/&gt;</font></u><i><font color="#9A1900">.</font></i>
+<i><font color="#9A1900"> */</font></i>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;array&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;algorithm&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;cassert&gt;</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">T</font><font color="#990000">&gt;</font>
+<font color="#008080">requires</font> <b><font color="#0000FF">true</font></b> <i><font color="#9A1900">//&lt;&gt; Das einfachste _constraint_: eine `requires`-Klausel mit einem `constexpr`-Wert `true`.</font></i>
+<font color="#009900">void</font> <b><font color="#000000">f</font></b><font color="#990000">()</font>
+<font color="#FF0000">{</font>
+<font color="#FF0000">}</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">T</font><font color="#990000">&gt;</font>
+<font color="#008080">requires</font> std<font color="#990000">::</font><font color="#008080">is_same&lt;T, int&gt;::value // &lt;&gt;</font> Ein `constexpr`<font color="#990000">-</font><font color="#008080">Ausdruck</font> als `requires`<font color="#990000">-</font>Klausel
+<font color="#009900">void</font> <b><font color="#000000">g</font></b><font color="#990000">()</font>
+<font color="#FF0000">{</font>
+<font color="#FF0000">}</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">T</font><font color="#990000">&gt;</font>
+<font color="#008080">requires</font> std<font color="#990000">::</font>is_same<font color="#990000">&lt;</font>T<font color="#990000">,</font> <font color="#009900">int</font><font color="#990000">&gt;::</font>value <font color="#990000">||</font> std<font color="#990000">::</font>is_same<font color="#990000">&lt;</font>T<font color="#990000">,</font> <font color="#009900">short</font><font color="#990000">&gt;::</font>value <i><font color="#9A1900">// &lt;&gt; Ebenfalls ein zusammengesetzter `constexpr`-Ausdruck</font></i>
+<font color="#009900">void</font> <b><font color="#000000">h</font></b><font color="#990000">()</font>
+<font color="#FF0000">{</font>
+<font color="#FF0000">}</font>
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font>
+<font color="#FF0000">{</font>
+    f<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;();</font>
+    g<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;();</font>
+    h<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;();</font>
+    h<font color="#990000">&lt;</font><font color="#009900">short</font><font color="#990000">&gt;();</font>
+<b><font color="#000080">#if</font></b> ERROR
+    h<font color="#990000">&lt;</font><font color="#009900">float</font><font color="#990000">&gt;();</font> <i><font color="#9A1900">// &lt;&gt; `float` erfüllt _nicht_ die Anforderungen an den Template-Parameter</font></i>
+<b><font color="#000080">#endif</font></b>
+
+<font color="#FF0000">}</font>
+
+</tt></pre>

@@ -1,0 +1,46 @@
+<!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><i><font color="#9A1900">/*</font></i>
+<i><font color="#9A1900"> * ++C - C++ introduction</font></i>
+<i><font color="#9A1900"> * Copyright (C) 2013, 2014, 2015, 2016, 2017 Wilhelm Meier </font></i><u><font color="#0000FF">&lt;wilhelm.meier@hs-kl.de&gt;</font></u>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is free software: you can redistribute it and/or modify</font></i>
+<i><font color="#9A1900"> * it under the terms of the GNU General Public License as published by</font></i>
+<i><font color="#9A1900"> * the Free Software Foundation, either version 3 of the License, or</font></i>
+<i><font color="#9A1900"> * (at your option) any later version.</font></i>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is distributed in the hope that it will be useful,</font></i>
+<i><font color="#9A1900"> * but WITHOUT ANY WARRANTY; without even the implied warranty of</font></i>
+<i><font color="#9A1900"> * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</font></i>
+<i><font color="#9A1900"> * GNU General Public License for more details.</font></i>
+<i><font color="#9A1900"> * You should have received a copy of the GNU General Public License</font></i>
+<i><font color="#9A1900"> * along with this program.  If not, see </font></i><u><font color="#0000FF">&lt;http://www.gnu.org/licenses/&gt;</font></u><i><font color="#9A1900">.</font></i>
+<i><font color="#9A1900"> */</font></i>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;array&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;vector&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">"heaparray15.h"</font>
+<b><font color="#000080">#pragma</font></b> GCC <font color="#008080">diagnostic</font> ignored <font color="#FF0000">"-Wunused-variable"</font>
+<b><font color="#000080">#pragma</font></b> GCC <font color="#008080">diagnostic</font> ignored <font color="#FF0000">"-Wmissing-braces"</font>
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font>
+<font color="#FF0000">{</font>
+    <font color="#009900">int</font> i1<font color="#FF0000">{</font><font color="#993399">0</font><font color="#FF0000">}</font><font color="#990000">;</font> <i><font color="#9A1900">// &lt;&gt; scalare Initialisierung</font></i>
+    <font color="#009900">int</font> ca1<font color="#990000">[]</font> <font color="#FF0000">{</font><font color="#993399">1</font><font color="#990000">,</font> <font color="#993399">2</font><font color="#FF0000">}</font><font color="#990000">;</font> <i><font color="#9A1900">// &lt;&gt; Statisches _rohes_ Array</font></i>
+    std<font color="#990000">::</font><font color="#008080">array&lt;int, 3&gt;</font> a1<font color="#FF0000">{</font><font color="#993399">1</font><font color="#990000">,</font> <font color="#993399">2</font><font color="#990000">,</font> <font color="#993399">3</font><font color="#FF0000">}</font><font color="#990000">;</font> <i><font color="#9A1900">// &lt;&gt; {stdarray}-template der Länge 3</font></i>
+    std<font color="#990000">::</font><font color="#008080">vector&lt;int&gt;</font> v1<font color="#FF0000">{</font><font color="#993399">1</font><font color="#990000">,</font> <font color="#993399">2</font><font color="#990000">,</font> <font color="#993399">3</font><font color="#FF0000">}</font><font color="#990000">;</font> <i><font color="#9A1900">// &lt;&gt; {stdvector}-template der Länge 3</font></i>
+    <font color="#009900">int</font> ca2<font color="#990000">[]</font> <font color="#990000">=</font> <font color="#FF0000">{</font><font color="#993399">1</font><font color="#990000">,</font> <font color="#993399">2</font><font color="#FF0000">}</font><font color="#990000">;</font> <i><font color="#9A1900">// &lt;&gt; Kopierinitialisierungen</font></i>
+    std<font color="#990000">::</font><font color="#008080">array&lt;int, 3&gt;</font> a2 <font color="#990000">=</font> <font color="#FF0000">{</font><font color="#993399">1</font><font color="#990000">,</font> <font color="#993399">2</font><font color="#990000">,</font> <font color="#993399">3</font><font color="#FF0000">}</font><font color="#990000">;</font>
+    std<font color="#990000">::</font><font color="#008080">vector&lt;int&gt;</font> v2 <font color="#990000">=</font> <font color="#FF0000">{</font><font color="#993399">1</font><font color="#990000">,</font> <font color="#993399">2</font><font color="#990000">,</font> <font color="#993399">3</font><font color="#FF0000">}</font><font color="#990000">;</font>
+    <font color="#008080">HeapArray&lt;int&gt;</font> <b><font color="#000000">ha1</font></b><font color="#990000">(</font><font color="#FF0000">{</font><font color="#993399">1</font><font color="#990000">,</font> <font color="#993399">2</font><font color="#990000">,</font> <font color="#993399">3</font><font color="#990000">,</font> <font color="#993399">4</font><font color="#990000">,</font> <font color="#993399">5</font><font color="#990000">,</font> <font color="#993399">6</font><font color="#FF0000">}</font><font color="#990000">);</font> <i><font color="#9A1900">// &lt;&gt; Dies ist bei _jedem_  Funktionsaufruf möglich</font></i>
+    <font color="#008080">HeapArray&lt;int&gt;</font> ha2<font color="#FF0000">{</font><font color="#993399">1</font><font color="#990000">,</font> <font color="#993399">2</font><font color="#990000">,</font> <font color="#993399">3</font><font color="#990000">,</font> <font color="#993399">4</font><font color="#990000">,</font> <font color="#993399">5</font><font color="#990000">,</font> <font color="#993399">6</font><font color="#FF0000">}</font><font color="#990000">;</font> <i><font color="#9A1900">// &lt;&gt; Dies geht nur bei Konstruktoren (Initialisierung).</font></i>
+    <font color="#008080">HeapArray&lt;int&gt;</font> ha3<font color="#FF0000">{</font><font color="#993399">10</font><font color="#FF0000">}</font><font color="#990000">;</font> <i><font color="#9A1900">// &lt;&gt; Konstruktoren mit `std::initializer_list&lt;T&gt;` als Parameter haben _Vorrang_!</font></i>
+    <font color="#008080">HeapArray&lt;int&gt;</font> <b><font color="#000000">ha4</font></b><font color="#990000">(</font><font color="#993399">10</font><font color="#990000">);</font> <i><font color="#9A1900">// &lt;&gt; Aufruf des Konstruktors `HeapArray(size_t)`</font></i>
+    std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> ha1<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font>
+    std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> ha2<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font>
+    std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> ha3<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font>
+    std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> ha4<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font>
+<font color="#FF0000">}</font>
+
+</tt></pre>

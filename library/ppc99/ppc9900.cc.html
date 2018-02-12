@@ -1,0 +1,130 @@
+<!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><i><font color="#9A1900">/*</font></i>
+<i><font color="#9A1900"> * ++C - C++ introduction</font></i>
+<i><font color="#9A1900"> * Copyright (C) 2013, 2014, 2015, 2016, 2017 Wilhelm Meier </font></i><u><font color="#0000FF">&lt;wilhelm.meier@hs-kl.de&gt;</font></u>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is free software: you can redistribute it and/or modify</font></i>
+<i><font color="#9A1900"> * it under the terms of the GNU General Public License as published by</font></i>
+<i><font color="#9A1900"> * the Free Software Foundation, either version 3 of the License, or</font></i>
+<i><font color="#9A1900"> * (at your option) any later version.</font></i>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is distributed in the hope that it will be useful,</font></i>
+<i><font color="#9A1900"> * but WITHOUT ANY WARRANTY; without even the implied warranty of</font></i>
+<i><font color="#9A1900"> * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</font></i>
+<i><font color="#9A1900"> * GNU General Public License for more details.</font></i>
+<i><font color="#9A1900"> * You should have received a copy of the GNU General Public License</font></i>
+<i><font color="#9A1900"> * along with this program.  If not, see </font></i><u><font color="#0000FF">&lt;http://www.gnu.org/licenses/&gt;</font></u><i><font color="#9A1900">.</font></i>
+<i><font color="#9A1900"> */</font></i>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;utility&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;vector&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;experimental/memory&gt;</font>
+<b><font color="#0000FF">class</font></b> <font color="#008080">A</font>
+<font color="#FF0000">{</font>
+<b><font color="#0000FF">public</font></b><font color="#990000">:</font>
+    <b><font color="#000000">A</font></b><font color="#990000">()</font>
+    <font color="#FF0000">{</font>
+        std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> __PRETTY_FUNCTION__ <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    <b><font color="#000000">A</font></b><font color="#990000">(</font>A<font color="#990000">&amp;&amp;)</font>
+    <font color="#FF0000">{</font>
+        std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> __PRETTY_FUNCTION__ <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    <b><font color="#000000">A</font></b><font color="#990000">(</font><b><font color="#0000FF">const</font></b> A<font color="#990000">&amp;)</font>
+    <font color="#FF0000">{</font>
+        std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> __PRETTY_FUNCTION__ <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    A<font color="#990000">&amp;</font> <b><font color="#0000FF">operator</font></b><font color="#990000">==(</font>A<font color="#990000">&amp;&amp;)</font>
+    <font color="#FF0000">{</font>
+        std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> __PRETTY_FUNCTION__ <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font>
+        <b><font color="#0000FF">return</font></b> <font color="#990000">*</font><b><font color="#0000FF">this</font></b><font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    A<font color="#990000">&amp;</font> <b><font color="#0000FF">operator</font></b><font color="#990000">=(</font><b><font color="#0000FF">const</font></b> A<font color="#990000">&amp;)</font>
+    <font color="#FF0000">{</font>
+        std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> __PRETTY_FUNCTION__ <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font>
+        <b><font color="#0000FF">return</font></b> <font color="#990000">*</font><b><font color="#0000FF">this</font></b><font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<font color="#009900">bool</font> <b><font color="#0000FF">operator</font></b><font color="#990000">==(</font><b><font color="#0000FF">const</font></b> A<font color="#990000">&amp;,</font> <b><font color="#0000FF">const</font></b> A<font color="#990000">&amp;)</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">true</font></b><font color="#990000">;</font>
+<font color="#FF0000">}</font>
+<i><font color="#9A1900">// An unordered collection of values</font></i>
+<b><font color="#0000FF">template</font></b> <font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">T</font><font color="#990000">&gt;</font>
+<b><font color="#0000FF">class</font></b> <font color="#008080">Values</font>
+<font color="#FF0000">{</font>
+<b><font color="#0000FF">public</font></b><font color="#990000">:</font>
+    <font color="#009900">void</font> <b><font color="#000000">add</font></b><font color="#990000">(</font><font color="#008080">T</font> t<font color="#990000">);</font>
+    <font color="#009900">bool</font> <b><font color="#000000">remove</font></b><font color="#990000">(</font><font color="#008080">T</font> t<font color="#990000">);</font>
+    std<font color="#990000">::</font><font color="#008080">vector&lt;T&gt;</font> <b><font color="#0000FF">const</font></b> <font color="#990000">&amp;</font> <b><font color="#000000">values</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b>
+    <font color="#FF0000">{</font>
+        <b><font color="#0000FF">return</font></b> v<font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+<b><font color="#0000FF">private</font></b><font color="#990000">:</font>
+    std<font color="#990000">::</font><font color="#008080">vector&lt;T&gt;</font> v<font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<i><font color="#9A1900">// Add a new item</font></i>
+<b><font color="#0000FF">template</font></b> <font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">T</font><font color="#990000">&gt;</font>
+<font color="#009900">void</font> Values<font color="#990000">&lt;</font>T<font color="#990000">&gt;::</font><b><font color="#000000">add</font></b><font color="#990000">(</font><font color="#008080">T</font> t<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    v<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font>t<font color="#990000">);</font>
+<font color="#FF0000">}</font>
+<i><font color="#9A1900">// Remove an item</font></i>
+<i><font color="#9A1900">// Returns true if removed, false if not present</font></i>
+<b><font color="#0000FF">template</font></b> <font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">T</font><font color="#990000">&gt;</font>
+<font color="#009900">bool</font> Values<font color="#990000">&lt;</font>T<font color="#990000">&gt;::</font><b><font color="#000000">remove</font></b><font color="#990000">(</font><font color="#008080">T</font> t<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <font color="#009900">bool</font> <b><font color="#000000">found</font></b><font color="#990000">(</font><b><font color="#0000FF">false</font></b><font color="#990000">);</font>
+    <i><font color="#9A1900">//  for (auto i = 0; i != v.size(); ++i)</font></i>
+    <i><font color="#9A1900">// i != v.size() ist falsch wegen des pop_back: besser i &lt; v.size() oder ein return</font></i>
+    <i><font color="#9A1900">//  for (decltype(v.size()) i = 0; i != v.size(); ++i)</font></i>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font><b><font color="#000000">decltype</font></b><font color="#990000">(</font>v<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">())</font> i <font color="#990000">=</font> <font color="#993399">0</font><font color="#990000">;</font> i <font color="#990000">&lt;</font> v<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">();</font> <font color="#990000">++</font>i<font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+        std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"i: "</font> <font color="#990000">&lt;&lt;</font> i <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" size: "</font> <font color="#990000">&lt;&lt;</font> v<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font>
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>v<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">==</font> t<font color="#990000">)</font>
+        <font color="#FF0000">{</font>
+            v<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">=</font> std<font color="#990000">::</font><b><font color="#000000">move</font></b><font color="#990000">(</font>v<font color="#990000">.</font><b><font color="#000000">back</font></b><font color="#990000">());</font> <i><font color="#9A1900">// moving nicht möglich</font></i>
+            v<font color="#990000">.</font><b><font color="#000000">pop_back</font></b><font color="#990000">();</font>
+            found <font color="#990000">=</font> <b><font color="#0000FF">true</font></b><font color="#990000">;</font>
+        <font color="#FF0000">}</font>
+    <font color="#FF0000">}</font>
+    <b><font color="#0000FF">return</font></b> found<font color="#990000">;</font>
+<font color="#FF0000">}</font>
+<font color="#009900">void</font> <b><font color="#000000">test</font></b><font color="#990000">()</font>
+<font color="#FF0000">{</font>
+    <i><font color="#9A1900">//  Values&lt;int&gt; vi;</font></i>
+    <font color="#008080">Values&lt;A&gt;</font> vi<font color="#990000">;</font>
+    <font color="#008080">A</font> a<font color="#990000">;</font>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font><font color="#009900">int</font> i <font color="#990000">=</font> <font color="#993399">0</font><font color="#990000">;</font> i <font color="#990000">!=</font> <font color="#993399">10</font><font color="#990000">;</font> <font color="#990000">++</font>i<font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+        vi<font color="#990000">.</font><b><font color="#000000">add</font></b><font color="#990000">(</font>a<font color="#990000">);</font>
+    <font color="#FF0000">}</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(!</font>vi<font color="#990000">.</font><b><font color="#000000">remove</font></b><font color="#990000">(</font>a<font color="#990000">))</font>
+    <font color="#FF0000">{</font>
+        std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"Can't remove 1</font><font color="#CC33CC">\n</font><font color="#FF0000">"</font><font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>vi<font color="#990000">.</font><b><font color="#000000">remove</font></b><font color="#990000">(</font>a<font color="#990000">))</font>
+    <font color="#FF0000">{</font>
+        std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"Can remove 1 twice</font><font color="#CC33CC">\n</font><font color="#FF0000">"</font><font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    <font color="#008080">A</font> b<font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(!</font>vi<font color="#990000">.</font><b><font color="#000000">remove</font></b><font color="#990000">(</font>b<font color="#990000">))</font>
+    <font color="#FF0000">{</font>
+        std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"Can't remove 9</font><font color="#CC33CC">\n</font><font color="#FF0000">"</font><font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"size: "</font> <font color="#990000">&lt;&lt;</font> vi<font color="#990000">.</font><b><font color="#000000">values</font></b><font color="#990000">().</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font>
+<font color="#FF0000">}</font>
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font>
+<font color="#FF0000">{</font>
+    <b><font color="#000000">test</font></b><font color="#990000">();</font>
+    std<font color="#990000">::</font>experimental<font color="#990000">::</font><font color="#008080">observer_ptr&lt;char&gt;</font> ptr<font color="#990000">;</font>
+<i><font color="#9A1900">//    const char* p{};</font></i>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font><font color="#009900">int</font> i <font color="#990000">=</font> <font color="#993399">4</font><font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+    <font color="#FF0000">}</font>
+<font color="#FF0000">}</font>
+
+</tt></pre>

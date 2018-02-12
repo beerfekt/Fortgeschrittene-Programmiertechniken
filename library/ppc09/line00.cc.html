@@ -1,0 +1,54 @@
+<!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><i><font color="#9A1900">/*</font></i>
+<i><font color="#9A1900"> * ++C - C++ introduction</font></i>
+<i><font color="#9A1900"> * Copyright (C) 2013, 2014, 2015, 2016, 2017 Wilhelm Meier </font></i><u><font color="#0000FF">&lt;wilhelm.meier@hs-kl.de&gt;</font></u>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is free software: you can redistribute it and/or modify</font></i>
+<i><font color="#9A1900"> * it under the terms of the GNU General Public License as published by</font></i>
+<i><font color="#9A1900"> * the Free Software Foundation, either version 3 of the License, or</font></i>
+<i><font color="#9A1900"> * (at your option) any later version.</font></i>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is distributed in the hope that it will be useful,</font></i>
+<i><font color="#9A1900"> * but WITHOUT ANY WARRANTY; without even the implied warranty of</font></i>
+<i><font color="#9A1900"> * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</font></i>
+<i><font color="#9A1900"> * GNU General Public License for more details.</font></i>
+<i><font color="#9A1900"> * You should have received a copy of the GNU General Public License</font></i>
+<i><font color="#9A1900"> * along with this program.  If not, see </font></i><u><font color="#0000FF">&lt;http://www.gnu.org/licenses/&gt;</font></u><i><font color="#9A1900">.</font></i>
+<i><font color="#9A1900"> */</font></i>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">"line00.h"</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">"math.h"</font>
+Line<font color="#990000">::</font><b><font color="#000000">Line</font></b><font color="#990000">(</font><b><font color="#0000FF">const</font></b> Point<font color="#990000">&amp;</font> point1<font color="#990000">,</font> <b><font color="#0000FF">const</font></b> Point<font color="#990000">&amp;</font> point2<font color="#990000">)</font> <font color="#990000">:</font>
+    <b><font color="#000000">mPoint1</font></b><font color="#990000">(</font>point1<font color="#990000">),</font> <i><font color="#9A1900">// &lt;&gt; Initialisierung der Endpunkte der Linie</font></i>
+    <b><font color="#000000">mPoint2</font></b><font color="#990000">(</font>point2<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+<font color="#FF0000">}</font>
+std<font color="#990000">::</font><font color="#008080">string</font> Line<font color="#990000">::</font><b><font color="#000000">toSVG</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b>
+<font color="#FF0000">{</font>
+    std<font color="#990000">::</font><font color="#008080">string</font> svgString <font color="#990000">=</font> <font color="#FF0000">"&lt;line "</font><font color="#990000">;</font>
+    svgString <font color="#990000">+=</font> <font color="#FF0000">"x1=</font><font color="#CC33CC">\"</font><font color="#FF0000">"</font> <font color="#990000">+</font> std<font color="#990000">::</font><b><font color="#000000">to_string</font></b><font color="#990000">(</font>Math<font color="#990000">::</font><b><font color="#000000">toInt</font></b><font color="#990000">(</font>mPoint1<font color="#990000">.</font><b><font color="#000000">getX</font></b><font color="#990000">()))</font> <font color="#990000">+</font> <font color="#FF0000">"</font><font color="#CC33CC">\"</font><font color="#FF0000"> "</font><font color="#990000">;</font>
+    svgString <font color="#990000">+=</font> <font color="#FF0000">"y1=</font><font color="#CC33CC">\"</font><font color="#FF0000">"</font> <font color="#990000">+</font> std<font color="#990000">::</font><b><font color="#000000">to_string</font></b><font color="#990000">(</font>Math<font color="#990000">::</font><b><font color="#000000">toInt</font></b><font color="#990000">(</font>mPoint1<font color="#990000">.</font><b><font color="#000000">getY</font></b><font color="#990000">()))</font> <font color="#990000">+</font> <font color="#FF0000">"</font><font color="#CC33CC">\"</font><font color="#FF0000"> "</font><font color="#990000">;</font>
+    svgString <font color="#990000">+=</font> <font color="#FF0000">"x2=</font><font color="#CC33CC">\"</font><font color="#FF0000">"</font> <font color="#990000">+</font> std<font color="#990000">::</font><b><font color="#000000">to_string</font></b><font color="#990000">(</font>Math<font color="#990000">::</font><b><font color="#000000">toInt</font></b><font color="#990000">(</font>mPoint2<font color="#990000">.</font><b><font color="#000000">getX</font></b><font color="#990000">()))</font> <font color="#990000">+</font> <font color="#FF0000">"</font><font color="#CC33CC">\"</font><font color="#FF0000"> "</font><font color="#990000">;</font>
+    svgString <font color="#990000">+=</font> <font color="#FF0000">"y2=</font><font color="#CC33CC">\"</font><font color="#FF0000">"</font> <font color="#990000">+</font> std<font color="#990000">::</font><b><font color="#000000">to_string</font></b><font color="#990000">(</font>Math<font color="#990000">::</font><b><font color="#000000">toInt</font></b><font color="#990000">(</font>mPoint2<font color="#990000">.</font><b><font color="#000000">getY</font></b><font color="#990000">()))</font> <font color="#990000">+</font> <font color="#FF0000">"</font><font color="#CC33CC">\"</font><font color="#FF0000"> "</font><font color="#990000">;</font>
+    svgString <font color="#990000">+=</font> <font color="#FF0000">"stroke-width=</font><font color="#CC33CC">\"</font><font color="#FF0000">"</font> <font color="#990000">+</font> std<font color="#990000">::</font><b><font color="#000000">to_string</font></b><font color="#990000">(</font>mSVGWidth<font color="#990000">)</font> <font color="#990000">+</font> <font color="#FF0000">"</font><font color="#CC33CC">\"</font><font color="#FF0000"> "</font><font color="#990000">;</font>
+    svgString <font color="#990000">+=</font> <font color="#FF0000">"stroke=</font><font color="#CC33CC">\"</font><font color="#FF0000">"</font> <font color="#990000">+</font> mColor <font color="#990000">+</font> <font color="#FF0000">"</font><font color="#CC33CC">\"</font><font color="#FF0000"> "</font><font color="#990000">;</font>
+    svgString <font color="#990000">+=</font>  <font color="#FF0000">"/&gt;"</font><font color="#990000">;</font>
+    <b><font color="#0000FF">return</font></b> svgString<font color="#990000">;</font>
+<font color="#FF0000">}</font>
+<font color="#008080">DRect</font> Line<font color="#990000">::</font><b><font color="#000000">svgArea</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">return</font></b> mPoint1<font color="#990000">.</font><b><font color="#000000">svgArea</font></b><font color="#990000">()</font> <font color="#990000">+</font> mPoint2<font color="#990000">.</font><b><font color="#000000">svgArea</font></b><font color="#990000">();</font> <i><font color="#9A1900">// &lt;&gt; Die umschreibende Rechteck der Linie kann durch die Vereinigung der Endpunktflächen erreicht werden.</font></i>
+<font color="#FF0000">}</font>
+Line<font color="#990000">&amp;</font> Line<font color="#990000">::</font><b><font color="#000000">setColor</font></b><font color="#990000">(</font><b><font color="#0000FF">const</font></b> std<font color="#990000">::</font>string<font color="#990000">&amp;</font> color<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    mColor <font color="#990000">=</font> color<font color="#990000">;</font>
+    <b><font color="#0000FF">return</font></b> <font color="#990000">*</font><b><font color="#0000FF">this</font></b><font color="#990000">;</font>
+<font color="#FF0000">}</font>
+<b><font color="#0000FF">const</font></b> std<font color="#990000">::</font>string<font color="#990000">&amp;</font>Line<font color="#990000">::</font><b><font color="#000000">getColor</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">return</font></b> mColor<font color="#990000">;</font>
+<font color="#FF0000">}</font>
+
+</tt></pre>

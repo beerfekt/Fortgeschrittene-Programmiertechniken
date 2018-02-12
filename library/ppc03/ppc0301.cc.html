@@ -1,0 +1,42 @@
+<!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><i><font color="#9A1900">/*</font></i>
+<i><font color="#9A1900"> * ++C - C++ introduction</font></i>
+<i><font color="#9A1900"> * Copyright (C) 2013, 2014, 2015, 2016, 2017 Wilhelm Meier </font></i><u><font color="#0000FF">&lt;wilhelm.meier@hs-kl.de&gt;</font></u>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is free software: you can redistribute it and/or modify</font></i>
+<i><font color="#9A1900"> * it under the terms of the GNU General Public License as published by</font></i>
+<i><font color="#9A1900"> * the Free Software Foundation, either version 3 of the License, or</font></i>
+<i><font color="#9A1900"> * (at your option) any later version.</font></i>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is distributed in the hope that it will be useful,</font></i>
+<i><font color="#9A1900"> * but WITHOUT ANY WARRANTY; without even the implied warranty of</font></i>
+<i><font color="#9A1900"> * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</font></i>
+<i><font color="#9A1900"> * GNU General Public License for more details.</font></i>
+<i><font color="#9A1900"> * You should have received a copy of the GNU General Public License</font></i>
+<i><font color="#9A1900"> * along with this program.  If not, see </font></i><u><font color="#0000FF">&lt;http://www.gnu.org/licenses/&gt;</font></u><i><font color="#9A1900">.</font></i>
+<i><font color="#9A1900"> */</font></i>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;string&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;fstream&gt;</font> <i><font color="#9A1900">// &lt;&gt; Deklariert den Typ `std::ofstream`</font></i>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">"point20.h"</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">"math.h"</font>
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font>
+<font color="#FF0000">{</font>
+    <font color="#008080">Point</font> p1 <font color="#990000">=</font> <font color="#FF0000">{</font><font color="#993399">50</font><font color="#990000">,</font> <font color="#993399">50</font><font color="#FF0000">}</font><font color="#990000">;</font>
+    p1<font color="#990000">.</font><b><font color="#000000">setColor</font></b><font color="#990000">(</font><font color="#FF0000">"green"</font><font color="#990000">);</font> <i><font color="#9A1900">// &lt;&gt; Aufruf der Elementfunktion `Point::setColor(std::string)` mit einem Parameter des Typs C-String</font></i>
+    std<font color="#990000">::</font><font color="#008080">string</font> header1 <font color="#990000">=</font> R<font color="#FF0000">"(&lt;?xml version="</font><font color="#993399">1.0</font><font color="#FF0000">" standalone="</font>no<font color="#FF0000">"?&gt;)"</font><font color="#990000">;</font> <i><font color="#9A1900">// &lt;&gt; Definition der lokalen Variable `header1` und Initialisierung mit einem *rohen* C-String-Literal</font></i>
+    std<font color="#990000">::</font><font color="#008080">string</font> header2 <font color="#990000">=</font> R<font color="#FF0000">"(&lt;!DOCTYPE svg PUBLIC "</font><font color="#990000">-</font><i><font color="#9A1900">//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"&gt;)";</font></i>
+    std<font color="#990000">::</font><font color="#008080">string</font> header3 <font color="#990000">=</font> R<font color="#FF0000">"(&lt;svg xmlns="</font>http<font color="#990000">:</font><i><font color="#9A1900">//www.w3.org/2000/svg"  width="100" height="100"&gt;)";</font></i>
+    std<font color="#990000">::</font><font color="#008080">string</font> footer1 <font color="#990000">=</font> R<font color="#FF0000">"(&lt;/svg&gt;)"</font><font color="#990000">;</font>
+    std<font color="#990000">::</font><font color="#008080">ofstream</font> <b><font color="#000000">file</font></b><font color="#990000">(</font><font color="#FF0000">"point.svg"</font><font color="#990000">);</font> <i><font color="#9A1900">// &lt;&gt; Erzeugen und Öffnen der Datei `point.svg`</font></i>
+    file <font color="#990000">&lt;&lt;</font> header1 <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font> <i><font color="#9A1900">// &lt;&gt; Einfügen der Kopfzeilen für eine _wohlgeformte_ SVG-Datei</font></i>
+    file <font color="#990000">&lt;&lt;</font> header2 <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font>
+    file <font color="#990000">&lt;&lt;</font> header3 <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font>
+    file <font color="#990000">&lt;&lt;</font> p1<font color="#990000">.</font><b><font color="#000000">toSVG</font></b><font color="#990000">()</font> <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font> <i><font color="#9A1900">// &lt;&gt; Schreiben eines Strings in die Datei</font></i>
+    file <font color="#990000">&lt;&lt;</font> footer1 <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font> <i><font color="#9A1900">// &lt;&gt; Einfügen der Fußzeile für eine _wohlgeformte_ SVG-Datei</font></i>
+<font color="#FF0000">}</font>
+
+</tt></pre>

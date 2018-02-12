@@ -1,0 +1,69 @@
+<!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><i><font color="#9A1900">/*</font></i>
+<i><font color="#9A1900"> * ++C - C++ introduction</font></i>
+<i><font color="#9A1900"> * Copyright (C) 2013, 2014, 2015, 2016, 2017 Wilhelm Meier </font></i><u><font color="#0000FF">&lt;wilhelm.meier@hs-kl.de&gt;</font></u>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is free software: you can redistribute it and/or modify</font></i>
+<i><font color="#9A1900"> * it under the terms of the GNU General Public License as published by</font></i>
+<i><font color="#9A1900"> * the Free Software Foundation, either version 3 of the License, or</font></i>
+<i><font color="#9A1900"> * (at your option) any later version.</font></i>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is distributed in the hope that it will be useful,</font></i>
+<i><font color="#9A1900"> * but WITHOUT ANY WARRANTY; without even the implied warranty of</font></i>
+<i><font color="#9A1900"> * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</font></i>
+<i><font color="#9A1900"> * GNU General Public License for more details.</font></i>
+
+<i><font color="#9A1900"> * You should have received a copy of the GNU General Public License</font></i>
+<i><font color="#9A1900"> * along with this program.  If not, see </font></i><u><font color="#0000FF">&lt;http://www.gnu.org/licenses/&gt;</font></u><i><font color="#9A1900">.</font></i>
+<i><font color="#9A1900"> */</font></i>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">"point100.h"</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;&gt;</font> <i><font color="#9A1900">// &lt;&gt; Leere Template-Präambel</font></i>
+<b><font color="#0000FF">class</font></b> <font color="#008080">Point</font><font color="#990000">&lt;</font><font color="#009900">float</font><font color="#990000">&gt;</font>    <i><font color="#9A1900">// &lt;&gt; Vollständige Spezialisierung (setzt ein allgemeines Template voraus)</font></i>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">friend</font></b> std<font color="#990000">::</font>ostream<font color="#990000">&amp;</font> <b><font color="#0000FF">operator</font></b><font color="#990000">&lt;&lt;</font> <font color="#990000">&lt;&gt;(</font>std<font color="#990000">::</font>ostream<font color="#990000">&amp;</font> out<font color="#990000">,</font> <b><font color="#0000FF">const</font></b> Point<font color="#990000">&amp;</font> p<font color="#990000">);</font>
+
+<b><font color="#0000FF">public</font></b><font color="#990000">:</font>
+    <b><font color="#000000">Point</font></b><font color="#990000">(</font><b><font color="#0000FF">const</font></b> <font color="#009900">float</font><font color="#990000">&amp;</font> x<font color="#990000">,</font> <b><font color="#0000FF">const</font></b> <font color="#009900">float</font><font color="#990000">&amp;</font> y<font color="#990000">)</font> <i><font color="#9A1900">// &lt;&gt; Der Template-Typ-Parameter `T` wird ersetzt durch den konkreten Typ `float`</font></i>
+        <font color="#990000">:</font> <b><font color="#000000">mX</font></b><font color="#990000">(</font>x<font color="#990000">),</font> <b><font color="#000000">mY</font></b><font color="#990000">(</font>y<font color="#990000">)</font> <font color="#FF0000">{}</font>
+    <b><font color="#0000FF">const</font></b> <font color="#009900">float</font><font color="#990000">&amp;</font> <b><font color="#000000">getX</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b>
+    <font color="#FF0000">{</font>
+        <b><font color="#0000FF">return</font></b> mX<font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    <b><font color="#0000FF">const</font></b> <font color="#009900">float</font><font color="#990000">&amp;</font> <b><font color="#000000">getY</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b>
+    <font color="#FF0000">{</font>
+        <b><font color="#0000FF">return</font></b> mY<font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    Point<font color="#990000">&amp;</font> <b><font color="#000000">setX</font></b><font color="#990000">(</font><b><font color="#0000FF">const</font></b> <font color="#009900">float</font><font color="#990000">&amp;</font> x<font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+        mX <font color="#990000">=</font> x<font color="#990000">;</font>
+        <b><font color="#0000FF">return</font></b> <font color="#990000">*</font><b><font color="#0000FF">this</font></b><font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    Point<font color="#990000">&amp;</font> <b><font color="#000000">setY</font></b><font color="#990000">(</font><b><font color="#0000FF">const</font></b> <font color="#009900">float</font><font color="#990000">&amp;</font> y<font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+        mY <font color="#990000">=</font> y<font color="#990000">;</font>
+        <b><font color="#0000FF">return</font></b> <font color="#990000">*</font><b><font color="#0000FF">this</font></b><font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+<b><font color="#0000FF">private</font></b><font color="#990000">:</font>
+    <font color="#009900">float</font> mX <font color="#990000">=</font> <font color="#993399">0</font><font color="#990000">;</font>
+    <font color="#009900">float</font> mY <font color="#990000">=</font> <font color="#993399">0</font><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">T</font><font color="#990000">&gt;</font>
+<font color="#009900">void</font> <b><font color="#000000">foo</font></b><font color="#990000">(</font><b><font color="#0000FF">const</font></b> T<font color="#990000">&amp;)</font>
+<font color="#FF0000">{</font>
+    std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> __PRETTY_FUNCTION__ <font color="#990000">&lt;&lt;</font> <font color="#FF0000">'</font><font color="#CC33CC">\n</font><font color="#FF0000">'</font><font color="#990000">;</font>
+<font color="#FF0000">}</font>
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font>
+<font color="#FF0000">{</font>
+    <font color="#008080">Point&lt;double&gt;</font> p1<font color="#FF0000">{</font><font color="#993399">0.0</font><font color="#990000">,</font> <font color="#993399">0.0</font><font color="#FF0000">}</font><font color="#990000">;</font>
+    <font color="#008080">Point&lt;float&gt;</font>  p2<font color="#FF0000">{</font><font color="#993399">0.0</font><font color="#990000">,</font> <font color="#993399">0.0</font><font color="#FF0000">}</font><font color="#990000">;</font>
+
+    std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> p1 <font color="#990000">&lt;&lt;</font> <font color="#FF0000">'</font><font color="#CC33CC">\n</font><font color="#FF0000">'</font><font color="#990000">;</font>
+    std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> p2 <font color="#990000">&lt;&lt;</font> <font color="#FF0000">'</font><font color="#CC33CC">\n</font><font color="#FF0000">'</font><font color="#990000">;</font>
+    <b><font color="#000000">foo</font></b><font color="#990000">(</font>p1<font color="#990000">);</font>
+    <b><font color="#000000">foo</font></b><font color="#990000">(</font>p2<font color="#990000">);</font>
+<font color="#FF0000">}</font>
+
+</tt></pre>

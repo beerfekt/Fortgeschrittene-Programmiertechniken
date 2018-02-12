@@ -1,0 +1,7 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg"  width="120" height="220" viewBox="-10 -110 120 220">
+<circle cx="0" cy="0" r="10" stroke="black" fill="black" />
+<line x1="1" y1="1" x2="100" y2="100" stroke-width="5" stroke="red" />
+<line x1="1" y1="1" x2="100" y2="-100" stroke-width="5" stroke="blue" />
+</svg>

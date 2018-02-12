@@ -1,0 +1,99 @@
+<!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><b><font color="#000080">#include</font></b> <font color="#FF0000">"optional.h"</font>
+<b><font color="#000080">#ifdef</font></b> PPC_USE_BOOST_TEST
+<b><font color="#000080"># include</font></b> <font color="#FF0000">&lt;boost/test/unit_test.hpp&gt;</font>
+<b><font color="#000080"># ifndef</font></b> __clang__
+<i><font color="#9A1900">// Vermeiden der boost::unit_test::ut__detail::nil_t Warnung</font></i>
+<b><font color="#000080">#  pragma</font></b> GCC diagnostic push
+<b><font color="#000080">#  pragma</font></b> GCC <font color="#008080">diagnostic</font> ignored <font color="#FF0000">"-Weffc++"</font>
+<b><font color="#000080"># endif</font></b>
+<b><font color="#000080">#endif</font></b>
+<b><font color="#000080">#ifdef</font></b> USE_GTEST
+<b><font color="#000080"># include</font></b> <font color="#FF0000">&lt;gtest/gtest.h&gt;</font>
+<b><font color="#000080">#endif</font></b>
+<b><font color="#000080">#ifdef</font></b> USE_SIMPLETEST
+<b><font color="#000080"># include</font></b> <font color="#FF0000">"../lib/simpletest.h"</font>
+<b><font color="#000080">#endif</font></b>
+<b><font color="#0000FF">class</font></b> <font color="#008080">Test</font>
+<font color="#FF0000">{</font>
+<b><font color="#0000FF">public</font></b><font color="#990000">:</font>
+    <b><font color="#000000">Test</font></b><font color="#990000">(</font><font color="#009900">int</font> v <font color="#990000">=</font> <font color="#993399">0</font><font color="#990000">)</font> <font color="#990000">:</font> <b><font color="#000000">mValue</font></b><font color="#990000">(</font>v<font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+        TRACE<font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    <font color="#009900">int</font> mValue<font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<font color="#009900">bool</font> <b><font color="#0000FF">operator</font></b><font color="#990000">==(</font><b><font color="#0000FF">const</font></b> Test<font color="#990000">&amp;</font> lhs<font color="#990000">,</font> <b><font color="#0000FF">const</font></b> Test<font color="#990000">&amp;</font> rhs<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    TRACE<font color="#990000">;</font>
+    <b><font color="#0000FF">return</font></b> lhs<font color="#990000">.</font>mValue <font color="#990000">==</font> rhs<font color="#990000">.</font>mValue<font color="#990000">;</font>
+<font color="#FF0000">}</font>
+<b><font color="#000080">#ifdef</font></b> USE_GTEST
+<b><font color="#000000">TEST</font></b><font color="#990000">(</font>Optional<font color="#990000">,</font> Initialize1<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <font color="#008080">Optional&lt;int&gt;</font> x1<font color="#990000">;</font>
+    <b><font color="#000000">EXPECT_FALSE</font></b><font color="#990000">(</font>x1<font color="#990000">);</font>
+
+    <font color="#008080">Optional&lt;int&gt;</font> <b><font color="#000000">x2</font></b><font color="#990000">(</font><font color="#993399">1</font><font color="#990000">);</font>
+    <b><font color="#000000">EXPECT_TRUE</font></b><font color="#990000">(</font>x2<font color="#990000">);</font>
+    <b><font color="#000000">EXPECT_EQ</font></b><font color="#990000">(</font><font color="#993399">1</font><font color="#990000">,</font> x2<font color="#990000">);</font>
+    <b><font color="#000000">EXPECT_EQ</font></b><font color="#990000">(</font><font color="#993399">1</font><font color="#990000">,</font> <font color="#990000">*</font>x2<font color="#990000">);</font>
+<font color="#FF0000">}</font>
+<b><font color="#000000">TEST</font></b><font color="#990000">(</font>Optional<font color="#990000">,</font> Ctor2<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <font color="#008080">Optional&lt;Test&gt;</font> x1<font color="#990000">;</font>
+    <b><font color="#000000">BOOST_CHECK</font></b><font color="#990000">(!</font>x1<font color="#990000">);</font>
+
+    <b><font color="#000000">trace</font></b><font color="#990000">()</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"A"</font><font color="#990000">;</font>
+    <font color="#008080">Optional&lt;Test&gt;</font> <b><font color="#000000">x2</font></b><font color="#990000">(</font><font color="#993399">1</font><font color="#990000">);</font>
+    <font color="#008080">Test</font> <b><font color="#000000">x3</font></b><font color="#990000">(</font><font color="#993399">1</font><font color="#990000">);</font>
+    <b><font color="#000000">trace</font></b><font color="#990000">()</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"B"</font><font color="#990000">;</font>
+    <b><font color="#000000">BOOST_CHECK</font></b><font color="#990000">(</font>x2<font color="#990000">);</font>
+    <b><font color="#000000">trace</font></b><font color="#990000">()</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"C"</font><font color="#990000">;</font>
+    <b><font color="#000000">BOOST_CHECK</font></b><font color="#990000">(</font>x2 <font color="#990000">==</font> x3<font color="#990000">);</font>
+    <i><font color="#9A1900">// nicht moeglich, weil bei Instanziierung eines Templates</font></i>
+    <i><font color="#9A1900">// keine implizite Typwandlung ausgefuehrt wird.</font></i>
+    <i><font color="#9A1900">//    BOOST_CHECK(x2 == 1);</font></i>
+
+<font color="#FF0000">}</font>
+<b><font color="#000080">#endif</font></b>
+<b><font color="#000080">#ifdef</font></b> PPC_USE_BOOST_TEST
+<b><font color="#000000">BOOST_AUTO_TEST_SUITE</font></b><font color="#990000">(</font>OptionalTestSuite<font color="#990000">)</font>
+<b><font color="#000000">BOOST_AUTO_TEST_CASE</font></b><font color="#990000">(</font>Ctor<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <font color="#008080">Optional&lt;int&gt;</font> x1<font color="#990000">;</font>
+    <b><font color="#000000">BOOST_CHECK</font></b><font color="#990000">(!</font>x1<font color="#990000">);</font>
+
+    <font color="#008080">Optional&lt;int&gt;</font> <b><font color="#000000">x2</font></b><font color="#990000">(</font><font color="#993399">1</font><font color="#990000">);</font>
+    <b><font color="#000000">BOOST_CHECK</font></b><font color="#990000">(</font>x2<font color="#990000">);</font>
+    <b><font color="#000000">BOOST_CHECK</font></b><font color="#990000">(</font><font color="#993399">1</font> <font color="#990000">==</font> x2<font color="#990000">);</font>
+    <b><font color="#000000">BOOST_CHECK</font></b><font color="#990000">(</font><font color="#993399">1</font> <font color="#990000">==</font> <font color="#990000">*</font>x2<font color="#990000">);</font>
+<font color="#FF0000">}</font>
+<b><font color="#000000">BOOST_AUTO_TEST_CASE</font></b><font color="#990000">(</font>Ctor2<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <font color="#008080">Optional&lt;Test&gt;</font> x1<font color="#990000">;</font>
+    <b><font color="#000000">BOOST_CHECK</font></b><font color="#990000">(!</font>x1<font color="#990000">);</font>
+
+    <b><font color="#000000">trace</font></b><font color="#990000">()</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"A"</font><font color="#990000">;</font>
+    <font color="#008080">Optional&lt;Test&gt;</font> <b><font color="#000000">x2</font></b><font color="#990000">(</font><font color="#993399">1</font><font color="#990000">);</font>
+    <font color="#008080">Test</font> <b><font color="#000000">x3</font></b><font color="#990000">(</font><font color="#993399">1</font><font color="#990000">);</font>
+    <b><font color="#000000">trace</font></b><font color="#990000">()</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"B"</font><font color="#990000">;</font>
+    <b><font color="#000000">BOOST_CHECK</font></b><font color="#990000">(</font>x2<font color="#990000">);</font>
+    <b><font color="#000000">trace</font></b><font color="#990000">()</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"C"</font><font color="#990000">;</font>
+    <b><font color="#000000">BOOST_CHECK</font></b><font color="#990000">(</font>x2 <font color="#990000">==</font> x3<font color="#990000">);</font>
+    <i><font color="#9A1900">// nicht moeglich, weil bei Instanziierung eines Templates</font></i>
+    <i><font color="#9A1900">// keine implizite Typwandlung ausgefuehrt wird.</font></i>
+    <i><font color="#9A1900">//    BOOST_CHECK(x2 == 1);</font></i>
+
+<font color="#FF0000">}</font>
+<b><font color="#000000">BOOST_AUTO_TEST_SUITE_END</font></b><font color="#990000">()</font>
+<i><font color="#9A1900">// ab hier wieder mit den globalen Einstellungen compilieren</font></i>
+<b><font color="#000080"># ifndef</font></b> __clang__
+<b><font color="#000080">#  pragma</font></b> GCC diagnostic pop
+<b><font color="#000080"># endif</font></b>
+<b><font color="#000080">#endif</font></b>
+
+</tt></pre>

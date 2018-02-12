@@ -1,0 +1,81 @@
+<!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><b><font color="#000080">#include</font></b> <font color="#FF0000">"tracer.h"</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#0000FF">namespace</font></b> PPC
+<font color="#FF0000">{</font>
+
+<font color="#009900">unsigned</font> <font color="#009900">int</font> Tracer<font color="#990000">::</font>mNestingLevel <font color="#990000">=</font> <font color="#993399">0</font><font color="#990000">;</font>
+std<font color="#990000">::</font><font color="#008080">string</font> Tracer<font color="#990000">::</font>mNestingPrefix <font color="#990000">=</font> <font color="#FF0000">"   "</font><font color="#990000">;</font>
+<b><font color="#0000FF">const</font></b> <font color="#009900">char</font><font color="#990000">*</font> Tracer<font color="#990000">::</font>mEntryMarker <font color="#990000">=</font> <font color="#FF0000">"--&gt;"</font><font color="#990000">;</font>
+<b><font color="#0000FF">const</font></b> <font color="#009900">char</font><font color="#990000">*</font> Tracer<font color="#990000">::</font>mExitMarker <font color="#990000">=</font> <font color="#FF0000">"&lt;--"</font><font color="#990000">;</font>
+
+Tracer<font color="#990000">::</font><b><font color="#000000">Tracer</font></b><font color="#990000">(</font><b><font color="#0000FF">const</font></b> std<font color="#990000">::</font>string<font color="#990000">&amp;</font> name<font color="#990000">)</font> <font color="#990000">:</font>
+    <b><font color="#000000">mFixed</font></b><font color="#990000">(</font><b><font color="#0000FF">false</font></b><font color="#990000">),</font>
+    <b><font color="#000000">mName</font></b><font color="#990000">(</font>name<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <b><font color="#000000">print</font></b><font color="#990000">(</font>std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> mEntryMarker<font color="#990000">);</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(!</font>mFixed<font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+        <font color="#990000">++</font>mNestingLevel<font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+<font color="#FF0000">}</font>
+
+Tracer<font color="#990000">::</font><b><font color="#000000">Tracer</font></b><font color="#990000">(</font><b><font color="#0000FF">const</font></b> <font color="#009900">char</font><font color="#990000">*</font> name<font color="#990000">)</font> <font color="#990000">:</font>
+    <b><font color="#000000">Tracer</font></b><font color="#990000">(</font>std<font color="#990000">::</font><b><font color="#000000">string</font></b><font color="#990000">(</font>name<font color="#990000">))</font>
+<font color="#FF0000">{</font>
+<font color="#FF0000">}</font>
+
+Tracer<font color="#990000">::</font><b><font color="#000000">Tracer</font></b><font color="#990000">(</font>std<font color="#990000">::</font>string<font color="#990000">&amp;&amp;</font> name<font color="#990000">)</font> <font color="#990000">:</font>
+    <b><font color="#000000">mFixed</font></b><font color="#990000">(</font><b><font color="#0000FF">false</font></b><font color="#990000">),</font>
+    <b><font color="#000000">mName</font></b><font color="#990000">(</font>std<font color="#990000">::</font><b><font color="#000000">move</font></b><font color="#990000">(</font>name<font color="#990000">))</font>
+<font color="#FF0000">{</font>
+    <b><font color="#000000">print</font></b><font color="#990000">(</font>std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> mEntryMarker<font color="#990000">);</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(!</font>mFixed<font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+        <font color="#990000">++</font>mNestingLevel<font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+<font color="#FF0000">}</font>
+
+Tracer<font color="#990000">::~</font><b><font color="#000000">Tracer</font></b><font color="#990000">()</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>mNestingLevel <font color="#990000">&gt;</font> <font color="#993399">0</font><font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(!</font>mFixed<font color="#990000">)</font>
+        <font color="#FF0000">{</font>
+            <font color="#990000">--</font>mNestingLevel<font color="#990000">;</font>
+            <b><font color="#000000">print</font></b><font color="#990000">(</font>std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> mExitMarker<font color="#990000">);</font>
+        <font color="#FF0000">}</font>
+    <font color="#FF0000">}</font>
+<font color="#FF0000">}</font>
+
+<font color="#009900">void</font> Tracer<font color="#990000">::</font><b><font color="#000000">setNestingPrefix</font></b><font color="#990000">(</font><b><font color="#0000FF">const</font></b> std<font color="#990000">::</font>string<font color="#990000">&amp;</font> prefix<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    mNestingPrefix <font color="#990000">=</font> prefix<font color="#990000">;</font>
+<font color="#FF0000">}</font>
+
+Tracer<font color="#990000">::</font><b><font color="#000000">Tracer</font></b><font color="#990000">(</font><font color="#009900">bool</font> fixed<font color="#990000">)</font> <font color="#990000">:</font>
+    <b><font color="#000000">mFixed</font></b><font color="#990000">(</font>fixed<font color="#990000">),</font>
+    <b><font color="#000000">mName</font></b><font color="#990000">()</font>
+<font color="#FF0000">{</font>
+<font color="#FF0000">}</font>
+
+<font color="#009900">void</font> Tracer<font color="#990000">::</font><b><font color="#000000">print</font></b><font color="#990000">(</font>std<font color="#990000">::</font>ostream<font color="#990000">&amp;</font> o<font color="#990000">)</font> <b><font color="#0000FF">const</font></b>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">for</font></b><font color="#990000">(</font><font color="#009900">unsigned</font> <font color="#009900">int</font> i <font color="#990000">=</font> <font color="#993399">0</font><font color="#990000">;</font> i <font color="#990000">&lt;</font> mNestingLevel<font color="#990000">;</font> <font color="#990000">++</font>i<font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+        o <font color="#990000">&lt;&lt;</font> mNestingPrefix<font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    o <font color="#990000">&lt;&lt;</font> mName <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font>
+<font color="#FF0000">}</font>
+
+<font color="#008080">Tracer</font> <b><font color="#000000">trace</font></b><font color="#990000">()</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">return</font></b> <b><font color="#000000">Tracer</font></b><font color="#990000">(</font><b><font color="#0000FF">true</font></b><font color="#990000">);</font>
+<font color="#FF0000">}</font>
+
+<font color="#FF0000">}</font>
+
+</tt></pre>

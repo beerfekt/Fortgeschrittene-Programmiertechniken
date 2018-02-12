@@ -1,0 +1,90 @@
+<!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><i><font color="#9A1900">/*</font></i>
+<i><font color="#9A1900"> * ++C - C++ introduction</font></i>
+<i><font color="#9A1900"> * Copyright (C) 2013, 2014, 2015, 2016, 2017 Wilhelm Meier </font></i><u><font color="#0000FF">&lt;wilhelm.meier@hs-kl.de&gt;</font></u>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is free software: you can redistribute it and/or modify</font></i>
+<i><font color="#9A1900"> * it under the terms of the GNU General Public License as published by</font></i>
+<i><font color="#9A1900"> * the Free Software Foundation, either version 3 of the License, or</font></i>
+<i><font color="#9A1900"> * (at your option) any later version.</font></i>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is distributed in the hope that it will be useful,</font></i>
+<i><font color="#9A1900"> * but WITHOUT ANY WARRANTY; without even the implied warranty of</font></i>
+<i><font color="#9A1900"> * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</font></i>
+<i><font color="#9A1900"> * GNU General Public License for more details.</font></i>
+
+<i><font color="#9A1900"> * You should have received a copy of the GNU General Public License</font></i>
+<i><font color="#9A1900"> * along with this program.  If not, see </font></i><u><font color="#0000FF">&lt;http://www.gnu.org/licenses/&gt;</font></u><i><font color="#9A1900">.</font></i>
+<i><font color="#9A1900"> */</font></i>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;cstddef&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;cstdint&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;limits&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;type_traits&gt;</font>
+<b><font color="#0000FF">namespace</font></b> PPC
+<font color="#FF0000">{</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">T</font><font color="#990000">,</font> <font color="#008080">T</font> Value<font color="#990000">&gt;</font>
+<b><font color="#0000FF">struct</font></b> <font color="#008080">integral_type</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">typedef</font></b> <font color="#008080">T</font> type<font color="#990000">;</font>
+    <b><font color="#0000FF">inline</font></b> <b><font color="#0000FF">static</font></b> constexpr <font color="#008080">T</font> value  <font color="#990000">=</font> Value<font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#0000FF">typedef</font></b> <font color="#008080">integral_type&lt;bool, false&gt;</font> false_type<font color="#990000">;</font>
+<b><font color="#0000FF">typedef</font></b> <font color="#008080">integral_type&lt;bool, true&gt;</font> true_type<font color="#990000">;</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><font color="#009900">bool</font> V<font color="#990000">,</font> <b><font color="#0000FF">typename</font></b> <font color="#008080">T</font><font color="#990000">,</font> <b><font color="#0000FF">typename</font></b> <font color="#008080">F</font><font color="#990000">&gt;</font>
+<b><font color="#0000FF">struct</font></b> <font color="#008080">conditional</font>   <i><font color="#9A1900">// &lt;&gt; Das allgemeine template deckt den Fall `V == true` ab.</font></i>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">typedef</font></b> <font color="#008080">T</font> type<font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">T</font><font color="#990000">,</font> <b><font color="#0000FF">typename</font></b> <font color="#008080">F</font><font color="#990000">&gt;</font>
+<b><font color="#0000FF">struct</font></b> <font color="#008080">conditional</font><font color="#990000">&lt;</font><b><font color="#0000FF">false</font></b><font color="#990000">,</font> T<font color="#990000">,</font> F<font color="#990000">&gt;</font>   <i><font color="#9A1900">// &lt;&gt; Die Spezialisierung wird für `V == false` ausgewählt</font></i>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">typedef</font></b> <font color="#008080">F</font> type<font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#0000FF">namespace</font></b> detail
+<font color="#FF0000">{</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><font color="#008080">size_t</font> N<font color="#990000">&gt;</font>
+<b><font color="#0000FF">struct</font></b> <font color="#008080">minimalType</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">typedef</font></b> <b><font color="#0000FF">typename</font></b> <font color="#008080">conditional</font><font color="#990000">&lt;</font>N <font color="#990000">&lt;=</font> std<font color="#990000">::</font>numeric_limits<font color="#990000">&lt;</font>uint8_t<font color="#990000">&gt;::</font><b><font color="#000000">max</font></b><font color="#990000">(),</font> uint8_t<font color="#990000">,</font>
+            <b><font color="#0000FF">typename</font></b> <font color="#008080">conditional</font><font color="#990000">&lt;</font>N <font color="#990000">&lt;=</font> std<font color="#990000">::</font>numeric_limits<font color="#990000">&lt;</font>uint16_t<font color="#990000">&gt;::</font><b><font color="#000000">max</font></b><font color="#990000">(),</font> uint16_t<font color="#990000">,</font>
+            <b><font color="#0000FF">typename</font></b> <font color="#008080">conditional</font><font color="#990000">&lt;</font>N <font color="#990000">&lt;=</font> std<font color="#990000">::</font>numeric_limits<font color="#990000">&lt;</font>uint32_t<font color="#990000">&gt;::</font><b><font color="#000000">max</font></b><font color="#990000">(),</font> uint32_t<font color="#990000">,</font> uint64_t<font color="#990000">&gt;::</font>type
+            <font color="#990000">&gt;::</font>type
+            <font color="#990000">&gt;::</font><font color="#008080">type</font> type<font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<font color="#FF0000">}</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><font color="#008080">size_t</font> N<font color="#990000">&gt;</font>
+<b><font color="#0000FF">using</font></b> minimalType <font color="#990000">=</font> <b><font color="#0000FF">typename</font></b> <font color="#008080">detail</font><font color="#990000">::</font>minimalType<font color="#990000">&lt;</font>N<font color="#990000">&gt;::</font>type<font color="#990000">;</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">T</font><font color="#990000">,</font> <font color="#008080">size_t</font> Size<font color="#990000">&gt;</font>
+<b><font color="#0000FF">struct</font></b> <font color="#008080">array</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">typedef</font></b> <font color="#008080">minimalType&lt;Size&gt;</font> size_type<font color="#990000">;</font> <i><font color="#9A1900">// &lt;&gt; Die Meta-Funktion `minimalType&lt;&gt;` bestimmt `size_type` aus der Elementanzahl `size`.</font></i>
+    T<font color="#990000">&amp;</font> <b><font color="#0000FF">operator</font></b><font color="#990000">[](</font><font color="#008080">size_type</font> index<font color="#990000">)</font>   <i><font color="#9A1900">// &lt;&gt; In der Parameterliste kann nun der kleinste mögliche Datentyp verwendet werden.</font></i>
+    <font color="#FF0000">{</font>
+        <b><font color="#0000FF">return</font></b> mData<font color="#990000">[</font>index<font color="#990000">];</font>
+    <font color="#FF0000">}</font>
+    <font color="#008080">size_type</font> <b><font color="#000000">size</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b>   <i><font color="#9A1900">// &lt;&gt; Auch hier wird der Rückgabetyp an die Elementanzahl angepasst.</font></i>
+    <font color="#FF0000">{</font>
+        <b><font color="#0000FF">return</font></b> Size<font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    <font color="#008080">T</font> mData<font color="#990000">[</font>Size<font color="#990000">]</font> <font color="#990000">=</font> <font color="#FF0000">{}</font><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<font color="#FF0000">}</font>
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font>
+<font color="#FF0000">{</font>
+    PPC<font color="#990000">::</font><font color="#008080">array&lt;char, 127&gt;</font>  a1<font color="#990000">;</font>
+    PPC<font color="#990000">::</font><font color="#008080">array&lt;char, 1024&gt;</font> a2<font color="#990000">;</font>
+    PPC<font color="#990000">::</font><font color="#008080">array&lt;char, 1024 * 1024&gt;</font> a3<font color="#990000">;</font>
+
+    <b><font color="#000000">static_assert</font></b><font color="#990000">(</font>std<font color="#990000">::</font>is_same<font color="#990000">&lt;</font><b><font color="#000000">decltype</font></b><font color="#990000">(</font>a1<font color="#990000">)::</font>size_type<font color="#990000">,</font> uint8_t<font color="#990000">&gt;::</font>value<font color="#990000">);</font>
+    <b><font color="#000000">static_assert</font></b><font color="#990000">(</font>std<font color="#990000">::</font>is_same<font color="#990000">&lt;</font><b><font color="#000000">decltype</font></b><font color="#990000">(</font>a2<font color="#990000">)::</font>size_type<font color="#990000">,</font> uint16_t<font color="#990000">&gt;::</font>value<font color="#990000">);</font>
+    <b><font color="#000000">static_assert</font></b><font color="#990000">(</font>std<font color="#990000">::</font>is_same<font color="#990000">&lt;</font><b><font color="#000000">decltype</font></b><font color="#990000">(</font>a3<font color="#990000">)::</font>size_type<font color="#990000">,</font> uint32_t<font color="#990000">&gt;::</font>value<font color="#990000">);</font>
+    <b><font color="#0000FF">typedef</font></b> <b><font color="#0000FF">typename</font></b> <font color="#008080">PPC</font><font color="#990000">::</font>conditional<font color="#990000">&lt;</font><b><font color="#0000FF">true</font></b><font color="#990000">,</font> uint8_t<font color="#990000">,</font> uint16_t<font color="#990000">&gt;::</font><font color="#008080">type</font> test1<font color="#990000">;</font> <i><font color="#9A1900">// &lt;&gt; Hier ist `test1` ein Typ-Alias für `uint8_t`</font></i>
+    <b><font color="#0000FF">typedef</font></b> <b><font color="#0000FF">typename</font></b> <font color="#008080">PPC</font><font color="#990000">::</font>conditional<font color="#990000">&lt;</font><b><font color="#0000FF">false</font></b><font color="#990000">,</font> uint8_t<font color="#990000">,</font> uint16_t<font color="#990000">&gt;::</font><font color="#008080">type</font> test2<font color="#990000">;</font> <i><font color="#9A1900">// &lt;&gt; Hier ist `test2` ein Typ-Alias für `uint16_t`</font></i>
+    <b><font color="#000000">static_assert</font></b><font color="#990000">(</font>std<font color="#990000">::</font>is_same<font color="#990000">&lt;</font>test1<font color="#990000">,</font> uint8_t<font color="#990000">&gt;::</font>value<font color="#990000">);</font>
+    <b><font color="#000000">static_assert</font></b><font color="#990000">(</font>std<font color="#990000">::</font>is_same<font color="#990000">&lt;</font>test2<font color="#990000">,</font> uint16_t<font color="#990000">&gt;::</font>value<font color="#990000">);</font>
+<font color="#FF0000">}</font>
+
+</tt></pre>

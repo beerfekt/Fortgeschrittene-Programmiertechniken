@@ -1,0 +1,50 @@
+<!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><i><font color="#9A1900">/*</font></i>
+<i><font color="#9A1900"> * ++C - C++ introduction</font></i>
+<i><font color="#9A1900"> * Copyright (C) 2013, 2014, 2015, 2016, 2017 Wilhelm Meier </font></i><u><font color="#0000FF">&lt;wilhelm.meier@hs-kl.de&gt;</font></u>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is free software: you can redistribute it and/or modify</font></i>
+<i><font color="#9A1900"> * it under the terms of the GNU General Public License as published by</font></i>
+<i><font color="#9A1900"> * the Free Software Foundation, either version 3 of the License, or</font></i>
+<i><font color="#9A1900"> * (at your option) any later version.</font></i>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is distributed in the hope that it will be useful,</font></i>
+<i><font color="#9A1900"> * but WITHOUT ANY WARRANTY; without even the implied warranty of</font></i>
+<i><font color="#9A1900"> * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</font></i>
+<i><font color="#9A1900"> * GNU General Public License for more details.</font></i>
+<i><font color="#9A1900"> * You should have received a copy of the GNU General Public License</font></i>
+<i><font color="#9A1900"> * along with this program.  If not, see </font></i><u><font color="#0000FF">&lt;http://www.gnu.org/licenses/&gt;</font></u><i><font color="#9A1900">.</font></i>
+<i><font color="#9A1900"> */</font></i>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;cmath&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;random&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">"point30.h"</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">"svgfile.h"</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">"math.h"</font>
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font>
+<font color="#FF0000">{</font>
+<b><font color="#000080">#ifdef</font></b> _MSC_VER
+    std<font color="#990000">::</font><font color="#008080">linear_congruential_engine&lt;unsigned int, 31, 0, 255&gt;</font> generator<font color="#990000">;</font> <i><font color="#9A1900">// &lt;&gt; Die Variable `generator` ist ein Zufallszahlengenerator für Werte im Bereich [0,255].</font></i>
+<b><font color="#000080">#else</font></b>
+    std<font color="#990000">::</font><font color="#008080">linear_congruential_engine&lt;unsigned char, 31, 0, 255&gt;</font> generator<font color="#990000">;</font> <i><font color="#9A1900">// &lt;&gt; Die Variable `generator` ist ein Zufallszahlengenerator für Werte im Bereich [0,255].</font></i>
+<b><font color="#000080">#endif</font></b>
+    <font color="#009900">int</font> numberOfPoints <font color="#990000">=</font> <font color="#993399">10</font><font color="#990000">;</font>
+    <font color="#009900">double</font> scale <font color="#990000">=</font> <font color="#993399">30.0</font><font color="#990000">;</font>
+    <font color="#008080">Point</font> origin<font color="#FF0000">{</font><font color="#993399">1.0</font> <font color="#990000">*</font> Point<font color="#990000">::</font><b><font color="#000000">svgRadius</font></b><font color="#990000">(),</font> scale <font color="#990000">+</font> Point<font color="#990000">::</font><b><font color="#000000">svgRadius</font></b><font color="#990000">()</font><font color="#FF0000">}</font><font color="#990000">;</font>
+    <font color="#009900">double</font> delta <font color="#990000">=</font> <font color="#993399">2.0</font> <font color="#990000">*</font> Math<font color="#990000">::</font>mPi <font color="#990000">/</font> numberOfPoints<font color="#990000">;</font>
+    <font color="#008080">SVGFile</font> <b><font color="#000000">file</font></b><font color="#990000">(</font><font color="#FF0000">"line.svg"</font><font color="#990000">,</font>
+                 Math<font color="#990000">::</font><b><font color="#000000">toInt</font></b><font color="#990000">(</font><font color="#993399">2</font> <font color="#990000">*</font> Math<font color="#990000">::</font>mPi <font color="#990000">*</font> scale<font color="#990000">)</font> <font color="#990000">+</font> <font color="#993399">2</font> <font color="#990000">*</font> Point<font color="#990000">::</font><b><font color="#000000">svgRadius</font></b><font color="#990000">(),</font> <i><font color="#9A1900">// &lt;&gt; Angabe der Ausdehnung der `SVG`-Zeichenebene</font></i>
+                 Math<font color="#990000">::</font><b><font color="#000000">toInt</font></b><font color="#990000">(</font><font color="#993399">2</font> <font color="#990000">*</font> scale<font color="#990000">)</font> <font color="#990000">+</font> <font color="#993399">2</font> <font color="#990000">*</font> Point<font color="#990000">::</font><b><font color="#000000">svgRadius</font></b><font color="#990000">());</font>
+    <b><font color="#0000FF">for</font></b><font color="#990000">(</font><font color="#009900">int</font> i <font color="#990000">=</font> <font color="#993399">0</font><font color="#990000">;</font> i <font color="#990000">&lt;</font> numberOfPoints<font color="#990000">;</font> i <font color="#990000">+=</font> <font color="#993399">1</font><font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+        <font color="#009900">double</font> x <font color="#990000">=</font> delta <font color="#990000">*</font> i<font color="#990000">;</font>
+        <font color="#009900">double</font> y <font color="#990000">=</font> std<font color="#990000">::</font><b><font color="#000000">sin</font></b><font color="#990000">(</font>x<font color="#990000">);</font>
+        <font color="#008080">Point</font> p<font color="#FF0000">{</font>x <font color="#990000">*</font> scale <font color="#990000">+</font> origin<font color="#990000">.</font><b><font color="#000000">getX</font></b><font color="#990000">(),</font> y <font color="#990000">*</font> scale <font color="#990000">+</font> origin<font color="#990000">.</font><b><font color="#000000">getY</font></b><font color="#990000">()</font><font color="#FF0000">}</font><font color="#990000">;</font>
+        p<font color="#990000">.</font><b><font color="#000000">setColor</font></b><font color="#990000">(</font><b><font color="#000000">generator</font></b><font color="#990000">(),</font> <b><font color="#000000">generator</font></b><font color="#990000">(),</font> <b><font color="#000000">generator</font></b><font color="#990000">());</font> <i><font color="#9A1900">// &lt;&gt; Jeder Punkt bekommt einen zufälligen Farbwert.</font></i>
+        file<font color="#990000">.</font><b><font color="#000000">add</font></b><font color="#990000">(</font>p<font color="#990000">.</font><b><font color="#000000">toSVG</font></b><font color="#990000">());</font>
+    <font color="#FF0000">}</font>
+<font color="#FF0000">}</font>
+
+</tt></pre>

@@ -1,0 +1,110 @@
+<!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><i><font color="#9A1900">/*</font></i>
+<i><font color="#9A1900"> * ++C - C++ introduction</font></i>
+<i><font color="#9A1900"> * Copyright (C) 2013, 2014, 2015, 2016, 2017 Wilhelm Meier </font></i><u><font color="#0000FF">&lt;wilhelm.meier@hs-kl.de&gt;</font></u>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is free software: you can redistribute it and/or modify</font></i>
+<i><font color="#9A1900"> * it under the terms of the GNU General Public License as published by</font></i>
+<i><font color="#9A1900"> * the Free Software Foundation, either version 3 of the License, or</font></i>
+<i><font color="#9A1900"> * (at your option) any later version.</font></i>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is distributed in the hope that it will be useful,</font></i>
+<i><font color="#9A1900"> * but WITHOUT ANY WARRANTY; without even the implied warranty of</font></i>
+<i><font color="#9A1900"> * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</font></i>
+<i><font color="#9A1900"> * GNU General Public License for more details.</font></i>
+<i><font color="#9A1900"> * You should have received a copy of the GNU General Public License</font></i>
+<i><font color="#9A1900"> * along with this program.  If not, see </font></i><u><font color="#0000FF">&lt;http://www.gnu.org/licenses/&gt;</font></u><i><font color="#9A1900">.</font></i>
+<i><font color="#9A1900"> */</font></i>
+<b><font color="#000080">#if</font></b> <b><font color="#000000">__has_include</font></b><font color="#990000">(</font><font color="#FF0000">"../ppc.h"</font><font color="#990000">)</font>
+<b><font color="#000080"># include</font></b> <font color="#FF0000">"../ppc.h"</font>
+<b><font color="#000080">#endif</font></b>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;array&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;utility&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;cassert&gt;</font>
+<font color="#009900">void</font> <b><font color="#000000">foo</font></b><font color="#990000">(</font><b><font color="#0000FF">const</font></b> <font color="#009900">int</font><font color="#990000">*</font> array<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <b><font color="#000000">assert</font></b><font color="#990000">(</font>array<font color="#990000">);</font>
+    std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> __PRETTY_FUNCTION__ <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" array: "</font> <font color="#990000">&lt;&lt;</font> array <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font>
+<i><font color="#9A1900">//    for(const int&amp; x: array) { // &lt;&gt; Nicht möglich wegen fehlender Längeninformation, denn `array` ist lediglich eine Zeigerparametervariable</font></i>
+<i><font color="#9A1900">//        std::cout &lt;&lt; x &lt;&lt; std::endl;</font></i>
+<i><font color="#9A1900">//    }</font></i>
+    <b><font color="#0000FF">for</font></b><font color="#990000">(</font><font color="#008080">size_t</font> i <font color="#990000">=</font> <font color="#993399">0</font><font color="#990000">;</font> i <font color="#990000">&lt;</font> <font color="#993399">5</font><font color="#990000">;</font> <font color="#990000">++</font>i<font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+        std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> array<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+<font color="#FF0000">}</font>
+<font color="#009900">void</font> <b><font color="#000000">foo</font></b><font color="#990000">(</font><b><font color="#0000FF">const</font></b> std<font color="#990000">::</font>array<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">,</font><font color="#993399">5</font><font color="#990000">&gt;&amp;</font> array<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> __PRETTY_FUNCTION__ <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" array: "</font> <font color="#990000">&lt;&lt;</font> <font color="#990000">&amp;</font>array <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font>
+    <b><font color="#0000FF">for</font></b><font color="#990000">(</font><b><font color="#0000FF">const</font></b> <font color="#009900">int</font><font color="#990000">&amp;</font> x<font color="#990000">:</font> array<font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+        std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> x <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+<font color="#FF0000">}</font>
+<font color="#009900">void</font> <b><font color="#000000">bar</font></b><font color="#990000">(</font>std<font color="#990000">::</font><font color="#008080">array&lt;int,5&gt;</font> array<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> __PRETTY_FUNCTION__ <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" array: "</font> <font color="#990000">&lt;&lt;</font> <font color="#990000">&amp;</font>array <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font>
+    <b><font color="#0000FF">for</font></b><font color="#990000">(</font><b><font color="#0000FF">const</font></b> <font color="#009900">int</font><font color="#990000">&amp;</font> x<font color="#990000">:</font> array<font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+        std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> x <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+<font color="#FF0000">}</font>
+<font color="#009900">void</font> <b><font color="#000000">foo</font></b><font color="#990000">(</font><b><font color="#0000FF">const</font></b> <font color="#009900">int</font><font color="#990000">*</font> array<font color="#990000">,</font> <font color="#008080">size_t</font> size<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <b><font color="#000000">assert</font></b><font color="#990000">(</font>array<font color="#990000">);</font>
+    <b><font color="#000000">assert</font></b><font color="#990000">(</font>size <font color="#990000">&gt;</font> <font color="#993399">0</font><font color="#990000">);</font>
+    std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> __PRETTY_FUNCTION__ <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" array: "</font> <font color="#990000">&lt;&lt;</font> array <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font>
+    <b><font color="#0000FF">for</font></b><font color="#990000">(</font><font color="#008080">size_t</font> i <font color="#990000">=</font> <font color="#993399">0</font><font color="#990000">;</font> i <font color="#990000">&lt;</font> size<font color="#990000">;</font> <font color="#990000">++</font>i<font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+        std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> array<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+<font color="#FF0000">}</font>
+<font color="#009900">void</font> <b><font color="#000000">foo</font></b><font color="#990000">(</font><b><font color="#0000FF">const</font></b> std<font color="#990000">::</font>pair<font color="#990000">&lt;</font><b><font color="#0000FF">const</font></b> <font color="#009900">int</font><font color="#990000">*,</font> size_t<font color="#990000">&gt;&amp;</font> arrayPair<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <b><font color="#000000">assert</font></b><font color="#990000">(</font>arrayPair<font color="#990000">.</font>first<font color="#990000">);</font>
+    <b><font color="#000000">assert</font></b><font color="#990000">(</font>arrayPair<font color="#990000">.</font>second <font color="#990000">&gt;</font> <font color="#993399">0</font><font color="#990000">);</font>
+    std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> __PRETTY_FUNCTION__ <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" array: "</font> <font color="#990000">&lt;&lt;</font> arrayPair<font color="#990000">.</font>first <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font>
+    <b><font color="#0000FF">for</font></b><font color="#990000">(</font><font color="#008080">size_t</font> i <font color="#990000">=</font> <font color="#993399">0</font><font color="#990000">;</font> i <font color="#990000">&lt;</font> arrayPair<font color="#990000">.</font>second<font color="#990000">;</font> <font color="#990000">++</font>i<font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+        std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> arrayPair<font color="#990000">.</font>first<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+<font color="#FF0000">}</font>
+<font color="#009900">void</font> <b><font color="#000000">foo</font></b><font color="#990000">(</font><b><font color="#0000FF">const</font></b> <font color="#009900">char</font><font color="#990000">*</font> cstring<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <b><font color="#000000">assert</font></b><font color="#990000">(</font>cstring<font color="#990000">);</font>
+    <b><font color="#0000FF">for</font></b><font color="#990000">(</font><font color="#008080">size_t</font> i <font color="#990000">=</font> <font color="#993399">0</font><font color="#990000">;</font> cstring<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">!=</font> <font color="#FF0000">'</font><font color="#CC33CC">\0</font><font color="#FF0000">'</font><font color="#990000">;</font> <font color="#990000">++</font>i<font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+        std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> <font color="#990000">*(</font>cstring <font color="#990000">+</font> i<font color="#990000">);</font>
+    <font color="#FF0000">}</font>
+    std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font>
+<font color="#FF0000">}</font>
+<font color="#009900">void</font> <b><font color="#000000">foo</font></b><font color="#990000">(</font><b><font color="#0000FF">const</font></b> <font color="#009900">char</font><font color="#990000">**</font> cstrings<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <b><font color="#000000">assert</font></b><font color="#990000">(</font>cstrings<font color="#990000">);</font>
+    <b><font color="#0000FF">while</font></b><font color="#990000">(*</font>cstrings<font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+        std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> __PRETTY_FUNCTION__ <font color="#990000">&lt;&lt;</font> <font color="#990000">*</font>cstrings <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font>
+        <font color="#990000">++</font>cstrings<font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+<font color="#FF0000">}</font>
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font>
+<font color="#FF0000">{</font>
+    <font color="#009900">int</font> array1<font color="#990000">[</font><font color="#993399">5</font><font color="#990000">]</font> <font color="#990000">=</font> <font color="#FF0000">{</font><font color="#993399">0</font><font color="#990000">,</font> <font color="#993399">1</font><font color="#990000">,</font> <font color="#993399">2</font><font color="#990000">,</font> <font color="#993399">3</font><font color="#990000">,</font> <font color="#993399">4</font><font color="#FF0000">}</font><font color="#990000">;</font>
+    std<font color="#990000">::</font><font color="#008080">array&lt;int, 5&gt;</font> array2 <font color="#990000">=</font> <font color="#FF0000">{}</font><font color="#990000">;</font>
+    std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> __PRETTY_FUNCTION__ <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" array1: "</font> <font color="#990000">&lt;&lt;</font> array1 <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font>
+    std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> __PRETTY_FUNCTION__ <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" array2: "</font> <font color="#990000">&lt;&lt;</font> <font color="#990000">&amp;</font>array2 <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font>
+    <b><font color="#000000">foo</font></b><font color="#990000">(</font>array1<font color="#990000">);</font>
+    <b><font color="#000000">foo</font></b><font color="#990000">(</font>array2<font color="#990000">);</font>
+    <b><font color="#000000">foo</font></b><font color="#990000">(</font><font color="#FF0000">{</font>array1<font color="#990000">,</font> <font color="#993399">5</font><font color="#FF0000">}</font><font color="#990000">);</font>
+    <b><font color="#000000">foo</font></b><font color="#990000">(</font>array1<font color="#990000">,</font> <font color="#993399">5</font><font color="#990000">);</font>
+    <b><font color="#000000">bar</font></b><font color="#990000">(</font>array2<font color="#990000">);</font>
+    <b><font color="#000000">foo</font></b><font color="#990000">(</font><font color="#FF0000">"abc"</font><font color="#990000">);</font>
+    <b><font color="#0000FF">const</font></b> <font color="#009900">char</font><font color="#990000">*</font> array3<font color="#990000">[]</font> <font color="#990000">=</font> <font color="#FF0000">{</font><font color="#FF0000">"abc"</font><font color="#990000">,</font> <font color="#FF0000">"def"</font><font color="#990000">,</font> nullptr<font color="#FF0000">}</font><font color="#990000">;</font>
+    <b><font color="#000000">foo</font></b><font color="#990000">(</font>array3<font color="#990000">);</font>
+<font color="#FF0000">}</font>
+
+</tt></pre>

@@ -1,0 +1,102 @@
+<!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><i><font color="#9A1900">/*</font></i>
+<i><font color="#9A1900"> * ++C - C++ introduction</font></i>
+<i><font color="#9A1900"> * Copyright (C) 2013, 2014, 2015, 2016, 2017 Wilhelm Meier </font></i><u><font color="#0000FF">&lt;wilhelm.meier@hs-kl.de&gt;</font></u>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is free software: you can redistribute it and/or modify</font></i>
+<i><font color="#9A1900"> * it under the terms of the GNU General Public License as published by</font></i>
+<i><font color="#9A1900"> * the Free Software Foundation, either version 3 of the License, or</font></i>
+<i><font color="#9A1900"> * (at your option) any later version.</font></i>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is distributed in the hope that it will be useful,</font></i>
+<i><font color="#9A1900"> * but WITHOUT ANY WARRANTY; without even the implied warranty of</font></i>
+<i><font color="#9A1900"> * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</font></i>
+<i><font color="#9A1900"> * GNU General Public License for more details.</font></i>
+
+<i><font color="#9A1900"> * You should have received a copy of the GNU General Public License</font></i>
+<i><font color="#9A1900"> * along with this program.  If not, see </font></i><u><font color="#0000FF">&lt;http://www.gnu.org/licenses/&gt;</font></u><i><font color="#9A1900">.</font></i>
+<i><font color="#9A1900"> */</font></i>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;cstdint&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;cassert&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;limits&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;type_traits&gt;</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><font color="#008080">size_t</font> N<font color="#990000">&gt;</font>
+<b><font color="#0000FF">struct</font></b> <font color="#008080">minimalType</font>   <i><font color="#9A1900">// &lt;&gt; Meta-Funktion: bildet die Compilezeit-Konstante `N` auf einen _Datentyp_ ab.</font></i>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">typedef</font></b> <b><font color="#0000FF">typename</font></b> <font color="#008080">std</font><font color="#990000">::</font>conditional<font color="#990000">&lt;</font>N <font color="#990000">&lt;=</font> std<font color="#990000">::</font>numeric_limits<font color="#990000">&lt;</font>uint8_t<font color="#990000">&gt;::</font><b><font color="#000000">max</font></b><font color="#990000">(),</font> uint8_t<font color="#990000">,</font>
+            <b><font color="#0000FF">typename</font></b> <font color="#008080">std</font><font color="#990000">::</font>conditional<font color="#990000">&lt;</font>N <font color="#990000">&lt;=</font> std<font color="#990000">::</font>numeric_limits<font color="#990000">&lt;</font>uint16_t<font color="#990000">&gt;::</font><b><font color="#000000">max</font></b><font color="#990000">(),</font> uint16_t<font color="#990000">,</font>
+            <b><font color="#0000FF">typename</font></b> <font color="#008080">std</font><font color="#990000">::</font>conditional<font color="#990000">&lt;</font>N <font color="#990000">&lt;=</font> std<font color="#990000">::</font>numeric_limits<font color="#990000">&lt;</font>uint32_t<font color="#990000">&gt;::</font><b><font color="#000000">max</font></b><font color="#990000">(),</font> uint32_t<font color="#990000">,</font>
+            uint64_t<font color="#990000">&gt;::</font>type
+            <font color="#990000">&gt;::</font>type
+            <font color="#990000">&gt;::</font><font color="#008080">type</font> type<font color="#990000">;</font> <i><font color="#9A1900">// &lt;&gt; Der Typ-Alias `type` ist der Ergebnistyp dieser Meta-Funktion</font></i>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><font color="#008080">size_t</font> Min<font color="#990000">,</font> <font color="#008080">size_t</font> Max<font color="#990000">,</font> <i><font color="#9A1900">// &lt;&gt; Die Nicht-Typ-Parameter bekommen den immer ausreichenden Typ `size_t`</font></i>
+         <b><font color="#0000FF">typename</font></b> <font color="#008080">T</font> <font color="#990000">=</font> <b><font color="#0000FF">typename</font></b> <font color="#008080">minimalType</font><font color="#990000">&lt;</font>Max<font color="#990000">&gt;::</font>type<font color="#990000">&gt;</font> <i><font color="#9A1900">// &lt;&gt; Der Typ-Parameter `T` erhält einen Vorgabe-Wert, der von der Meta-Funktion `minimalType&lt;&gt;` bestimmt wird.</font></i>
+<b><font color="#0000FF">class</font></b> <font color="#008080">uint_ranged</font>
+<font color="#FF0000">{</font>
+    <b><font color="#000000">static_assert</font></b><font color="#990000">(</font>Min <font color="#990000">&lt;=</font> Max<font color="#990000">,</font> <font color="#FF0000">"wrong range"</font><font color="#990000">);</font> <i><font color="#9A1900">// &lt;&gt; Compilezeit-Zusicherung für die Ordnung von `Min` und `Max`</font></i>
+<b><font color="#0000FF">public</font></b><font color="#990000">:</font>
+    <b><font color="#0000FF">typedef</font></b> <font color="#008080">T</font> value_type<font color="#990000">;</font> <i><font color="#9A1900">// &lt;&gt; Der zugrunde liegende Type wird zurück gespiegelt.</font></i>
+    <b><font color="#0000FF">explicit</font></b> <b><font color="#000000">uint_ranged</font></b><font color="#990000">(</font><font color="#008080">T</font> v <font color="#990000">=</font> Min<font color="#990000">)</font> <font color="#990000">:</font> mValue<font color="#FF0000">{</font>v<font color="#FF0000">}</font>
+    <font color="#FF0000">{</font>
+        <b><font color="#000000">assert</font></b><font color="#990000">(</font>v <font color="#990000">&gt;=</font> Min<font color="#990000">);</font> <i><font color="#9A1900">// &lt;&gt; Laufzeit-Assertion für die Erzeugung eines Objektes mit einem passenden Wert aus dem Intervall [Min, Max].</font></i>
+        <b><font color="#000000">assert</font></b><font color="#990000">(</font>v <font color="#990000">&lt;=</font> Max<font color="#990000">);</font>
+    <font color="#FF0000">}</font>
+    <b><font color="#0000FF">operator</font></b> <b><font color="#000000">T</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b>
+    <font color="#FF0000">{</font>
+        <b><font color="#0000FF">return</font></b> mValue<font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    uint_ranged<font color="#990000">&amp;</font> <b><font color="#0000FF">operator</font></b><font color="#990000">++()</font>
+    <font color="#FF0000">{</font>
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>mValue <font color="#990000">&lt;</font> Max<font color="#990000">)</font>
+        <font color="#FF0000">{</font>
+            <font color="#990000">++</font>mValue<font color="#990000">;</font>
+        <font color="#FF0000">}</font>
+        <b><font color="#0000FF">return</font></b> <font color="#990000">*</font><b><font color="#0000FF">this</font></b><font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    uint_ranged<font color="#990000">&amp;</font> <b><font color="#0000FF">operator</font></b><font color="#990000">--()</font>
+    <font color="#FF0000">{</font>
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>mValue <font color="#990000">&gt;</font> Min<font color="#990000">)</font>
+        <font color="#FF0000">{</font>
+            <font color="#990000">--</font>mValue<font color="#990000">;</font>
+        <font color="#FF0000">}</font>
+        <b><font color="#0000FF">return</font></b> <font color="#990000">*</font><b><font color="#0000FF">this</font></b><font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+<b><font color="#0000FF">private</font></b><font color="#990000">:</font>
+    <font color="#008080">T</font> mValue<font color="#FF0000">{</font>Min<font color="#FF0000">}</font><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#0000FF">namespace</font></b> std
+<font color="#FF0000">{</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><font color="#008080">size_t</font> Min<font color="#990000">,</font> <font color="#008080">size_t</font> Max<font color="#990000">,</font> <b><font color="#0000FF">typename</font></b> <font color="#008080">T</font><font color="#990000">&gt;</font>
+<b><font color="#0000FF">struct</font></b> <font color="#008080">numeric_limits</font><font color="#990000">&lt;</font>uint_ranged<font color="#990000">&lt;</font>Min<font color="#990000">,</font> Max<font color="#990000">,</font> T<font color="#990000">&gt;&gt;</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">static</font></b> <b><font color="#0000FF">inline</font></b> <font color="#008080">T</font> <b><font color="#000000">min</font></b><font color="#990000">()</font>
+    <font color="#FF0000">{</font>
+        <b><font color="#0000FF">return</font></b> Min<font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    <b><font color="#0000FF">static</font></b> <b><font color="#0000FF">inline</font></b> <font color="#008080">T</font> <b><font color="#000000">max</font></b><font color="#990000">()</font>
+    <font color="#FF0000">{</font>
+        <b><font color="#0000FF">return</font></b> Max<font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<font color="#FF0000">}</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">T</font><font color="#990000">&gt;</font>
+<font color="#009900">void</font> <b><font color="#000000">foo</font></b><font color="#990000">()</font>
+<font color="#FF0000">{</font>
+    std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> __PRETTY_FUNCTION__ <font color="#990000">&lt;&lt;</font> <font color="#FF0000">'</font><font color="#CC33CC">\n</font><font color="#FF0000">'</font><font color="#990000">;</font>
+<font color="#FF0000">}</font>
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font>
+<font color="#FF0000">{</font>
+    <font color="#008080">uint_ranged&lt;10, 20&gt;</font> v1<font color="#990000">;</font>
+    foo<font color="#990000">&lt;</font><b><font color="#000000">decltype</font></b><font color="#990000">(</font>v1<font color="#990000">)::</font>value_type<font color="#990000">&gt;();</font>
+    <font color="#008080">uint_ranged&lt;200, 300&gt;</font> v2<font color="#990000">;</font>
+    foo<font color="#990000">&lt;</font><b><font color="#000000">decltype</font></b><font color="#990000">(</font>v2<font color="#990000">)::</font>value_type<font color="#990000">&gt;();</font>
+    <font color="#008080">uint_ranged&lt;100000, 900000&gt;</font> v3<font color="#990000">;</font>
+    foo<font color="#990000">&lt;</font><b><font color="#000000">decltype</font></b><font color="#990000">(</font>v3<font color="#990000">)::</font>value_type<font color="#990000">&gt;();</font>
+<font color="#FF0000">}</font>
+
+</tt></pre>

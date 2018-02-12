@@ -1,0 +1,58 @@
+<!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><i><font color="#9A1900">/*</font></i>
+<i><font color="#9A1900"> * ++C - C++ introduction</font></i>
+<i><font color="#9A1900"> * Copyright (C) 2013, 2014, 2015, 2016, 2017 Wilhelm Meier </font></i><u><font color="#0000FF">&lt;wilhelm.meier@hs-kl.de&gt;</font></u>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is free software: you can redistribute it and/or modify</font></i>
+<i><font color="#9A1900"> * it under the terms of the GNU General Public License as published by</font></i>
+<i><font color="#9A1900"> * the Free Software Foundation, either version 3 of the License, or</font></i>
+<i><font color="#9A1900"> * (at your option) any later version.</font></i>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is distributed in the hope that it will be useful,</font></i>
+<i><font color="#9A1900"> * but WITHOUT ANY WARRANTY; without even the implied warranty of</font></i>
+<i><font color="#9A1900"> * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</font></i>
+<i><font color="#9A1900"> * GNU General Public License for more details.</font></i>
+
+<i><font color="#9A1900"> * You should have received a copy of the GNU General Public License</font></i>
+<i><font color="#9A1900"> * along with this program.  If not, see </font></i><u><font color="#0000FF">&lt;http://www.gnu.org/licenses/&gt;</font></u><i><font color="#9A1900">.</font></i>
+<i><font color="#9A1900"> */</font></i>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;cstring&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;memory&gt;</font>
+<b><font color="#000080">#define</font></b> SIMULATION_STEPS <font color="#993399">1000</font>
+<b><font color="#000080">#define</font></b> <b><font color="#000000">NUM</font></b> <font color="#990000">(</font>1000UL<font color="#990000">*</font><font color="#993399">1000</font><font color="#990000">)</font>
+<b><font color="#0000FF">struct</font></b> <font color="#008080">Dings</font>
+<font color="#FF0000">{</font>
+    <b><font color="#000000">Dings</font></b><font color="#990000">()</font> <font color="#990000">:</font> <b><font color="#000000">x</font></b><font color="#990000">(</font><font color="#993399">0</font><font color="#990000">),</font> <b><font color="#000000">y</font></b><font color="#990000">(</font><font color="#993399">0</font><font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+        name<font color="#990000">[</font><font color="#993399">0</font><font color="#990000">]</font> <font color="#990000">=</font> <font color="#FF0000">'</font><font color="#CC33CC">\0</font><font color="#FF0000">'</font><font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    <font color="#009900">float</font> x<font color="#990000">;</font>
+    <font color="#009900">float</font> y<font color="#990000">;</font>
+    <font color="#009900">char</font> name<font color="#990000">[</font><font color="#993399">512</font><font color="#990000">];</font>
+    <font color="#009900">void</font> <b><font color="#000000">move</font></b><font color="#990000">(</font><font color="#009900">float</font> dx<font color="#990000">,</font> <font color="#009900">float</font> dy<font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+        x <font color="#990000">+=</font> dx<font color="#990000">;</font>
+        y <font color="#990000">+=</font> dy<font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    <font color="#009900">void</font> <b><font color="#000000">set_name</font></b><font color="#990000">(</font><b><font color="#0000FF">const</font></b> <font color="#009900">char</font><font color="#990000">*</font> n<font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+        <b><font color="#000000">strcpy</font></b><font color="#990000">(</font>name<font color="#990000">,</font> n<font color="#990000">);</font>
+    <font color="#FF0000">}</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font>
+<font color="#FF0000">{</font>
+    std<font color="#990000">::</font><font color="#008080">unique_ptr&lt;Dings[]&gt;</font>  <b><font color="#000000">data</font></b><font color="#990000">(</font><b><font color="#0000FF">new</font></b> Dings<font color="#990000">[</font>NUM<font color="#990000">]);</font>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font><font color="#008080">size_t</font> i <font color="#990000">=</font> <font color="#993399">0</font><font color="#990000">;</font> i <font color="#990000">&lt;</font> NUM<font color="#990000">;</font> <font color="#990000">++</font>i<font color="#990000">)</font>
+        data<font color="#990000">[</font>i<font color="#990000">].</font><b><font color="#000000">set_name</font></b><font color="#990000">(</font><font color="#FF0000">"default name"</font><font color="#990000">);</font>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font><font color="#008080">size_t</font> st <font color="#990000">=</font> <font color="#993399">0</font><font color="#990000">;</font> st <font color="#990000">&lt;</font> SIMULATION_STEPS<font color="#990000">;</font> <font color="#990000">++</font>st<font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font><font color="#008080">size_t</font> i <font color="#990000">=</font> <font color="#993399">0</font><font color="#990000">;</font> i <font color="#990000">&lt;</font> NUM<font color="#990000">;</font> <font color="#990000">++</font>i<font color="#990000">)</font>
+            data<font color="#990000">[</font>i<font color="#990000">].</font><b><font color="#000000">move</font></b><font color="#990000">(</font><font color="#993399">0.01</font><font color="#990000">,</font> <font color="#990000">-</font><font color="#993399">0.02</font><font color="#990000">);</font>
+    <font color="#FF0000">}</font>
+    <b><font color="#0000FF">return</font></b> <font color="#993399">0</font><font color="#990000">;</font>
+<font color="#FF0000">}</font>
+
+</tt></pre>

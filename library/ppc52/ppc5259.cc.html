@@ -1,0 +1,241 @@
+<!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><i><font color="#9A1900">/*</font></i>
+<i><font color="#9A1900"> * ++C - C++ introduction</font></i>
+<i><font color="#9A1900"> * Copyright (C) 2013, 2014, 2015, 2016, 2017 Wilhelm Meier </font></i><u><font color="#0000FF">&lt;wilhelm.meier@hs-kl.de&gt;</font></u>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is free software: you can redistribute it and/or modify</font></i>
+<i><font color="#9A1900"> * it under the terms of the GNU General Public License as published by</font></i>
+<i><font color="#9A1900"> * the Free Software Foundation, either version 3 of the License, or</font></i>
+<i><font color="#9A1900"> * (at your option) any later version.</font></i>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is distributed in the hope that it will be useful,</font></i>
+<i><font color="#9A1900"> * but WITHOUT ANY WARRANTY; without even the implied warranty of</font></i>
+<i><font color="#9A1900"> * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</font></i>
+<i><font color="#9A1900"> * GNU General Public License for more details.</font></i>
+
+<i><font color="#9A1900"> * You should have received a copy of the GNU General Public License</font></i>
+<i><font color="#9A1900"> * along with this program.  If not, see </font></i><u><font color="#0000FF">&lt;http://www.gnu.org/licenses/&gt;</font></u><i><font color="#9A1900">.</font></i>
+<i><font color="#9A1900"> */</font></i>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;array&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;algorithm&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;cassert&gt;</font>
+<b><font color="#0000FF">namespace</font></b> PPC
+<font color="#FF0000">{</font>
+<b><font color="#0000FF">namespace</font></b> detail
+<font color="#FF0000">{</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">T</font><font color="#990000">&gt;</font> <b><font color="#0000FF">struct</font></b> <font color="#008080">front_impl</font><font color="#990000">;</font> <i><font color="#9A1900">// &lt;&gt; Das allg. Template</font></i>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b><font color="#990000">,</font> <b><font color="#0000FF">typename</font></b><font color="#990000">...&gt;</font> <b><font color="#0000FF">typename</font></b> <font color="#008080">L</font><font color="#990000">,</font> <b><font color="#0000FF">typename</font></b> <font color="#008080">F</font><font color="#990000">,</font> <b><font color="#0000FF">typename</font></b><font color="#990000">...</font> R<font color="#990000">&gt;</font>
+<b><font color="#0000FF">struct</font></b> <font color="#008080">front_impl</font><font color="#990000">&lt;</font>L<font color="#990000">&lt;</font>F<font color="#990000">,</font> R<font color="#990000">...&gt;&gt;</font>   <i><font color="#9A1900">// &lt;&gt; Partielle Spezialisierung</font></i>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">typedef</font></b> <font color="#008080">F</font> type<font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">T</font><font color="#990000">&gt;</font> <b><font color="#0000FF">struct</font></b> <font color="#008080">size_impl</font><font color="#990000">;</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b><font color="#990000">...&gt;</font> <b><font color="#0000FF">typename</font></b> <font color="#008080">L</font><font color="#990000">,</font> <b><font color="#0000FF">typename</font></b><font color="#990000">...</font> I<font color="#990000">&gt;</font>
+<b><font color="#0000FF">struct</font></b> <font color="#008080">size_impl</font><font color="#990000">&lt;</font>L<font color="#990000">&lt;</font>I<font color="#990000">...&gt;&gt;</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">typedef</font></b> std<font color="#990000">::</font><font color="#008080">integral_constant&lt;std::size_t, sizeof...(I)&gt;</font> type<font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">L</font><font color="#990000">&gt;</font> <b><font color="#0000FF">struct</font></b> <font color="#008080">back_impl</font><font color="#990000">;</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b><font color="#990000">,</font> <b><font color="#0000FF">typename</font></b><font color="#990000">...&gt;</font> <b><font color="#0000FF">typename</font></b> <font color="#008080">L</font><font color="#990000">,</font> <b><font color="#0000FF">typename</font></b> <font color="#008080">F</font><font color="#990000">,</font> <b><font color="#0000FF">typename</font></b><font color="#990000">...</font> I<font color="#990000">&gt;</font>
+<b><font color="#0000FF">struct</font></b> <font color="#008080">back_impl</font><font color="#990000">&lt;</font>L<font color="#990000">&lt;</font>F<font color="#990000">,</font> I<font color="#990000">...&gt;&gt;</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">typedef</font></b> <b><font color="#0000FF">typename</font></b> <font color="#008080">back_impl</font><font color="#990000">&lt;</font>L<font color="#990000">&lt;</font>I<font color="#990000">...&gt;&gt;::</font><font color="#008080">type</font> type<font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b><font color="#990000">&gt;</font> <b><font color="#0000FF">typename</font></b> <font color="#008080">L</font><font color="#990000">,</font> <b><font color="#0000FF">typename</font></b> <font color="#008080">B</font><font color="#990000">&gt;</font>
+<b><font color="#0000FF">struct</font></b> <font color="#008080">back_impl</font><font color="#990000">&lt;</font>L<font color="#990000">&lt;</font>B<font color="#990000">&gt;&gt;</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">typedef</font></b> <font color="#008080">B</font> type<font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">F</font><font color="#990000">,</font> <b><font color="#0000FF">typename</font></b> <font color="#008080">L</font><font color="#990000">&gt;</font> <b><font color="#0000FF">struct</font></b> <font color="#008080">push_front_impl</font><font color="#990000">;</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">F</font><font color="#990000">,</font> <b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#990000">...&gt;</font> <b><font color="#0000FF">typename</font></b> <font color="#008080">L</font><font color="#990000">,</font> <b><font color="#0000FF">typename</font></b><font color="#990000">...</font> I<font color="#990000">&gt;</font>
+<b><font color="#0000FF">struct</font></b> <font color="#008080">push_front_impl</font><font color="#990000">&lt;</font>F<font color="#990000">,</font> L<font color="#990000">&lt;</font>I<font color="#990000">...&gt;&gt;</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">typedef</font></b> <font color="#008080">L&lt;F, I...&gt;</font> type<font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">L1</font><font color="#990000">,</font> <b><font color="#0000FF">typename</font></b> <font color="#008080">L2</font><font color="#990000">&gt;</font> <b><font color="#0000FF">struct</font></b> <font color="#008080">concat_impl</font><font color="#990000">;</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b><font color="#990000">...&gt;</font> <b><font color="#0000FF">typename</font></b> <font color="#008080">L1</font><font color="#990000">,</font> <b><font color="#0000FF">typename</font></b><font color="#990000">...</font> I1<font color="#990000">,</font> <b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b><font color="#990000">...&gt;</font> <b><font color="#0000FF">typename</font></b> <font color="#008080">L2</font><font color="#990000">,</font> <b><font color="#0000FF">typename</font></b><font color="#990000">...</font>I2<font color="#990000">&gt;</font>
+<b><font color="#0000FF">struct</font></b> <font color="#008080">concat_impl</font><font color="#990000">&lt;</font>L1<font color="#990000">&lt;</font>I1<font color="#990000">...&gt;,</font> L2<font color="#990000">&lt;</font>I2<font color="#990000">...&gt;&gt;</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">typedef</font></b> <font color="#008080">L1&lt;I1..., I2...&gt;</font> type<font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b><font color="#990000">&gt;</font> <b><font color="#0000FF">typename</font></b> <font color="#008080">P</font><font color="#990000">,</font> <b><font color="#0000FF">typename</font></b> <font color="#008080">L</font><font color="#990000">&gt;</font> <b><font color="#0000FF">struct</font></b> <font color="#008080">filter_impl</font><font color="#990000">;</font> <i><font color="#9A1900">// &lt;&gt; Das allg. Template</font></i>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b><font color="#990000">&gt;</font> <b><font color="#0000FF">typename</font></b> <font color="#008080">P</font><font color="#990000">,</font> <b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b><font color="#990000">,</font> <b><font color="#0000FF">typename</font></b><font color="#990000">...&gt;</font> <b><font color="#0000FF">typename</font></b> <font color="#008080">L</font><font color="#990000">,</font> <b><font color="#0000FF">typename</font></b> <font color="#008080">F</font><font color="#990000">,</font> <b><font color="#0000FF">typename</font></b><font color="#990000">...</font> I<font color="#990000">&gt;</font>
+<b><font color="#0000FF">struct</font></b> <font color="#008080">filter_impl</font><font color="#990000">&lt;</font>P<font color="#990000">,</font> L<font color="#990000">&lt;</font>F<font color="#990000">,</font> I<font color="#990000">...&gt;&gt;</font>   <i><font color="#9A1900">// &lt;&gt; Die partielle Spezialisierung für Type-Listen</font></i>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">typedef</font></b> <b><font color="#0000FF">typename</font></b> <font color="#008080">std</font><font color="#990000">::</font>conditional<font color="#990000">&lt;</font>P<font color="#990000">&lt;</font>F<font color="#990000">&gt;::</font>value<font color="#990000">,</font>  <i><font color="#9A1900">//&lt;&gt; Überprüfung der Bedingung (Meta-Funktion als Prädikat für die Typen der Liste)</font></i>
+            <b><font color="#0000FF">typename</font></b> <font color="#008080">push_front_impl</font><font color="#990000">&lt;</font>F<font color="#990000">,</font> <b><font color="#0000FF">typename</font></b> <font color="#008080">filter_impl</font><font color="#990000">&lt;</font>P<font color="#990000">,</font> L<font color="#990000">&lt;</font>I<font color="#990000">...&gt;&gt;::</font>type<font color="#990000">&gt;::</font>type<font color="#990000">,</font> <i><font color="#9A1900">// &lt;&gt; Rekursive Anwendung</font></i>
+            <b><font color="#0000FF">typename</font></b> <font color="#008080">filter_impl</font><font color="#990000">&lt;</font>P<font color="#990000">,</font> L<font color="#990000">&lt;</font>I<font color="#990000">...&gt;&gt;::</font>type<font color="#990000">&gt;::</font><font color="#008080">type</font> type<font color="#990000">;</font> <i><font color="#9A1900">// Rekursive Anwendung</font></i>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b><font color="#990000">&gt;</font> <b><font color="#0000FF">typename</font></b> <font color="#008080">P</font><font color="#990000">,</font> <b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b><font color="#990000">...&gt;</font> <b><font color="#0000FF">typename</font></b> <font color="#008080">L</font><font color="#990000">&gt;</font>
+<b><font color="#0000FF">struct</font></b> <font color="#008080">filter_impl</font><font color="#990000">&lt;</font>P<font color="#990000">,</font> L<font color="#990000">&lt;&gt;&gt;</font>   <i><font color="#9A1900">// &lt;&gt; Wegen der Rekursion (s.o.) ist ein Rekursonsende notwendig: die _leere_ Typ-Liste</font></i>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">typedef</font></b> <font color="#008080">L&lt;&gt;</font> type<font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">T</font><font color="#990000">&gt;</font>
+<b><font color="#0000FF">struct</font></b> <font color="#008080">numberOfDigits</font><font color="#990000">;</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;&gt;</font> <b><font color="#0000FF">struct</font></b> <font color="#008080">numberOfDigits</font><font color="#990000">&lt;</font>int8_t<font color="#990000">&gt;</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">inline</font></b> <b><font color="#0000FF">static</font></b> <font color="#008080">constexpr</font> <font color="#008080">size_t</font> value <font color="#990000">=</font> <font color="#993399">4</font><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;&gt;</font> <b><font color="#0000FF">struct</font></b> <font color="#008080">numberOfDigits</font><font color="#990000">&lt;</font>uint8_t<font color="#990000">&gt;</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">inline</font></b> <b><font color="#0000FF">static</font></b> <font color="#008080">constexpr</font> <font color="#008080">size_t</font> value <font color="#990000">=</font> <font color="#993399">3</font><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;&gt;</font> <b><font color="#0000FF">struct</font></b> <font color="#008080">numberOfDigits</font><font color="#990000">&lt;</font>int16_t<font color="#990000">&gt;</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">inline</font></b> <b><font color="#0000FF">static</font></b> <font color="#008080">constexpr</font> <font color="#008080">size_t</font> value <font color="#990000">=</font> <font color="#993399">6</font><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;&gt;</font> <b><font color="#0000FF">struct</font></b> <font color="#008080">numberOfDigits</font><font color="#990000">&lt;</font>uint16_t<font color="#990000">&gt;</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">inline</font></b> <b><font color="#0000FF">static</font></b> <font color="#008080">constexpr</font> <font color="#008080">size_t</font> value <font color="#990000">=</font> <font color="#993399">5</font><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;&gt;</font> <b><font color="#0000FF">struct</font></b> <font color="#008080">numberOfDigits</font><font color="#990000">&lt;</font>int32_t<font color="#990000">&gt;</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">inline</font></b> <b><font color="#0000FF">static</font></b> <font color="#008080">constexpr</font> <font color="#008080">size_t</font> value <font color="#990000">=</font> <font color="#993399">11</font><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;&gt;</font> <b><font color="#0000FF">struct</font></b> <font color="#008080">numberOfDigits</font><font color="#990000">&lt;</font>uint32_t<font color="#990000">&gt;</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">inline</font></b> <b><font color="#0000FF">static</font></b> <font color="#008080">constexpr</font> <font color="#008080">size_t</font> value <font color="#990000">=</font> <font color="#993399">10</font><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<font color="#FF0000">}</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">T</font><font color="#990000">&gt;</font> <b><font color="#0000FF">struct</font></b> <font color="#008080">isInteger</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">inline</font></b> <b><font color="#0000FF">static</font></b> constexpr <font color="#008080">bool</font> value <font color="#990000">=</font> <b><font color="#0000FF">false</font></b><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;&gt;</font> <b><font color="#0000FF">struct</font></b> <font color="#008080">isInteger</font><font color="#990000">&lt;</font><font color="#009900">char</font><font color="#990000">&gt;</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">inline</font></b> <b><font color="#0000FF">static</font></b> constexpr <font color="#008080">bool</font> value <font color="#990000">=</font> <b><font color="#0000FF">true</font></b><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;&gt;</font> <b><font color="#0000FF">struct</font></b> <font color="#008080">isInteger</font><font color="#990000">&lt;</font><font color="#009900">unsigned</font> <font color="#009900">char</font><font color="#990000">&gt;</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">inline</font></b> <b><font color="#0000FF">static</font></b> constexpr <font color="#008080">bool</font> value <font color="#990000">=</font> <b><font color="#0000FF">true</font></b><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;&gt;</font> <b><font color="#0000FF">struct</font></b> <font color="#008080">isInteger</font><font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">inline</font></b> <b><font color="#0000FF">static</font></b> constexpr <font color="#008080">bool</font> value <font color="#990000">=</font> <b><font color="#0000FF">true</font></b><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;&gt;</font> <b><font color="#0000FF">struct</font></b> <font color="#008080">isInteger</font><font color="#990000">&lt;</font><font color="#009900">unsigned</font> <font color="#009900">int</font><font color="#990000">&gt;</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">inline</font></b> <b><font color="#0000FF">static</font></b> constexpr <font color="#008080">bool</font> value <font color="#990000">=</font> <b><font color="#0000FF">true</font></b><font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">T</font><font color="#990000">&gt;</font> <b><font color="#0000FF">struct</font></b> <font color="#008080">isUnsigned</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">inline</font></b> <b><font color="#0000FF">static</font></b> constexpr <font color="#008080">bool</font> value <font color="#990000">=</font> <font color="#990000">(</font><b><font color="#000000">T</font></b><font color="#990000">(-</font><font color="#993399">1</font><font color="#990000">)</font> <font color="#990000">&gt;</font> T<font color="#FF0000">{</font><font color="#993399">0</font><font color="#FF0000">}</font><font color="#990000">);</font> <i><font color="#9A1900">// &lt;&gt; Durch `T(-1)` wird ein _narrowing_ zugelassen</font></i>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">L</font><font color="#990000">&gt;</font>
+<b><font color="#0000FF">using</font></b> front <font color="#990000">=</font> <b><font color="#0000FF">typename</font></b> <font color="#008080">detail</font><font color="#990000">::</font>front_impl<font color="#990000">&lt;</font>L<font color="#990000">&gt;::</font>type<font color="#990000">;</font>
+
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">L</font><font color="#990000">&gt;</font>
+<b><font color="#0000FF">using</font></b> size <font color="#990000">=</font> <b><font color="#0000FF">typename</font></b> <font color="#008080">detail</font><font color="#990000">::</font>size_impl<font color="#990000">&lt;</font>L<font color="#990000">&gt;::</font>type<font color="#990000">;</font>
+
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">L</font><font color="#990000">&gt;</font>
+<b><font color="#0000FF">using</font></b> back <font color="#990000">=</font> <b><font color="#0000FF">typename</font></b> <font color="#008080">detail</font><font color="#990000">::</font>back_impl<font color="#990000">&lt;</font>L<font color="#990000">&gt;::</font>type<font color="#990000">;</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">F</font><font color="#990000">,</font> <b><font color="#0000FF">typename</font></b> <font color="#008080">L</font><font color="#990000">&gt;</font>
+<b><font color="#0000FF">using</font></b> push_front <font color="#990000">=</font> <b><font color="#0000FF">typename</font></b> <font color="#008080">detail</font><font color="#990000">::</font>push_front_impl<font color="#990000">&lt;</font>F<font color="#990000">,</font> L<font color="#990000">&gt;::</font>type<font color="#990000">;</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">L1</font><font color="#990000">,</font> <b><font color="#0000FF">typename</font></b> <font color="#008080">L2</font><font color="#990000">&gt;</font>
+<b><font color="#0000FF">using</font></b> concat <font color="#990000">=</font> <b><font color="#0000FF">typename</font></b> <font color="#008080">detail</font><font color="#990000">::</font>concat_impl<font color="#990000">&lt;</font>L1<font color="#990000">,</font> L2<font color="#990000">&gt;::</font>type<font color="#990000">;</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b><font color="#990000">&gt;</font> <b><font color="#0000FF">typename</font></b> <font color="#008080">F</font><font color="#990000">,</font> <b><font color="#0000FF">typename</font></b> <font color="#008080">L</font><font color="#990000">&gt;</font> <i><font color="#9A1900">// &lt;&gt; Der erste Parameter dieses Alias-Templates ist schon ein Template-Tempate-Parameter, denn es handelt sich ja hier um eine Meta-Funktion</font></i>
+<b><font color="#0000FF">using</font></b> filter <font color="#990000">=</font> <b><font color="#0000FF">typename</font></b> <font color="#008080">detail</font><font color="#990000">::</font>filter_impl<font color="#990000">&lt;</font>F<font color="#990000">,</font> L<font color="#990000">&gt;::</font>type<font color="#990000">;</font>
+
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b><font color="#990000">...</font> T<font color="#990000">&gt;</font> <b><font color="#0000FF">struct</font></b> <font color="#008080">List</font> <font color="#FF0000">{}</font><font color="#990000">;</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">T</font><font color="#990000">,</font> <b><font color="#0000FF">typename</font></b> <font color="#008080">L</font><font color="#990000">&gt;</font>
+<b><font color="#0000FF">struct</font></b> <font color="#008080">allOfList</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">U</font><font color="#990000">&gt;</font> <b><font color="#0000FF">using</font></b> Pred <font color="#990000">=</font> std<font color="#990000">::</font>is_same<font color="#990000">&lt;</font>U<font color="#990000">,</font> T<font color="#990000">&gt;;</font>
+    <b><font color="#0000FF">using</font></b> fl <font color="#990000">=</font> filter<font color="#990000">&lt;</font>Pred<font color="#990000">,</font> L<font color="#990000">&gt;;</font>
+    <b><font color="#0000FF">inline</font></b> <b><font color="#0000FF">static</font></b> constexpr <font color="#008080">bool</font> value <font color="#990000">=</font> std<font color="#990000">::</font>is_same<font color="#990000">&lt;</font>size<font color="#990000">&lt;</font>L<font color="#990000">&gt;,</font> size<font color="#990000">&lt;</font>fl<font color="#990000">&gt;&gt;::</font>value<font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">T</font><font color="#990000">,</font> <b><font color="#0000FF">typename</font></b><font color="#990000">...</font> II<font color="#990000">&gt;</font>
+<b><font color="#0000FF">struct</font></b> <font color="#008080">allOf</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">U</font><font color="#990000">&gt;</font> <b><font color="#0000FF">using</font></b> Pred <font color="#990000">=</font> std<font color="#990000">::</font>is_same<font color="#990000">&lt;</font>U<font color="#990000">,</font> T<font color="#990000">&gt;;</font>
+    <b><font color="#0000FF">using</font></b> fl <font color="#990000">=</font> filter<font color="#990000">&lt;</font>Pred<font color="#990000">,</font> List<font color="#990000">&lt;</font>II<font color="#990000">...&gt;&gt;;</font>
+    <b><font color="#0000FF">inline</font></b> <b><font color="#0000FF">static</font></b> constexpr <font color="#008080">bool</font> value <font color="#990000">=</font> std<font color="#990000">::</font>is_same<font color="#990000">&lt;</font>size<font color="#990000">&lt;</font>List<font color="#990000">&lt;</font>II<font color="#990000">...&gt;&gt;,</font> size<font color="#990000">&lt;</font>fl<font color="#990000">&gt;&gt;::</font>value<font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">T</font><font color="#990000">,</font> <b><font color="#0000FF">typename</font></b> <font color="#008080">C</font><font color="#990000">&gt;</font>
+<font color="#008080">requires</font> std<font color="#990000">::</font>is_integral<font color="#990000">&lt;</font>T<font color="#990000">&gt;::</font>value
+<font color="#009900">void</font> <b><font color="#000000">itoa</font></b><font color="#990000">(</font><font color="#008080">T</font> value<font color="#990000">,</font> C<font color="#990000">&amp;</font> container<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <font color="#008080">size_t</font> position <font color="#990000">=</font> <font color="#993399">0</font><font color="#990000">;</font>
+    <b><font color="#0000FF">while</font></b><font color="#990000">(</font>value <font color="#990000">&gt;</font> <font color="#993399">0</font><font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+        container<font color="#990000">[</font>position<font color="#990000">++]</font> <font color="#990000">=</font> <b><font color="#0000FF">static_cast</font></b><font color="#990000">&lt;</font><font color="#009900">char</font><font color="#990000">&gt;(</font>value <font color="#990000">%</font> <font color="#993399">10</font> <font color="#990000">+</font> <font color="#FF0000">'0'</font><font color="#990000">);</font>
+        value <font color="#990000">/=</font> <font color="#993399">10</font><font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    std<font color="#990000">::</font><b><font color="#000000">reverse</font></b><font color="#990000">(</font>std<font color="#990000">::</font><b><font color="#000000">begin</font></b><font color="#990000">(</font>container<font color="#990000">),</font> std<font color="#990000">::</font><b><font color="#000000">begin</font></b><font color="#990000">(</font>container<font color="#990000">)</font> <font color="#990000">+</font> position<font color="#990000">);</font>
+<font color="#FF0000">}</font>
+<font color="#FF0000">}</font>
+<b><font color="#0000FF">namespace</font></b> std
+<font color="#FF0000">{</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><font color="#008080">size_t</font> N<font color="#990000">&gt;</font>
+std<font color="#990000">::</font>ostream<font color="#990000">&amp;</font> <b><font color="#0000FF">operator</font></b><font color="#990000">&lt;&lt;(</font>std<font color="#990000">::</font>ostream<font color="#990000">&amp;</font> out<font color="#990000">,</font> <b><font color="#0000FF">const</font></b> std<font color="#990000">::</font>array<font color="#990000">&lt;</font><font color="#009900">char</font><font color="#990000">,</font> N<font color="#990000">&gt;&amp;</font> values<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">for</font></b><font color="#990000">(</font><font color="#008080">size_t</font> i <font color="#990000">=</font> <font color="#993399">0</font><font color="#990000">;</font> <font color="#990000">(</font>i <font color="#990000">&lt;</font> N<font color="#990000">)</font> <font color="#990000">&amp;&amp;</font> <font color="#990000">(</font>values<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">!=</font> <font color="#FF0000">'</font><font color="#CC33CC">\0</font><font color="#FF0000">'</font><font color="#990000">);</font> <font color="#990000">++</font>i<font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+        out <font color="#990000">&lt;&lt;</font> values<font color="#990000">[</font>i<font color="#990000">];</font>
+    <font color="#FF0000">}</font>
+    <b><font color="#0000FF">return</font></b> out<font color="#990000">;</font>
+<font color="#FF0000">}</font>
+<font color="#FF0000">}</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">First</font><font color="#990000">,</font> <b><font color="#0000FF">typename</font></b><font color="#990000">...</font> P<font color="#990000">&gt;</font>
+<i><font color="#9A1900">//requires PPC::allOfList&lt;First, PPC::List&lt;P...&gt;&gt;::value</font></i>
+<font color="#008080">requires</font> PPC<font color="#990000">::</font>allOf<font color="#990000">&lt;</font>First<font color="#990000">,</font> P<font color="#990000">...&gt;::</font>value
+constexpr <font color="#008080">First</font> <b><font color="#000000">maximum</font></b><font color="#990000">(</font><font color="#008080">First</font> f<font color="#990000">,</font> P<font color="#990000">...</font> tail<font color="#990000">)</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">if</font></b> <b><font color="#000000">constexpr</font></b><font color="#990000">(</font><b><font color="#0000FF">sizeof</font></b><font color="#990000">...(</font>tail<font color="#990000">)</font> <font color="#990000">==</font> <font color="#993399">0</font><font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+        <b><font color="#0000FF">return</font></b> f<font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    <b><font color="#0000FF">else</font></b>
+    <font color="#FF0000">{</font>
+        <b><font color="#0000FF">return</font></b> f <font color="#990000">&gt;</font> <b><font color="#000000">maximum</font></b><font color="#990000">(</font>tail<font color="#990000">...)</font> <font color="#990000">?</font> f <font color="#990000">:</font> <b><font color="#000000">maximum</font></b><font color="#990000">(</font>tail<font color="#990000">...);</font>
+    <font color="#FF0000">}</font>
+<font color="#FF0000">}</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">T</font><font color="#990000">&gt;</font>
+<font color="#008080">requires</font> <b><font color="#0000FF">true</font></b> <i><font color="#9A1900">//&lt;&gt; Das einfachste _constraint_: eine `requires`-Klausel mit einem `constexpr`-Wert `true`.</font></i>
+<font color="#009900">void</font> <b><font color="#000000">f</font></b><font color="#990000">()</font>
+<font color="#FF0000">{</font>
+<font color="#FF0000">}</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">T</font><font color="#990000">&gt;</font>
+<font color="#008080">requires</font> std<font color="#990000">::</font><font color="#008080">is_same&lt;T, int&gt;::value // &lt;&gt;</font> Ein `constexpr`<font color="#990000">-</font><font color="#008080">Ausdruck</font> als `requires`<font color="#990000">-</font>Klausel
+<font color="#009900">void</font> <b><font color="#000000">g</font></b><font color="#990000">()</font>
+<font color="#FF0000">{</font>
+<font color="#FF0000">}</font>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> <font color="#008080">T</font><font color="#990000">&gt;</font>
+<font color="#008080">requires</font> std<font color="#990000">::</font>is_same<font color="#990000">&lt;</font>T<font color="#990000">,</font> <font color="#009900">int</font><font color="#990000">&gt;::</font>value <font color="#990000">||</font> std<font color="#990000">::</font>is_same<font color="#990000">&lt;</font>T<font color="#990000">,</font> <font color="#009900">short</font><font color="#990000">&gt;::</font>value <i><font color="#9A1900">// &lt;&gt; Ebenfalls ein zusammengesetzter `constexpr`-Ausdruck</font></i>
+<font color="#009900">void</font> <b><font color="#000000">h</font></b><font color="#990000">()</font>
+<font color="#FF0000">{</font>
+<font color="#FF0000">}</font>
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font>
+<font color="#FF0000">{</font>
+    f<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;();</font>
+    g<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;();</font>
+    h<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;();</font>
+    h<font color="#990000">&lt;</font><font color="#009900">short</font><font color="#990000">&gt;();</font>
+<b><font color="#000080">#if</font></b> ERROR
+    h<font color="#990000">&lt;</font><font color="#009900">float</font><font color="#990000">&gt;();</font> <i><font color="#9A1900">// &lt;&gt; `float` erfüllt _nicht_ die Anforderungen an den Template-Parameter</font></i>
+<b><font color="#000080">#endif</font></b>
+
+    <b><font color="#0000FF">using</font></b> l1 <font color="#990000">=</font> PPC<font color="#990000">::</font>List<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">,</font> <font color="#009900">int</font><font color="#990000">&gt;;</font>
+    <b><font color="#000000">static_assert</font></b><font color="#990000">(</font>PPC<font color="#990000">::</font>allOfList<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">,</font> l1<font color="#990000">&gt;::</font>value<font color="#990000">);</font>
+
+    constexpr <font color="#008080">auto</font> max <font color="#990000">=</font> <b><font color="#000000">maximum</font></b><font color="#990000">(</font><font color="#993399">1</font><font color="#990000">,</font> <font color="#993399">3</font><font color="#990000">,</font> <font color="#993399">5</font><font color="#990000">);</font>
+    <b><font color="#000000">static_assert</font></b><font color="#990000">(</font>max <font color="#990000">==</font> <font color="#993399">5</font><font color="#990000">);</font>
+
+    std<font color="#990000">::</font><font color="#008080">array&lt;char, 11&gt;</font> s<font color="#FF0000">{}</font><font color="#990000">;</font>
+    PPC<font color="#990000">::</font><b><font color="#000000">itoa</font></b><font color="#990000">(-</font><font color="#993399">42</font><font color="#990000">,</font> s<font color="#990000">);</font>
+    std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> s <font color="#990000">&lt;&lt;</font> <font color="#FF0000">'</font><font color="#CC33CC">\n</font><font color="#FF0000">'</font><font color="#990000">;</font>
+<b><font color="#000080">#if</font></b> <font color="#993399">0</font>
+    PPC<font color="#990000">::</font><b><font color="#000000">itoa</font></b><font color="#990000">(</font><font color="#993399">42.0</font><font color="#990000">,</font> s<font color="#990000">);</font>
+<b><font color="#000080">#endif</font></b>
+    std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> s <font color="#990000">&lt;&lt;</font> <font color="#FF0000">'</font><font color="#CC33CC">\n</font><font color="#FF0000">'</font><font color="#990000">;</font>
+<font color="#FF0000">}</font>
+
+</tt></pre>

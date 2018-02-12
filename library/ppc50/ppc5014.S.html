@@ -1,0 +1,175 @@
+<!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><b><font color="#000080">	.file</font></b>	<font color="#FF0000">"ppc5014.cc"</font>
+<b><font color="#000080">	.intel</font></b>_syntax noprefix
+<b><font color="#000080">	.section</font></b>	<font color="#990000">.</font>text<font color="#990000">.</font>_ZNKSt<font color="#993399">5</font>ctypeIcE<font color="#993399">8</font>do_widenEc<font color="#990000">,</font><font color="#FF0000">"axG"</font><font color="#990000">,</font>@progbits<font color="#990000">,</font>_ZNKSt<font color="#993399">5</font>ctypeIcE<font color="#993399">8</font>do_widenEc<font color="#990000">,</font>comdat
+<b><font color="#000080">	.align</font></b> <font color="#993399">2</font>
+<b><font color="#000080">	.p2align</font></b> <font color="#993399">4</font><font color="#990000">,,</font><font color="#993399">15</font>
+<b><font color="#000080">	.weak</font></b>	_ZNKSt<font color="#993399">5</font>ctypeIcE<font color="#993399">8</font>do_widenEc
+<b><font color="#000080">	.type</font></b>	_ZNKSt<font color="#993399">5</font>ctypeIcE<font color="#993399">8</font>do_widenEc<font color="#990000">,</font> @function
+_ZNKSt<font color="#993399">5</font>ctypeIcE<font color="#993399">8</font>do_widenEc<font color="#990000">:</font>
+	<b><font color="#0000FF">mov</font></b>	<font color="#009900">eax</font><font color="#990000">,</font> <font color="#009900">esi</font>	#<font color="#990000">,</font> __c
+	<b><font color="#0000FF">ret</font></b>
+<b><font color="#000080">	.size</font></b>	_ZNKSt<font color="#993399">5</font>ctypeIcE<font color="#993399">8</font>do_widenEc<font color="#990000">,</font> <font color="#990000">.-</font>_ZNKSt<font color="#993399">5</font>ctypeIcE<font color="#993399">8</font>do_widenEc
+<b><font color="#000080">	.section</font></b>	<font color="#990000">.</font>text<font color="#990000">.</font>startup<font color="#990000">,</font><font color="#FF0000">"ax"</font><font color="#990000">,</font>@progbits
+<b><font color="#000080">	.p2align</font></b> <font color="#993399">4</font><font color="#990000">,,</font><font color="#993399">15</font>
+<b><font color="#000080">	.globl</font></b>	main
+<b><font color="#000080">	.type</font></b>	main<font color="#990000">,</font> @function
+<b><font color="#000080">main:</font></b>
+	<b><font color="#0000FF">push</font></b>	r<font color="#993399">14</font>	#
+	<b><font color="#0000FF">push</font></b>	r<font color="#993399">13</font>	#
+	<b><font color="#0000FF">lea</font></b>	r<font color="#993399">14</font><font color="#990000">,</font> _ZNKSt<font color="#993399">5</font>ctypeIcE<font color="#993399">8</font>do_widenEc<font color="#990000">[</font>rip<font color="#990000">]</font>	# tmp<font color="#993399">162</font><font color="#990000">,</font>
+	<b><font color="#0000FF">push</font></b>	r<font color="#993399">12</font>	#
+	<b><font color="#0000FF">push</font></b>	rbp	#
+	<b><font color="#0000FF">push</font></b>	rbx	#
+	<b><font color="#0000FF">sub</font></b>	rsp<font color="#990000">,</font> <font color="#993399">96</font>	#<font color="#990000">,</font>
+	movdqa	xmm<font color="#993399">0</font><font color="#990000">,</font> XMMWORD <b><font color="#0000FF">PTR</font></b> <font color="#990000">.</font>LC<font color="#993399">0</font><font color="#990000">[</font>rip<font color="#990000">]</font>	# tmp<font color="#993399">165</font><font color="#990000">,</font>
+	<b><font color="#0000FF">mov</font></b>	rbp<font color="#990000">,</font> rsp	# ivtmp<font color="#993399">.38</font><font color="#990000">,</font>
+	<b><font color="#0000FF">mov</font></b>	rax<font color="#990000">,</font> QWORD <b><font color="#0000FF">PTR</font></b> <font color="#009900">fs</font><font color="#990000">:</font><font color="#993399">40</font>	# tmp<font color="#993399">163</font><font color="#990000">,</font>
+	<b><font color="#0000FF">mov</font></b>	QWORD <b><font color="#0000FF">PTR</font></b> <font color="#993399">88</font><font color="#990000">[</font>rsp<font color="#990000">],</font> rax	# D<font color="#993399">.46712</font><font color="#990000">,</font> tmp<font color="#993399">163</font>
+	<b><font color="#0000FF">xor</font></b>	<font color="#009900">eax</font><font color="#990000">,</font> <font color="#009900">eax</font>	# tmp<font color="#993399">163</font>
+	movdqa	xmm<font color="#993399">1</font><font color="#990000">,</font> XMMWORD <b><font color="#0000FF">PTR</font></b> <font color="#990000">.</font>LC<font color="#993399">1</font><font color="#990000">[</font>rip<font color="#990000">]</font>	# tmp<font color="#993399">166</font><font color="#990000">,</font>
+	<b><font color="#0000FF">lea</font></b>	r<font color="#993399">13</font><font color="#990000">,</font> <font color="#993399">40</font><font color="#990000">[</font>rbp<font color="#990000">]</font>	# <font color="#993399">_14</font><font color="#990000">,</font>
+	<b><font color="#0000FF">mov</font></b>	DWORD <b><font color="#0000FF">PTR</font></b> <font color="#993399">32</font><font color="#990000">[</font>rsp<font color="#990000">],</font> <font color="#993399">17</font>	# a<font color="#993399">1</font><font color="#990000">.</font>_M_elems<font color="#990000">,</font>
+	<b><font color="#0000FF">mov</font></b>	DWORD <b><font color="#0000FF">PTR</font></b> <font color="#993399">36</font><font color="#990000">[</font>rsp<font color="#990000">],</font> <font color="#993399">19</font>	# a<font color="#993399">1</font><font color="#990000">.</font>_M_elems<font color="#990000">,</font>
+	movaps	XMMWORD <b><font color="#0000FF">PTR</font></b> <font color="#990000">[</font>rsp<font color="#990000">],</font> xmm<font color="#993399">0</font>	# MEM<font color="#990000">[(</font><b><font color="#0000FF">int</font></b> <font color="#990000">*)&amp;</font>a<font color="#993399">1</font><font color="#990000">],</font> tmp<font color="#993399">165</font>
+	movaps	XMMWORD <b><font color="#0000FF">PTR</font></b> <font color="#993399">16</font><font color="#990000">[</font>rsp<font color="#990000">],</font> xmm<font color="#993399">1</font>	# MEM<font color="#990000">[(</font><b><font color="#0000FF">int</font></b> <font color="#990000">*)&amp;</font>a<font color="#993399">1</font> <font color="#990000">+</font> <font color="#993399">16</font>B<font color="#990000">],</font> tmp<font color="#993399">166</font>
+	<b><font color="#0000FF">jmp</font></b>	<font color="#990000">.</font>L<font color="#993399">7</font>	#
+<b><font color="#000080">	.p2align</font></b> <font color="#993399">4</font><font color="#990000">,,</font><font color="#993399">10</font>
+<b><font color="#000080">	.p2align</font></b> <font color="#993399">3</font>
+<b><font color="#000080">.L22</font></b><font color="#990000">:</font>
+	<b><font color="#0000FF">movsx</font></b>	<font color="#009900">esi</font><font color="#990000">,</font> BYTE <b><font color="#0000FF">PTR</font></b> <font color="#993399">67</font><font color="#990000">[</font>rbx<font color="#990000">]</font>	# <font color="#993399">_5</font><font color="#990000">,</font> MEM<font color="#990000">[(</font>const struct ctype <font color="#990000">*)</font><font color="#993399">_46</font><font color="#990000">].</font>_M_widen
+<b><font color="#000080">.L6</font></b><font color="#990000">:</font>
+	<b><font color="#0000FF">mov</font></b>	rdi<font color="#990000">,</font> r<font color="#993399">12</font>	#<font color="#990000">,</font> <font color="#993399">_2</font>
+	<b><font color="#0000FF">add</font></b>	rbp<font color="#990000">,</font> <font color="#993399">4</font>	# ivtmp<font color="#993399">.38</font><font color="#990000">,</font>
+	<b><font color="#0000FF">call</font></b>	_ZNSo<font color="#993399">3</font>putEc@PLT	#
+	<b><font color="#0000FF">mov</font></b>	rdi<font color="#990000">,</font> rax	#<font color="#990000">,</font> <font color="#993399">_44</font>
+	<b><font color="#0000FF">call</font></b>	_ZNSo<font color="#993399">5</font>flushEv@PLT	#
+	<b><font color="#0000FF">cmp</font></b>	r<font color="#993399">13</font><font color="#990000">,</font> rbp	# <font color="#993399">_14</font><font color="#990000">,</font> ivtmp<font color="#993399">.38</font>
+	<b><font color="#0000FF">je</font></b>	<font color="#990000">.</font>L<font color="#993399">21</font>	#<font color="#990000">,</font>
+<b><font color="#000080">.L7</font></b><font color="#990000">:</font>
+	<b><font color="#0000FF">mov</font></b>	<font color="#009900">esi</font><font color="#990000">,</font> DWORD <b><font color="#0000FF">PTR</font></b> <font color="#993399">0</font><font color="#990000">[</font>rbp<font color="#990000">]</font>	#<font color="#990000">,</font> MEM<font color="#990000">[</font>base<font color="#990000">:</font> <font color="#993399">_16</font><font color="#990000">,</font> <b><font color="#0000FF">offset</font></b><font color="#990000">:</font> <font color="#993399">0</font><font color="#990000">]</font>
+	<b><font color="#0000FF">lea</font></b>	rdi<font color="#990000">,</font> _ZSt<font color="#993399">4</font>cout<font color="#990000">[</font>rip<font color="#990000">]</font>	#<font color="#990000">,</font>
+	<b><font color="#0000FF">call</font></b>	_ZNSolsEi@PLT	#
+	<b><font color="#0000FF">mov</font></b>	r<font color="#993399">12</font><font color="#990000">,</font> rax	# <font color="#993399">_2</font><font color="#990000">,</font>
+	<b><font color="#0000FF">mov</font></b>	rax<font color="#990000">,</font> QWORD <b><font color="#0000FF">PTR</font></b> <font color="#990000">[</font>rax<font color="#990000">]</font>	# <font color="#993399">_2</font><font color="#990000">-&gt;</font>_vptr<font color="#990000">.</font>basic_ostream<font color="#990000">,</font> <font color="#993399">_2</font><font color="#990000">-&gt;</font>_vptr<font color="#990000">.</font>basic_ostream
+	<b><font color="#0000FF">mov</font></b>	rax<font color="#990000">,</font> QWORD <b><font color="#0000FF">PTR</font></b> <font color="#990000">-</font><font color="#993399">24</font><font color="#990000">[</font>rax<font color="#990000">]</font>	# MEM<font color="#990000">[(</font>long <b><font color="#0000FF">int</font></b> <font color="#990000">*)</font><font color="#993399">_38</font> <font color="#990000">+</font> <font color="#990000">-</font><font color="#993399">24</font>B<font color="#990000">],</font> MEM<font color="#990000">[(</font>long <b><font color="#0000FF">int</font></b> <font color="#990000">*)</font><font color="#993399">_38</font> <font color="#990000">+</font> <font color="#990000">-</font><font color="#993399">24</font>B<font color="#990000">]</font>
+	<b><font color="#0000FF">mov</font></b>	rbx<font color="#990000">,</font> QWORD <b><font color="#0000FF">PTR</font></b> <font color="#993399">240</font><font color="#990000">[</font>r<font color="#993399">12</font><font color="#990000">+</font>rax<font color="#990000">]</font>	# <font color="#993399">_46</font><font color="#990000">,</font> MEM<font color="#990000">[(</font>const struct basic_ios <font color="#990000">*)</font><font color="#993399">_41</font><font color="#990000">].</font>_M_ctype
+	<b><font color="#0000FF">test</font></b>	rbx<font color="#990000">,</font> rbx	# <font color="#993399">_46</font>
+	<b><font color="#0000FF">je</font></b>	<font color="#990000">.</font>L<font color="#993399">8</font>	#<font color="#990000">,</font>
+	<b><font color="#0000FF">cmp</font></b>	BYTE <b><font color="#0000FF">PTR</font></b> <font color="#993399">56</font><font color="#990000">[</font>rbx<font color="#990000">],</font> <font color="#993399">0</font>	# MEM<font color="#990000">[(</font>const struct ctype <font color="#990000">*)</font><font color="#993399">_46</font><font color="#990000">].</font>_M_widen_ok<font color="#990000">,</font>
+	<b><font color="#0000FF">jne</font></b>	<font color="#990000">.</font>L<font color="#993399">22</font>	#<font color="#990000">,</font>
+	<b><font color="#0000FF">mov</font></b>	rdi<font color="#990000">,</font> rbx	#<font color="#990000">,</font> <font color="#993399">_46</font>
+	<b><font color="#0000FF">call</font></b>	_ZNKSt<font color="#993399">5</font>ctypeIcE<font color="#993399">13</font>_M_widen_initEv@PLT	#
+	<b><font color="#0000FF">mov</font></b>	rax<font color="#990000">,</font> QWORD <b><font color="#0000FF">PTR</font></b> <font color="#990000">[</font>rbx<font color="#990000">]</font>	# MEM<font color="#990000">[(</font>const struct ctype <font color="#990000">*)</font><font color="#993399">_46</font><font color="#990000">].</font>D<font color="#993399">.33771</font><font color="#990000">.</font>_vptr<font color="#990000">.</font>facet<font color="#990000">,</font> MEM<font color="#990000">[(</font>const struct ctype <font color="#990000">*)</font><font color="#993399">_46</font><font color="#990000">].</font>D<font color="#993399">.33771</font><font color="#990000">.</font>_vptr<font color="#990000">.</font>facet
+	<b><font color="#0000FF">mov</font></b>	<font color="#009900">esi</font><font color="#990000">,</font> <font color="#993399">10</font>	# <font color="#993399">_5</font><font color="#990000">,</font>
+	<b><font color="#0000FF">mov</font></b>	rax<font color="#990000">,</font> QWORD <b><font color="#0000FF">PTR</font></b> <font color="#993399">48</font><font color="#990000">[</font>rax<font color="#990000">]</font>	# <font color="#993399">_56</font><font color="#990000">,</font> MEM<font color="#990000">[(</font><b><font color="#0000FF">int</font></b> <font color="#990000">(*</font>__vtbl_ptr_type<font color="#990000">)</font> <font color="#990000">()</font> <font color="#990000">*)</font><font color="#993399">_55</font> <font color="#990000">+</font> <font color="#993399">48</font>B<font color="#990000">]</font>
+	<b><font color="#0000FF">cmp</font></b>	rax<font color="#990000">,</font> r<font color="#993399">14</font>	# <font color="#993399">_56</font><font color="#990000">,</font> tmp<font color="#993399">162</font>
+	<b><font color="#0000FF">je</font></b>	<font color="#990000">.</font>L<font color="#993399">6</font>	#<font color="#990000">,</font>
+	<b><font color="#0000FF">mov</font></b>	rdi<font color="#990000">,</font> rbx	#<font color="#990000">,</font> <font color="#993399">_46</font>
+	<b><font color="#0000FF">call</font></b>	rax	# <font color="#993399">_56</font>
+	<b><font color="#0000FF">movsx</font></b>	<font color="#009900">esi</font><font color="#990000">,</font> <font color="#009900">al</font>	# <font color="#993399">_5</font><font color="#990000">,</font> <font color="#993399">_62</font>
+	<b><font color="#0000FF">jmp</font></b>	<font color="#990000">.</font>L<font color="#993399">6</font>	#
+<b><font color="#000080">	.p2align</font></b> <font color="#993399">4</font><font color="#990000">,,</font><font color="#993399">10</font>
+<b><font color="#000080">	.p2align</font></b> <font color="#993399">3</font>
+<b><font color="#000080">.L21</font></b><font color="#990000">:</font>
+	movdqa	xmm<font color="#993399">2</font><font color="#990000">,</font> XMMWORD <b><font color="#0000FF">PTR</font></b> <font color="#990000">.</font>LC<font color="#993399">0</font><font color="#990000">[</font>rip<font color="#990000">]</font>	# tmp<font color="#993399">167</font><font color="#990000">,</font>
+	<b><font color="#0000FF">lea</font></b>	rbp<font color="#990000">,</font> <font color="#993399">48</font><font color="#990000">[</font>rsp<font color="#990000">]</font>	# ivtmp<font color="#993399">.27</font><font color="#990000">,</font>
+	<b><font color="#0000FF">mov</font></b>	DWORD <b><font color="#0000FF">PTR</font></b> <font color="#993399">80</font><font color="#990000">[</font>rsp<font color="#990000">],</font> <font color="#993399">17</font>	# a<font color="#993399">2</font><font color="#990000">.</font>_M_elems<font color="#990000">,</font>
+	<b><font color="#0000FF">mov</font></b>	DWORD <b><font color="#0000FF">PTR</font></b> <font color="#993399">84</font><font color="#990000">[</font>rsp<font color="#990000">],</font> <font color="#993399">19</font>	# a<font color="#993399">2</font><font color="#990000">.</font>_M_elems<font color="#990000">,</font>
+	<b><font color="#0000FF">lea</font></b>	r<font color="#993399">14</font><font color="#990000">,</font> _ZNKSt<font color="#993399">5</font>ctypeIcE<font color="#993399">8</font>do_widenEc<font color="#990000">[</font>rip<font color="#990000">]</font>	# tmp<font color="#993399">161</font><font color="#990000">,</font>
+	movdqa	xmm<font color="#993399">3</font><font color="#990000">,</font> XMMWORD <b><font color="#0000FF">PTR</font></b> <font color="#990000">.</font>LC<font color="#993399">1</font><font color="#990000">[</font>rip<font color="#990000">]</font>	# tmp<font color="#993399">168</font><font color="#990000">,</font>
+	<b><font color="#0000FF">lea</font></b>	r<font color="#993399">13</font><font color="#990000">,</font> <font color="#993399">40</font><font color="#990000">[</font>rbp<font color="#990000">]</font>	# <font color="#993399">_24</font><font color="#990000">,</font>
+	movaps	XMMWORD <b><font color="#0000FF">PTR</font></b> <font color="#993399">48</font><font color="#990000">[</font>rsp<font color="#990000">],</font> xmm<font color="#993399">2</font>	# MEM<font color="#990000">[(</font><b><font color="#0000FF">int</font></b> <font color="#990000">*)&amp;</font>a<font color="#993399">2</font><font color="#990000">],</font> tmp<font color="#993399">167</font>
+	movaps	XMMWORD <b><font color="#0000FF">PTR</font></b> <font color="#993399">64</font><font color="#990000">[</font>rsp<font color="#990000">],</font> xmm<font color="#993399">3</font>	# MEM<font color="#990000">[(</font><b><font color="#0000FF">int</font></b> <font color="#990000">*)&amp;</font>a<font color="#993399">2</font> <font color="#990000">+</font> <font color="#993399">16</font>B<font color="#990000">],</font> tmp<font color="#993399">168</font>
+	<b><font color="#0000FF">jmp</font></b>	<font color="#990000">.</font>L<font color="#993399">11</font>	#
+<b><font color="#000080">	.p2align</font></b> <font color="#993399">4</font><font color="#990000">,,</font><font color="#993399">10</font>
+<b><font color="#000080">	.p2align</font></b> <font color="#993399">3</font>
+<b><font color="#000080">.L24</font></b><font color="#990000">:</font>
+	<b><font color="#0000FF">movsx</font></b>	<font color="#009900">esi</font><font color="#990000">,</font> BYTE <b><font color="#0000FF">PTR</font></b> <font color="#993399">67</font><font color="#990000">[</font>rbx<font color="#990000">]</font>	# <font color="#993399">_7</font><font color="#990000">,</font> MEM<font color="#990000">[(</font>const struct ctype <font color="#990000">*)</font><font color="#993399">_73</font><font color="#990000">].</font>_M_widen
+<b><font color="#000080">.L10</font></b><font color="#990000">:</font>
+	<b><font color="#0000FF">mov</font></b>	rdi<font color="#990000">,</font> r<font color="#993399">12</font>	#<font color="#990000">,</font> <font color="#993399">_4</font>
+	<b><font color="#0000FF">add</font></b>	rbp<font color="#990000">,</font> <font color="#993399">4</font>	# ivtmp<font color="#993399">.27</font><font color="#990000">,</font>
+	<b><font color="#0000FF">call</font></b>	_ZNSo<font color="#993399">3</font>putEc@PLT	#
+	<b><font color="#0000FF">mov</font></b>	rdi<font color="#990000">,</font> rax	#<font color="#990000">,</font> <font color="#993399">_71</font>
+	<b><font color="#0000FF">call</font></b>	_ZNSo<font color="#993399">5</font>flushEv@PLT	#
+	<b><font color="#0000FF">cmp</font></b>	r<font color="#993399">13</font><font color="#990000">,</font> rbp	# <font color="#993399">_24</font><font color="#990000">,</font> ivtmp<font color="#993399">.27</font>
+	<b><font color="#0000FF">je</font></b>	<font color="#990000">.</font>L<font color="#993399">23</font>	#<font color="#990000">,</font>
+<b><font color="#000080">.L11</font></b><font color="#990000">:</font>
+	<b><font color="#0000FF">mov</font></b>	<font color="#009900">esi</font><font color="#990000">,</font> DWORD <b><font color="#0000FF">PTR</font></b> <font color="#993399">0</font><font color="#990000">[</font>rbp<font color="#990000">]</font>	#<font color="#990000">,</font> MEM<font color="#990000">[</font>base<font color="#990000">:</font> <font color="#993399">_26</font><font color="#990000">,</font> <b><font color="#0000FF">offset</font></b><font color="#990000">:</font> <font color="#993399">0</font><font color="#990000">]</font>
+	<b><font color="#0000FF">lea</font></b>	rdi<font color="#990000">,</font> _ZSt<font color="#993399">4</font>cout<font color="#990000">[</font>rip<font color="#990000">]</font>	#<font color="#990000">,</font>
+	<b><font color="#0000FF">call</font></b>	_ZNSolsEi@PLT	#
+	<b><font color="#0000FF">mov</font></b>	r<font color="#993399">12</font><font color="#990000">,</font> rax	# <font color="#993399">_4</font><font color="#990000">,</font>
+	<b><font color="#0000FF">mov</font></b>	rax<font color="#990000">,</font> QWORD <b><font color="#0000FF">PTR</font></b> <font color="#990000">[</font>rax<font color="#990000">]</font>	# <font color="#993399">_4</font><font color="#990000">-&gt;</font>_vptr<font color="#990000">.</font>basic_ostream<font color="#990000">,</font> <font color="#993399">_4</font><font color="#990000">-&gt;</font>_vptr<font color="#990000">.</font>basic_ostream
+	<b><font color="#0000FF">mov</font></b>	rax<font color="#990000">,</font> QWORD <b><font color="#0000FF">PTR</font></b> <font color="#990000">-</font><font color="#993399">24</font><font color="#990000">[</font>rax<font color="#990000">]</font>	# MEM<font color="#990000">[(</font>long <b><font color="#0000FF">int</font></b> <font color="#990000">*)</font><font color="#993399">_65</font> <font color="#990000">+</font> <font color="#990000">-</font><font color="#993399">24</font>B<font color="#990000">],</font> MEM<font color="#990000">[(</font>long <b><font color="#0000FF">int</font></b> <font color="#990000">*)</font><font color="#993399">_65</font> <font color="#990000">+</font> <font color="#990000">-</font><font color="#993399">24</font>B<font color="#990000">]</font>
+	<b><font color="#0000FF">mov</font></b>	rbx<font color="#990000">,</font> QWORD <b><font color="#0000FF">PTR</font></b> <font color="#993399">240</font><font color="#990000">[</font>r<font color="#993399">12</font><font color="#990000">+</font>rax<font color="#990000">]</font>	# <font color="#993399">_73</font><font color="#990000">,</font> MEM<font color="#990000">[(</font>const struct basic_ios <font color="#990000">*)</font><font color="#993399">_68</font><font color="#990000">].</font>_M_ctype
+	<b><font color="#0000FF">test</font></b>	rbx<font color="#990000">,</font> rbx	# <font color="#993399">_73</font>
+	<b><font color="#0000FF">je</font></b>	<font color="#990000">.</font>L<font color="#993399">8</font>	#<font color="#990000">,</font>
+	<b><font color="#0000FF">cmp</font></b>	BYTE <b><font color="#0000FF">PTR</font></b> <font color="#993399">56</font><font color="#990000">[</font>rbx<font color="#990000">],</font> <font color="#993399">0</font>	# MEM<font color="#990000">[(</font>const struct ctype <font color="#990000">*)</font><font color="#993399">_73</font><font color="#990000">].</font>_M_widen_ok<font color="#990000">,</font>
+	<b><font color="#0000FF">jne</font></b>	<font color="#990000">.</font>L<font color="#993399">24</font>	#<font color="#990000">,</font>
+	<b><font color="#0000FF">mov</font></b>	rdi<font color="#990000">,</font> rbx	#<font color="#990000">,</font> <font color="#993399">_73</font>
+	<b><font color="#0000FF">call</font></b>	_ZNKSt<font color="#993399">5</font>ctypeIcE<font color="#993399">13</font>_M_widen_initEv@PLT	#
+	<b><font color="#0000FF">mov</font></b>	rax<font color="#990000">,</font> QWORD <b><font color="#0000FF">PTR</font></b> <font color="#990000">[</font>rbx<font color="#990000">]</font>	# MEM<font color="#990000">[(</font>const struct ctype <font color="#990000">*)</font><font color="#993399">_73</font><font color="#990000">].</font>D<font color="#993399">.33771</font><font color="#990000">.</font>_vptr<font color="#990000">.</font>facet<font color="#990000">,</font> MEM<font color="#990000">[(</font>const struct ctype <font color="#990000">*)</font><font color="#993399">_73</font><font color="#990000">].</font>D<font color="#993399">.33771</font><font color="#990000">.</font>_vptr<font color="#990000">.</font>facet
+	<b><font color="#0000FF">mov</font></b>	<font color="#009900">esi</font><font color="#990000">,</font> <font color="#993399">10</font>	# <font color="#993399">_7</font><font color="#990000">,</font>
+	<b><font color="#0000FF">mov</font></b>	rax<font color="#990000">,</font> QWORD <b><font color="#0000FF">PTR</font></b> <font color="#993399">48</font><font color="#990000">[</font>rax<font color="#990000">]</font>	# <font color="#993399">_83</font><font color="#990000">,</font> MEM<font color="#990000">[(</font><b><font color="#0000FF">int</font></b> <font color="#990000">(*</font>__vtbl_ptr_type<font color="#990000">)</font> <font color="#990000">()</font> <font color="#990000">*)</font><font color="#993399">_82</font> <font color="#990000">+</font> <font color="#993399">48</font>B<font color="#990000">]</font>
+	<b><font color="#0000FF">cmp</font></b>	rax<font color="#990000">,</font> r<font color="#993399">14</font>	# <font color="#993399">_83</font><font color="#990000">,</font> tmp<font color="#993399">161</font>
+	<b><font color="#0000FF">je</font></b>	<font color="#990000">.</font>L<font color="#993399">10</font>	#<font color="#990000">,</font>
+	<b><font color="#0000FF">mov</font></b>	rdi<font color="#990000">,</font> rbx	#<font color="#990000">,</font> <font color="#993399">_73</font>
+	<b><font color="#0000FF">call</font></b>	rax	# <font color="#993399">_83</font>
+	<b><font color="#0000FF">movsx</font></b>	<font color="#009900">esi</font><font color="#990000">,</font> <font color="#009900">al</font>	# <font color="#993399">_7</font><font color="#990000">,</font> <font color="#993399">_89</font>
+	<b><font color="#0000FF">jmp</font></b>	<font color="#990000">.</font>L<font color="#993399">10</font>	#
+<b><font color="#000080">	.p2align</font></b> <font color="#993399">4</font><font color="#990000">,,</font><font color="#993399">10</font>
+<b><font color="#000080">	.p2align</font></b> <font color="#993399">3</font>
+<b><font color="#000080">.L23</font></b><font color="#990000">:</font>
+	<b><font color="#0000FF">xor</font></b>	<font color="#009900">eax</font><font color="#990000">,</font> <font color="#009900">eax</font>	#
+	<b><font color="#0000FF">mov</font></b>	rdx<font color="#990000">,</font> QWORD <b><font color="#0000FF">PTR</font></b> <font color="#993399">88</font><font color="#990000">[</font>rsp<font color="#990000">]</font>	# tmp<font color="#993399">164</font><font color="#990000">,</font> D<font color="#993399">.46712</font>
+	<b><font color="#0000FF">xor</font></b>	rdx<font color="#990000">,</font> QWORD <b><font color="#0000FF">PTR</font></b> <font color="#009900">fs</font><font color="#990000">:</font><font color="#993399">40</font>	# tmp<font color="#993399">164</font><font color="#990000">,</font>
+	<b><font color="#0000FF">jne</font></b>	<font color="#990000">.</font>L<font color="#993399">25</font>	#<font color="#990000">,</font>
+	<b><font color="#0000FF">add</font></b>	rsp<font color="#990000">,</font> <font color="#993399">96</font>	#<font color="#990000">,</font>
+	<b><font color="#0000FF">pop</font></b>	rbx	#
+	<b><font color="#0000FF">pop</font></b>	rbp	#
+	<b><font color="#0000FF">pop</font></b>	r<font color="#993399">12</font>	#
+	<b><font color="#0000FF">pop</font></b>	r<font color="#993399">13</font>	#
+	<b><font color="#0000FF">pop</font></b>	r<font color="#993399">14</font>	#
+	<b><font color="#0000FF">ret</font></b>
+<b><font color="#000080">.L8</font></b><font color="#990000">:</font>
+	<b><font color="#0000FF">call</font></b>	_ZSt<font color="#993399">16</font>__throw_bad_castv@PLT	#
+<b><font color="#000080">.L25</font></b><font color="#990000">:</font>
+	<b><font color="#0000FF">call</font></b>	__stack_chk_fail@PLT	#
+<b><font color="#000080">	.size</font></b>	main<font color="#990000">,</font> <font color="#990000">.-</font>main
+<b><font color="#000080">	.p2align</font></b> <font color="#993399">4</font><font color="#990000">,,</font><font color="#993399">15</font>
+<b><font color="#000080">	.type</font></b>	_GLOBAL__sub_I_main<font color="#990000">,</font> @function
+_GLOBAL__sub_I_main<font color="#990000">:</font>
+	<b><font color="#0000FF">lea</font></b>	rdi<font color="#990000">,</font> _ZStL<font color="#993399">8</font>__ioinit<font color="#990000">[</font>rip<font color="#990000">]</font>	#<font color="#990000">,</font>
+	<b><font color="#0000FF">sub</font></b>	rsp<font color="#990000">,</font> <font color="#993399">8</font>	#<font color="#990000">,</font>
+	<b><font color="#0000FF">call</font></b>	_ZNSt<font color="#993399">8</font>ios_base<font color="#993399">4</font>InitC<font color="#993399">1</font>Ev@PLT	#
+	<b><font color="#0000FF">mov</font></b>	rdi<font color="#990000">,</font> QWORD <b><font color="#0000FF">PTR</font></b> _ZNSt<font color="#993399">8</font>ios_base<font color="#993399">4</font>InitD<font color="#993399">1</font>Ev@GOTPCREL<font color="#990000">[</font>rip<font color="#990000">]</font>	#<font color="#990000">,</font>
+	<b><font color="#0000FF">lea</font></b>	rdx<font color="#990000">,</font> __dso_handle<font color="#990000">[</font>rip<font color="#990000">]</font>	#<font color="#990000">,</font>
+	<b><font color="#0000FF">lea</font></b>	rsi<font color="#990000">,</font> _ZStL<font color="#993399">8</font>__ioinit<font color="#990000">[</font>rip<font color="#990000">]</font>	#<font color="#990000">,</font>
+	<b><font color="#0000FF">add</font></b>	rsp<font color="#990000">,</font> <font color="#993399">8</font>	#<font color="#990000">,</font>
+	<b><font color="#0000FF">jmp</font></b>	__cxa_atexit@PLT	#
+<b><font color="#000080">	.size</font></b>	_GLOBAL__sub_I_main<font color="#990000">,</font> <font color="#990000">.-</font>_GLOBAL__sub_I_main
+<b><font color="#000080">	.section</font></b>	<font color="#990000">.</font>init_array<font color="#990000">,</font><font color="#FF0000">"aw"</font>
+<b><font color="#000080">	.align</font></b> <font color="#993399">8</font>
+<b><font color="#000080">	.quad</font></b>	_GLOBAL__sub_I_main
+<b><font color="#000080">	.local</font></b>	_ZStL<font color="#993399">8</font>__ioinit
+<b><font color="#000080">	.comm</font></b>	_ZStL<font color="#993399">8</font>__ioinit<font color="#990000">,</font><font color="#993399">1</font><font color="#990000">,</font><font color="#993399">1</font>
+<b><font color="#000080">	.section</font></b>	<font color="#990000">.</font>rodata<font color="#990000">.</font>cst<font color="#993399">16</font><font color="#990000">,</font><font color="#FF0000">"aM"</font><font color="#990000">,</font>@progbits<font color="#990000">,</font><font color="#993399">16</font>
+<b><font color="#000080">	.align</font></b> <font color="#993399">16</font>
+<b><font color="#000080">.LC0</font></b><font color="#990000">:</font>
+<b><font color="#000080">	.long</font></b>	<font color="#993399">1</font>
+<b><font color="#000080">	.long</font></b>	<font color="#993399">3</font>
+<b><font color="#000080">	.long</font></b>	<font color="#993399">5</font>
+<b><font color="#000080">	.long</font></b>	<font color="#993399">7</font>
+<b><font color="#000080">	.align</font></b> <font color="#993399">16</font>
+<b><font color="#000080">.LC1</font></b><font color="#990000">:</font>
+<b><font color="#000080">	.long</font></b>	<font color="#993399">9</font>
+<b><font color="#000080">	.long</font></b>	<font color="#993399">11</font>
+<b><font color="#000080">	.long</font></b>	<font color="#993399">13</font>
+<b><font color="#000080">	.long</font></b>	<font color="#993399">15</font>
+<b><font color="#000080">	.hidden</font></b>	__dso_handle
+<b><font color="#000080">	.ident</font></b>	<font color="#FF0000">"GCC: (GNU) 7.1.1 20170630"</font>
+<b><font color="#000080">	.section</font></b>	<font color="#990000">.</font>note<font color="#990000">.</font>GNU<font color="#990000">-</font>stack<font color="#990000">,</font><font color="#FF0000">""</font><font color="#990000">,</font>@progbits
+</tt></pre>

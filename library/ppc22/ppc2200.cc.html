@@ -1,0 +1,52 @@
+<!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><i><font color="#9A1900">/*</font></i>
+<i><font color="#9A1900"> * ++C - C++ introduction</font></i>
+<i><font color="#9A1900"> * Copyright (C) 2013, 2014, 2015, 2016, 2017 Wilhelm Meier </font></i><u><font color="#0000FF">&lt;wilhelm.meier@hs-kl.de&gt;</font></u>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is free software: you can redistribute it and/or modify</font></i>
+<i><font color="#9A1900"> * it under the terms of the GNU General Public License as published by</font></i>
+<i><font color="#9A1900"> * the Free Software Foundation, either version 3 of the License, or</font></i>
+<i><font color="#9A1900"> * (at your option) any later version.</font></i>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is distributed in the hope that it will be useful,</font></i>
+<i><font color="#9A1900"> * but WITHOUT ANY WARRANTY; without even the implied warranty of</font></i>
+<i><font color="#9A1900"> * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</font></i>
+<i><font color="#9A1900"> * GNU General Public License for more details.</font></i>
+<i><font color="#9A1900"> * You should have received a copy of the GNU General Public License</font></i>
+<i><font color="#9A1900"> * along with this program.  If not, see </font></i><u><font color="#0000FF">&lt;http://www.gnu.org/licenses/&gt;</font></u><i><font color="#9A1900">.</font></i>
+<i><font color="#9A1900"> */</font></i>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;memory&gt;</font>
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font>
+<font color="#FF0000">{</font>
+    <b><font color="#0000FF">const</font></b> <font color="#009900">int</font> length <font color="#990000">=</font> <font color="#993399">3</font><font color="#990000">;</font>
+    <font color="#009900">int</font> staticArray<font color="#990000">[</font>length<font color="#990000">]</font> <font color="#990000">=</font> <font color="#FF0000">{</font><font color="#993399">1</font><font color="#990000">,</font> <font color="#993399">2</font><font color="#990000">,</font> <font color="#993399">3</font><font color="#FF0000">}</font><font color="#990000">;</font> <i><font color="#9A1900">// &lt;&gt; `a` ist der Bezeichner eines _statischen, rohen_ Arrays</font></i>
+    <b><font color="#0000FF">const</font></b> <font color="#009900">int</font><font color="#990000">*</font> iterator1 <font color="#990000">=</font> <font color="#990000">&amp;</font>staticArray<font color="#990000">[</font><font color="#993399">0</font><font color="#990000">];</font> <i><font color="#9A1900">// &lt;&gt; `iterator1` wird mit der Adresse des ersten Array-Elementes initialisiert</font></i>
+    <b><font color="#0000FF">for</font></b><font color="#990000">(</font><font color="#008080">size_t</font> i <font color="#990000">=</font> <font color="#993399">0</font><font color="#990000">;</font> i <font color="#990000">&lt;</font> length<font color="#990000">;</font> <font color="#990000">++</font>i<font color="#990000">)</font>   <i><font color="#9A1900">// &lt;&gt; Mit Hilfe der Längenangabe `length` kann die Zählschleife formuliert werden</font></i>
+    <font color="#FF0000">{</font>
+        std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> <font color="#990000">*</font>iterator1<font color="#990000">++</font> <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font> <i><font color="#9A1900">// &lt;&gt; Durch die _Zeigerarithmetik_ erhält `iterator1` jeweils die Adresse des nächsten Elementes</font></i>
+    <font color="#FF0000">}</font>
+    std<font color="#990000">::</font><font color="#008080">unique_ptr&lt;int[]&gt;</font> dynamicArray <font color="#990000">=</font> std<font color="#990000">::</font>make_unique<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">[]&gt;(</font><font color="#993399">2</font> <font color="#990000">*</font> length<font color="#990000">);</font> <i><font color="#9A1900">// &lt;&gt; Die Erzeugung eines _dynamischen_ Arrays: natürlich verwenden wir einen intelligenten Zeiger (*UP*), um eine korrekte Speicherverwaltung zu erreichen. Zudem verwendet {stdmake_unique} ein _value-initialization_.</font></i>
+    <b><font color="#0000FF">const</font></b> <font color="#009900">int</font><font color="#990000">*</font> iterator2 <font color="#990000">=</font> <font color="#990000">&amp;</font>dynamicArray<font color="#990000">[</font><font color="#993399">0</font><font color="#990000">];</font> <i><font color="#9A1900">// &lt;&gt; `iterator2` wird mit der Adresse des ersten Array-Elementes initialisiert</font></i>
+    <b><font color="#0000FF">for</font></b><font color="#990000">(</font><font color="#008080">size_t</font> i <font color="#990000">=</font> <font color="#993399">0</font><font color="#990000">;</font> i <font color="#990000">&lt;</font> <font color="#993399">2</font> <font color="#990000">*</font> length<font color="#990000">;</font> <font color="#990000">++</font>i<font color="#990000">)</font>   <i><font color="#9A1900">// &lt;&gt; Achtung: die richtige Länge verwenden!</font></i>
+    <font color="#FF0000">{</font>
+        std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> <font color="#990000">*</font>iterator2<font color="#990000">++</font> <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    <b><font color="#0000FF">const</font></b> <font color="#009900">int</font><font color="#990000">*</font> beginIter1 <font color="#990000">=</font> <font color="#990000">&amp;</font>staticArray<font color="#990000">[</font><font color="#993399">0</font><font color="#990000">];</font> <i><font color="#9A1900">// &lt;&gt; `beginIter1` wird mit der Adresse des ersten Array-Elementes initialisiert.</font></i>
+    <b><font color="#0000FF">const</font></b> <font color="#009900">int</font><font color="#990000">*</font> endIter1 <font color="#990000">=</font> <font color="#990000">&amp;</font>staticArray<font color="#990000">[</font>length <font color="#990000">-</font> <font color="#993399">1</font><font color="#990000">];</font> <i><font color="#9A1900">// &lt;&gt; `endIter1` wird mit der Adresse des letzten Array-Elementes initialisiert.</font></i>
+    <b><font color="#0000FF">for</font></b><font color="#990000">(</font><b><font color="#0000FF">const</font></b> <font color="#009900">int</font><font color="#990000">*</font> iterator <font color="#990000">=</font> beginIter1<font color="#990000">;</font> iterator <font color="#990000">&lt;=</font> endIter1<font color="#990000">;</font> <font color="#990000">++</font>iterator<font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+        std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> <font color="#990000">*</font>iterator <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    <b><font color="#0000FF">const</font></b> <font color="#009900">int</font><font color="#990000">*</font> beginIter2 <font color="#990000">=</font> <font color="#990000">&amp;</font>staticArray<font color="#990000">[</font><font color="#993399">0</font><font color="#990000">];</font> <i><font color="#9A1900">// &lt;&gt; `beginIter2` wird mit der Adresse des ersten Array-Elementes initialisiert.</font></i>
+    <b><font color="#0000FF">const</font></b> <font color="#009900">int</font><font color="#990000">*</font> endIter2 <font color="#990000">=</font> <font color="#990000">&amp;</font>staticArray<font color="#990000">[</font>length <font color="#990000">-</font> <font color="#993399">1</font><font color="#990000">]</font> <font color="#990000">+</font> <font color="#993399">1</font><font color="#990000">;</font> <i><font color="#9A1900">// &lt;&gt; `endIter2` wird mit der Adresse des nicht-existierenden eins-nach-dem-letzten Array-Elementes initialisiert.</font></i>
+    <b><font color="#0000FF">for</font></b><font color="#990000">(</font><b><font color="#0000FF">const</font></b> <font color="#009900">int</font><font color="#990000">*</font> iterator <font color="#990000">=</font> beginIter2<font color="#990000">;</font> iterator <font color="#990000">!=</font> endIter2<font color="#990000">;</font> <font color="#990000">++</font>iterator<font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+        std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> <font color="#990000">*</font>iterator <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+<font color="#FF0000">}</font>
+
+</tt></pre>

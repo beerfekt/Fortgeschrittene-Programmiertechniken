@@ -1,0 +1,56 @@
+<!-- Generator: GNU source-highlight 3.1.8
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><i><font color="#9A1900">/*</font></i>
+<i><font color="#9A1900"> * ++C - C++ introduction</font></i>
+<i><font color="#9A1900"> * Copyright (C) 2013, 2014, 2015, 2016, 2017 Wilhelm Meier </font></i><u><font color="#0000FF">&lt;wilhelm.meier@hs-kl.de&gt;</font></u>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is free software: you can redistribute it and/or modify</font></i>
+<i><font color="#9A1900"> * it under the terms of the GNU General Public License as published by</font></i>
+<i><font color="#9A1900"> * the Free Software Foundation, either version 3 of the License, or</font></i>
+<i><font color="#9A1900"> * (at your option) any later version.</font></i>
+<i><font color="#9A1900"> *</font></i>
+<i><font color="#9A1900"> * This program is distributed in the hope that it will be useful,</font></i>
+<i><font color="#9A1900"> * but WITHOUT ANY WARRANTY; without even the implied warranty of</font></i>
+<i><font color="#9A1900"> * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</font></i>
+<i><font color="#9A1900"> * GNU General Public License for more details.</font></i>
+<i><font color="#9A1900"> * You should have received a copy of the GNU General Public License</font></i>
+<i><font color="#9A1900"> * along with this program.  If not, see </font></i><u><font color="#0000FF">&lt;http://www.gnu.org/licenses/&gt;</font></u><i><font color="#9A1900">.</font></i>
+<i><font color="#9A1900"> */</font></i>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;vector&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;memory&gt;</font> <i><font color="#9A1900">// &lt;&gt; Header-Datei für `std::unique_ptr` und `std::make_unique`</font></i>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;algorithm&gt;</font> <i><font color="#9A1900">// &lt;&gt; Header-Datei für `std::move`</font></i>
+<b><font color="#000080">#ifdef</font></b> __clang__
+<b><font color="#000080"># pragma</font></b> clang <font color="#008080">diagnostic</font> ignored <font color="#FF0000">"-Wpessimizing-move"</font>
+<b><font color="#000080">#endif</font></b>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">"point60.h"</font>
+std<font color="#990000">::</font><font color="#008080">vector&lt;std::unique_ptr&lt;Point&gt;&gt;</font> <b><font color="#000000">createPoints</font></b><font color="#990000">()</font>
+<font color="#FF0000">{</font>
+    std<font color="#990000">::</font><font color="#008080">vector&lt;std::unique_ptr&lt;Point&gt;&gt;</font> points<font color="#990000">;</font>
+    std<font color="#990000">::</font><font color="#008080">unique_ptr&lt;Point&gt;</font> p1 <font color="#990000">=</font> std<font color="#990000">::</font>make_unique<font color="#990000">&lt;</font>Point<font color="#990000">&gt;(</font>XCoor<font color="#FF0000">{</font><font color="#993399">0.0</font><font color="#FF0000">}</font><font color="#990000">,</font> YCoor<font color="#FF0000">{</font><font color="#993399">0.0</font><font color="#FF0000">}</font><font color="#990000">);</font>
+    std<font color="#990000">::</font><font color="#008080">unique_ptr&lt;Point&gt;</font> p2 <font color="#990000">=</font> std<font color="#990000">::</font>make_unique<font color="#990000">&lt;</font>Point<font color="#990000">&gt;(</font>XCoor<font color="#FF0000">{</font><font color="#993399">10.0</font><font color="#FF0000">}</font><font color="#990000">,</font> YCoor<font color="#FF0000">{</font><font color="#993399">10.0</font><font color="#FF0000">}</font><font color="#990000">);</font>
+    std<font color="#990000">::</font><font color="#008080">unique_ptr&lt;Point&gt;</font> p3 <font color="#990000">=</font> std<font color="#990000">::</font>make_unique<font color="#990000">&lt;</font>Point<font color="#990000">&gt;(</font>XCoor<font color="#FF0000">{</font><font color="#993399">20.0</font><font color="#FF0000">}</font><font color="#990000">,</font> YCoor<font color="#FF0000">{</font><font color="#993399">20.0</font><font color="#FF0000">}</font><font color="#990000">);</font>
+    std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> <font color="#990000">*</font>p1 <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font>
+    std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> <font color="#990000">*</font>p2 <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font>
+    std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> <font color="#990000">*</font>p3 <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font>
+    points<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font>std<font color="#990000">::</font><b><font color="#000000">move</font></b><font color="#990000">(</font>p1<font color="#990000">));</font>
+    points<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font>std<font color="#990000">::</font><b><font color="#000000">move</font></b><font color="#990000">(</font>p2<font color="#990000">));</font>
+    points<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font>std<font color="#990000">::</font><b><font color="#000000">move</font></b><font color="#990000">(</font>p3<font color="#990000">));</font>
+    <b><font color="#0000FF">return</font></b> std<font color="#990000">::</font><b><font color="#000000">move</font></b><font color="#990000">(</font>points<font color="#990000">);</font> <i><font color="#9A1900">// &lt;&gt; Durch die *UP* ist der Container _nicht kopierbar_ sondern nur noch verschiebbar.</font></i>
+<font color="#FF0000">}</font>
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font>
+<font color="#FF0000">{</font>
+    std<font color="#990000">::</font><font color="#008080">vector&lt;std::unique_ptr&lt;Point&gt;&gt;</font> points <font color="#990000">=</font> <b><font color="#000000">createPoints</font></b><font color="#990000">();</font>
+    <b><font color="#0000FF">for</font></b><font color="#990000">(</font><b><font color="#0000FF">const</font></b> std<font color="#990000">::</font>unique_ptr<font color="#990000">&lt;</font>Point<font color="#990000">&gt;&amp;</font> p<font color="#990000">:</font> points<font color="#990000">)</font>
+    <font color="#FF0000">{</font>
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(</font>p<font color="#990000">)</font>
+        <font color="#FF0000">{</font>
+            std<font color="#990000">::</font>cout <font color="#990000">&lt;&lt;</font> <font color="#990000">*</font>p <font color="#990000">&lt;&lt;</font> std<font color="#990000">::</font>endl<font color="#990000">;</font>
+        <font color="#FF0000">}</font>
+    <font color="#FF0000">}</font>
+<i><font color="#9A1900">//    std::vector&lt;std::unique_ptr&lt;Point&gt;&gt; points2 = points; // &lt;&gt; Eine Kopie kann wegen der *UP* nicht erzeugt werden.</font></i>
+<font color="#FF0000">}</font>
+
+</tt></pre>
